@@ -1,0 +1,18 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Django cache
+.cache/
+django_cache/
+
+# Database
+db.sqlite3
+
+# Static / media files
+staticfiles/
+media/
+
+# Environment
+.env
+venv/
