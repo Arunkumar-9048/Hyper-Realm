@@ -1,0 +1,542 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login | Hyper Realm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shape shape-1 pulse-glow"></div>
+    <div class="floating-shape shape-2 pulse-glow"></div>
+    <div class="floating-shape shape-3 pulse-glow"></div>
+    
+    <!-- Data Streams -->
+    <div class="data-stream left-[10%]" style="animation: stream-flow 15s infinite linear;"></div>
+    <div class="data-stream left-[30%]" style="animation: stream-flow 20s infinite linear 2s;"></div>
+    <div class="data-stream left-[50%]" style="animation: stream-flow 25s infinite linear 4s;"></div>
+    <div class="data-stream left-[70%]" style="animation: stream-flow 18s infinite linear 1s;"></div>
+    <div class="data-stream left-[90%]" style="animation: stream-flow 22s infinite linear 3s;"></div>
+    
+    <!-- Particles Background -->
+    <div id="particles-container"></div>
+    
+    <!-- Main Content -->
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+        <!-- Back to Home Link -->
+        <div class="absolute top-6 left-6 z-20">
+            <a href="{% url 'index' %}" class="flex items-center gap-2 text-slate-300 hover:text-neon-cyan transition-colors group">
+                <span class="material-symbols-outlined material-icons-fix group-hover:scale-110 transition-transform">arrow_back</span>
+                <span class="hidden sm:inline">Back to Home</span>
+            </a>
+        </div>
+        
+        <!-- Logo -->
+        <div class="absolute top-6 right-6 z-20">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-neon-cyan text-3xl material-icons-fix logo-pulse">hub</span>
+                <h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text">Hyper Realm</h2>
+            </div>
+        </div>
+        
+        <!-- Login Container -->
+        <div class="w-full max-w-md z-10 form-fade-in">
+            <div class="glassmorphism backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-white/10">
+                <!-- Header -->
+                <div class="text-center mb-10">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 flex items-center justify-center border border-white/10">
+                            <span class="material-symbols-outlined text-4xl text-neon-cyan material-icons-fix">login</span>
+                        </div>
+                    </div>
+                    <h1 class="text-white text-3xl md:text-4xl font-bold mb-3 neon-text">Welcome Back</h1>
+                    <p class="text-slate-300 text-lg">Enter your credentials to access your realm</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-6">
+                    <!-- Email Input -->
+                    <div class="space-y-3">
+                        <label for="email" class="block text-sm font-medium text-slate-300">
+                            <span class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix text-base">mail</span>
+                                Email Address
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                required
+                                class="w-full px-4 py-4 rounded-xl input-glow text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-neon-cyan/30 transition-all duration-300"
+                                placeholder="gamer@hyperrealm.com"
+                            />
+                            <div class="absolute inset-0 rounded-xl pointer-events-none neon-border opacity-0 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Input -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="password" class="block text-sm font-medium text-slate-300">
+                                <span class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-neon-cyan material-icons-fix text-base">lock</span>
+                                    Password
+                                </span>
+                            </label>
+                            <a href="#" class="text-sm text-neon-cyan hover:text-neon-purple transition-colors hover:underline">
+                                Forgot Password?
+                            </a>
+                        </div>
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password"
+                                required
+                                class="w-full px-4 py-4 rounded-xl input-glow text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-neon-cyan/30 transition-all duration-300 pr-12"
+                                placeholder="••••••••"
+                            />
+                            <button 
+                                type="button" 
+                                id="togglePassword"
+                                class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-neon-cyan transition-colors password-toggle"
+                            >
+                                <span class="material-symbols-outlined material-icons-fix">visibility_off</span>
+                            </button>
+                            <div class="absolute inset-0 rounded-xl pointer-events-none neon-border opacity-0 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Remember Me & 2FA -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                id="remember"
+                                name="remember"
+                                class="w-5 h-5 rounded checkbox-glow border-white/20 bg-white/5 checked:bg-neon-cyan focus:ring-neon-cyan focus:ring-offset-0 focus:ring-2"
+                            />
+                            <label for="remember" class="ml-3 text-sm text-slate-300">
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                id="twoFactor"
+                                name="twoFactor"
+                                class="w-5 h-5 rounded checkbox-glow border-white/20 bg-white/5 checked:bg-neon-purple focus:ring-neon-purple focus:ring-offset-0 focus:ring-2"
+                            />
+                            <label for="twoFactor" class="ml-3 text-sm text-slate-300">
+                                Enable 2FA
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Login Button -->
+                    <button 
+                        type="submit"
+                        class="w-full py-4 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold text-lg rounded-xl neon-glow hover:opacity-90 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3"
+                    >
+                        <span class="material-symbols-outlined material-icons-fix">login</span>
+                        <span>Login to Your Realm</span>
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="relative my-8">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-white/10"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-transparent text-slate-400">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <button 
+                            type="button"
+                            class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 hover:scale-105 flex items-center justify-center"
+                        >
+                            <i class="fab fa-google text-xl text-red-400"></i>
+                        </button>
+                        <button 
+                            type="button"
+                            class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 hover:scale-105 flex items-center justify-center"
+                        >
+                            <i class="fab fa-steam text-xl text-white"></i>
+                        </button>
+                        <button 
+                            type="button"
+                            class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 hover:scale-105 flex items-center justify-center"
+                        >
+                            <i class="fab fa-discord text-xl text-indigo-400"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="hidden p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined material-icons-fix">error</span>
+                            <span id="errorText">Invalid credentials. Please try again.</span>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Sign Up Link -->
+                <div class="mt-10 text-center">
+                    <p class="text-slate-400">
+                        Don't have an account? 
+                        <a href="index.html#signup" class="text-neon-cyan hover:text-neon-purple font-semibold transition-colors hover:underline ml-1">
+                            Create your realm
+                        </a>
+                    </p>
+                </div>
+                
+                <!-- Security Notice -->
+                <div class="mt-6 p-4 rounded-xl bg-neon-cyan/5 border border-neon-cyan/20">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-neon-cyan material-icons-fix text-sm">shield</span>
+                        <div>
+                            <p class="text-xs text-slate-300">
+                                Your security is our priority. All data is encrypted and protected.
+                                <a href="#" class="text-neon-cyan hover:underline">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+<footer class="mt-16 mb-6 text-center z-10">
+            <p class="text-slate-500 text-sm">
+                © 2024 Hyper Realm. All Rights Reserved. 
+                <a href="#" class="text-neon-cyan hover:underline ml-2">Privacy Policy</a> • 
+                <a href="#" class="text-neon-cyan hover:underline ml-2">Terms of Service</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced background animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes stream-flow {
+                0% {
+                    top: -100%;
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.2;
+                }
+                90% {
+                    opacity: 0.2;
+                }
+                100% {
+                    top: 100%;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize particles for login page
+        function initParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s infinite linear`;
+                
+                const colors = [
+                    'rgba(0, 243, 255, 0.5)',
+                    'rgba(185, 103, 255, 0.5)',
+                    'rgba(0, 102, 255, 0.5)'
+                ];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Toggle password visibility
+        function initPasswordToggle() {
+            const toggleBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            if (toggleBtn && passwordInput) {
+                toggleBtn.addEventListener('click', () => {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    const icon = toggleBtn.querySelector('.material-symbols-outlined');
+                    if (type === 'text') {
+                        icon.textContent = 'visibility';
+                    } else {
+                        icon.textContent = 'visibility_off';
+                    }
+                });
+            }
+        }
+        
+        // Form input effects
+        function initFormEffects() {
+            const inputs = document.querySelectorAll('input[type="email"], input[type="password"], input[type="text"]');
+            
+            inputs.forEach(input => {
+                // Add glow effect on focus
+                input.addEventListener('focus', () => {
+                    const parent = input.parentElement;
+                    const border = parent.querySelector('.neon-border');
+                    if (border) {
+                        border.style.opacity = '1';
+                    }
+                });
+                
+                // Remove glow effect on blur
+                input.addEventListener('blur', () => {
+                    const parent = input.parentElement;
+                    const border = parent.querySelector('.neon-border');
+                    if (border) {
+                        border.style.opacity = '0';
+                    }
+                });
+                
+                // Add typing animation effect
+                input.addEventListener('input', () => {
+                    if (input.value.length > 0) {
+                        input.style.boxShadow = '0 0 10px rgba(0, 243, 255, 0.2)';
+                    } else {
+                        input.style.boxShadow = '';
+                    }
+                });
+            });
+        }
+        
+        // Form submission
+        function initFormSubmission() {
+            const form = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(form);
+                    const email = formData.get('email');
+                    const password = formData.get('password');
+                    const remember = formData.get('remember');
+                    const twoFactor = formData.get('twoFactor');
+                    
+                    // Simple validation
+                    if (!email || !password) {
+                        showError('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    if (!validateEmail(email)) {
+                        showError('Please enter a valid email address');
+                        return;
+                    }
+                    
+                    // Simulate login process
+                    simulateLogin(email, password, remember, twoFactor);
+                });
+            }
+            
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+                errorMessage.classList.add('flex');
+                
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                    errorMessage.classList.remove('flex');
+                }, 5000);
+            }
+            
+            function simulateLogin(email, password, remember, twoFactor) {
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `
+                    <span class="material-symbols-outlined material-icons-fix animate-spin">sync</span>
+                    <span>Authenticating...</span>
+                `;
+                submitBtn.disabled = true;
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    // For demo purposes, accept any login
+                    // In real implementation, this would validate against a backend
+                    const success = true; // Simulate successful login
+                    
+                    if (success) {
+                        // Show success animation
+                        submitBtn.innerHTML = `
+                            <span class="material-symbols-outlined material-icons-fix">check_circle</span>
+                            <span>Login Successful!</span>
+                        `;
+                        submitBtn.classList.remove('from-neon-cyan', 'to-neon-blue');
+                        submitBtn.classList.add('from-green-500', 'to-emerald-600');
+                        
+                        // Redirect after success
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html'; // Redirect to dashboard
+                        }, 1500);
+                    } else {
+                        // Show error
+                        showError('Invalid email or password. Please try again.');
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                }, 2000);
+            }
+        }
+        
+        // Social login buttons
+        function initSocialLogin() {
+            const socialButtons = document.querySelectorAll('button[type="button"]');
+            
+            socialButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Add click animation
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = '';
+                    }, 150);
+                    
+                    // Show notification
+                    const platform = button.querySelector('i').className.includes('google') ? 'Google' :
+                                   button.querySelector('i').className.includes('steam') ? 'Steam' : 'Discord';
+                    
+                    console.log(`${platform} login clicked`);
+                    // In real implementation, this would trigger OAuth flow
+                });
+            });
+        }
+        
+        // Interactive background effect
+        function initInteractiveBackground() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                shapes.forEach((shape, index) => {
+                    const speed = 0.3 + (index * 0.1);
+                    const moveX = (x - 0.5) * 15 * speed;
+                    const moveY = (y - 0.5) * 15 * speed;
+                    
+                    shape.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+        }
+        
+        // Add floating animation for particles
+        function addFloatingAnimation() {
+            const floatStyle = document.createElement('style');
+            floatStyle.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translate(0, 0) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${Math.random() * 100 - 50}px, -100vh) rotate(${Math.random() * 360}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(floatStyle);
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            addFloatingAnimation();
+            initPasswordToggle();
+            initFormEffects();
+            initFormSubmission();
+            initSocialLogin();
+            initInteractiveBackground();
+            
+            console.log('Hyper Realm Login Page loaded!');
+        });
+    </script>
+</body>
+</html>

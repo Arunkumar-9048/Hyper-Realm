@@ -1,0 +1,814 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sign Up | Hyper Realm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shape shape-1 pulse-glow"></div>
+    <div class="floating-shape shape-2 pulse-glow"></div>
+    <div class="floating-shape shape-3 pulse-glow"></div>
+    
+    <!-- Data Streams -->
+    <div class="data-stream left-[10%]" style="animation: stream-flow 15s infinite linear;"></div>
+    <div class="data-stream left-[30%]" style="animation: stream-flow 20s infinite linear 2s;"></div>
+    <div class="data-stream left-[50%]" style="animation: stream-flow 25s infinite linear 4s;"></div>
+    <div class="data-stream left-[70%]" style="animation: stream-flow 18s infinite linear 1s;"></div>
+    <div class="data-stream left-[90%]" style="animation: stream-flow 22s infinite linear 3s;"></div>
+    
+    <!-- Particles Background -->
+    <div id="particles-container"></div>
+    
+    <!-- Main Content -->
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+        <!-- Back to Home Link -->
+        <div class="absolute top-6 left-6 z-20">
+            <a href="{% url 'index' %}" class="flex items-center gap-2 text-slate-300 hover:text-neon-cyan transition-colors group">
+                <span class="material-symbols-outlined material-icons-fix group-hover:scale-110 transition-transform">arrow_back</span>
+                <span class="hidden sm:inline">Back to Home</span>
+            </a>
+        </div>
+        
+        <!-- Logo -->
+        <div class="absolute top-6 right-6 z-20">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-neon-cyan text-3xl material-icons-fix logo-pulse">hub</span>
+                <h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text">Hyper Realm</h2>
+            </div>
+        </div>
+        
+        <!-- Signup Container -->
+        <div class="w-full max-w-2xl z-10 form-fade-in">
+            <div class="glassmorphism backdrop-blur-xl rounded-3xl p-6 md:p-10 border border-white/10">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 flex items-center justify-center border border-white/10">
+                            <span class="material-symbols-outlined text-4xl text-neon-cyan material-icons-fix">person_add</span>
+                        </div>
+                    </div>
+                    <h1 class="text-white text-3xl md:text-4xl font-bold mb-3 neon-text">Create Your Realm</h1>
+                    <p class="text-slate-300 text-lg">Join the ultimate gaming community</p>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="flex items-center justify-between mb-10">
+                    <div class="flex items-center">
+                        <div class="progress-step active">
+                            <span class="material-symbols-outlined material-icons-fix">person</span>
+                        </div>
+                        <div class="progress-line active"></div>
+                        <div class="progress-step inactive">
+                            <span class="material-symbols-outlined material-icons-fix">games</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step inactive">
+                            <span class="material-symbols-outlined material-icons-fix">check</span>
+                        </div>
+                    </div>
+                    <div class="text-slate-400 text-sm">
+                        Step <span id="currentStep">1</span> of 3
+                    </div>
+                </div>
+                
+                <!-- Multi-step Form -->
+                <form id="signupForm" class="space-y-6">
+                    <!-- Step 1: Account Details -->
+                    <div id="step1" class="form-step space-y-6">
+                        <h3 class="text-white text-xl font-bold mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">person</span>
+                            Account Details
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-slate-300 text-sm">First Name</label>
+                                <input type="text" placeholder="John" required class="login-input w-full">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-slate-300 text-sm">Last Name</label>
+                                <input type="text" placeholder="Doe" required class="login-input w-full">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Username</label>
+                            <div class="relative">
+                                <input type="text" placeholder="gamer_tag" required class="login-input w-full">
+                                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neon-cyan">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">alternate_email</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-500 text-xs mt-1">This will be your public display name</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Email Address</label>
+                            <div class="relative">
+                                <input type="email" placeholder="gamer@hyperrealm.com" required class="login-input w-full">
+                                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neon-cyan">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">mail</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Password</label>
+                            <div class="relative">
+                                <input type="password" id="password" placeholder="••••••••" required class="login-input w-full pr-10">
+                                <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 password-toggle" id="togglePassword1">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">visibility_off</span>
+                                </button>
+                            </div>
+                            <div class="password-strength-meter">
+                                <div id="passwordStrength" class="password-strength-fill"></div>
+                            </div>
+                            <p class="text-slate-500 text-xs mt-1">Must be at least 8 characters with numbers and symbols</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Confirm Password</label>
+                            <div class="relative">
+                                <input type="password" id="confirmPassword" placeholder="••••••••" required class="login-input w-full pr-10">
+                                <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 password-toggle" id="togglePassword2">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">visibility_off</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="terms" required class="w-5 h-5 rounded checkbox-glow border-white/20 bg-white/5 checked:bg-neon-cyan focus:ring-neon-cyan focus:ring-offset-0 focus:ring-2">
+                            <label for="terms" class="text-slate-300 text-sm">
+                                I agree to the <a href="#" class="text-neon-cyan hover:underline">Terms of Service</a> and <a href="#" class="text-neon-cyan hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="newsletter" class="w-5 h-5 rounded checkbox-glow border-white/20 bg-white/5 checked:bg-neon-purple focus:ring-neon-purple focus:ring-offset-0 focus:ring-2">
+                            <label for="newsletter" class="text-slate-300 text-sm">
+                                Receive gaming news and updates
+                            </label>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="button" id="nextStep1" class="px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold rounded-xl neon-glow hover:opacity-90 transition-all duration-300">
+                                Next: Gaming Profile
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Gaming Profile -->
+                    <div id="step2" class="form-step space-y-6 hidden">
+                        <h3 class="text-white text-xl font-bold mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">games</span>
+                            Gaming Profile
+                        </h3>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Primary Gaming Platform</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="platform-option p-4 rounded-xl glassmorphism-light backdrop-blur-lg text-center">
+                                    <i class="fab fa-windows text-2xl mb-2 text-blue-400"></i>
+                                    <p class="text-sm">PC</p>
+                                </div>
+                                <div class="platform-option p-4 rounded-xl glassmorphism-light backdrop-blur-lg text-center">
+                                    <i class="fab fa-playstation text-2xl mb-2 text-blue-500"></i>
+                                    <p class="text-sm">PlayStation</p>
+                                </div>
+                                <div class="platform-option p-4 rounded-xl glassmorphism-light backdrop-blur-lg text-center">
+                                    <i class="fab fa-xbox text-2xl mb-2 text-green-500"></i>
+                                    <p class="text-sm">Xbox</p>
+                                </div>
+                                <div class="platform-option p-4 rounded-xl glassmorphism-light backdrop-blur-lg text-center">
+                                    <i class="fas fa-gamepad text-2xl mb-2 text-red-400"></i>
+                                    <p class="text-sm">Nintendo</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Favorite Game Genres</label>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">FPS</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">RPG</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">MOBA</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">Battle Royale</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">Strategy</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" class="checkbox-glow">
+                                    <span class="text-slate-300 text-sm">Sports</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Gamer Level</label>
+                            <div class="flex items-center gap-4">
+                                <div class="flex-1">
+                                    <input type="range" min="1" max="5" value="3" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-neon-cyan">
+                                </div>
+                                <div class="text-neon-cyan font-bold text-lg">Casual</div>
+                            </div>
+                            <div class="flex justify-between text-slate-500 text-xs">
+                                <span>Newbie</span>
+                                <span>Casual</span>
+                                <span>Regular</span>
+                                <span>Hardcore</span>
+                                <span>Pro</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Timezone</label>
+                            <select class="login-input w-full">
+                                <option>Select your timezone</option>
+                                <option>GMT-8 (Pacific)</option>
+                                <option>GMT-5 (Eastern)</option>
+                                <option>GMT (UK)</option>
+                                <option>GMT+1 (Europe)</option>
+                                <option>GMT+8 (Asia)</option>
+                                <option>GMT+10 (Australia)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Bio (Optional)</label>
+                            <textarea placeholder="Tell us about your gaming journey..." rows="3" class="login-input w-full"></textarea>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button type="button" id="prevStep2" class="px-8 py-3 glassmorphism-light backdrop-blur-lg border border-white/10 text-white font-bold rounded-xl hover:bg-white/5 transition-all duration-300">
+                                Back
+                            </button>
+                            <button type="button" id="nextStep2" class="px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold rounded-xl neon-glow hover:opacity-90 transition-all duration-300">
+                                Next: Complete Profile
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Complete Profile -->
+                    <div id="step3" class="form-step space-y-6 hidden">
+                        <h3 class="text-white text-xl font-bold mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">check</span>
+                            Complete Your Profile
+                        </h3>
+                        
+                        <div class="p-6 rounded-xl glassmorphism-light backdrop-blur-lg">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-3xl text-white material-icons-fix">person</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Profile Preview</h4>
+                                    <p class="text-slate-400 text-sm">Your gaming identity is ready</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300">Username</span>
+                                    <span class="text-neon-cyan font-mono" id="previewUsername">gamer_tag</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300">Platform</span>
+                                    <span class="text-white">PC</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300">Level</span>
+                                    <span class="text-neon-cyan">Casual</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300">Community</span>
+                                    <span class="text-white">124K+ Gamers</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-slate-300 text-sm">Connect Social Accounts (Optional)</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button type="button" class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-2">
+                                    <i class="fab fa-steam text-white"></i>
+                                    <span class="text-sm">Steam</span>
+                                </button>
+                                <button type="button" class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-2">
+                                    <i class="fab fa-discord text-indigo-400"></i>
+                                    <span class="text-sm">Discord</span>
+                                </button>
+                                <button type="button" class="py-3 px-4 glassmorphism-light backdrop-blur-lg border border-white/10 rounded-xl hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-2">
+                                    <i class="fab fa-twitch text-purple-400"></i>
+                                    <span class="text-sm">Twitch</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="publicProfile" checked class="w-5 h-5 rounded checkbox-glow border-white/20 bg-white/5 checked:bg-neon-cyan focus:ring-neon-cyan focus:ring-offset-0 focus:ring-2">
+                            <label for="publicProfile" class="text-slate-300 text-sm">
+                                Make my profile public to other gamers
+                            </label>
+                        </div>
+                        
+                        <div class="p-4 rounded-xl bg-neon-cyan/5 border border-neon-cyan/20">
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix text-sm">verified</span>
+                                <div>
+                                    <p class="text-xs text-slate-300">
+                                        Your account will be verified immediately. Start connecting with gamers right away!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button type="button" id="prevStep3" class="px-8 py-3 glassmorphism-light backdrop-blur-lg border border-white/10 text-white font-bold rounded-xl hover:bg-white/5 transition-all duration-300">
+                                Back
+                            </button>
+                            <button type="submit" id="completeSignup" class="px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold rounded-xl neon-glow hover:opacity-90 transition-all duration-300 flex items-center gap-2">
+                                <span class="material-symbols-outlined material-icons-fix">rocket_launch</span>
+                                <span>Launch Your Realm</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Message -->
+                    <div id="successMessage" class="hidden space-y-6 text-center">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-600/20 flex items-center justify-center mx-auto border border-green-500/30">
+                            <span class="material-symbols-outlined text-5xl text-green-400 material-icons-fix">check_circle</span>
+                        </div>
+                        <h3 class="text-white text-2xl font-bold">Welcome to Hyper Realm!</h3>
+                        <p class="text-slate-300">Your gaming universe is now ready. Start exploring communities, connecting with gamers, and building your legacy.</p>
+                        <div class="pt-4">
+                            <a href="index.html" class="inline-block px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold rounded-xl neon-glow hover:opacity-90 transition-all duration-300">
+                                Enter Your Realm
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="hidden p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined material-icons-fix">error</span>
+                            <span id="errorText">Please fill in all required fields.</span>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Login Link -->
+                <div class="mt-8 text-center pt-6 border-t border-white/10">
+                    <p class="text-slate-400">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-neon-cyan hover:text-neon-purple font-semibold transition-colors hover:underline ml-1">
+                            Log in here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="absolute bottom-6 left-0 right-0 text-center z-10">
+            <p class="text-slate-500 text-sm">
+                © 2024 Hyper Realm. All Rights Reserved. 
+                <a href="#" class="text-neon-cyan hover:underline ml-2">Privacy Policy</a> • 
+                <a href="#" class="text-neon-cyan hover:underline ml-2">Terms of Service</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced background animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes stream-flow {
+                0% {
+                    top: -100%;
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.2;
+                }
+                90% {
+                    opacity: 0.2;
+                }
+                100% {
+                    top: 100%;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize particles for signup page
+        function initParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s infinite linear`;
+                
+                const colors = [
+                    'rgba(0, 243, 255, 0.5)',
+                    'rgba(185, 103, 255, 0.5)',
+                    'rgba(0, 102, 255, 0.5)'
+                ];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Multi-step form functionality
+        function initMultiStepForm() {
+            let currentStep = 1;
+            const totalSteps = 3;
+            
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const currentStepSpan = document.getElementById('currentStep');
+            
+            const nextStep1Btn = document.getElementById('nextStep1');
+            const nextStep2Btn = document.getElementById('nextStep2');
+            const prevStep2Btn = document.getElementById('prevStep2');
+            const prevStep3Btn = document.getElementById('prevStep3');
+            const completeSignupBtn = document.getElementById('completeSignup');
+            
+            // Progress steps
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressLines = document.querySelectorAll('.progress-line');
+            
+            // Update progress bar
+            function updateProgressBar() {
+                progressSteps.forEach((step, index) => {
+                    step.classList.remove('active', 'completed', 'inactive');
+                    if (index + 1 < currentStep) {
+                        step.classList.add('completed');
+                    } else if (index + 1 === currentStep) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.add('inactive');
+                    }
+                });
+                
+                progressLines.forEach((line, index) => {
+                    line.classList.remove('active', 'completed');
+                    if (index + 1 < currentStep) {
+                        line.classList.add('completed');
+                    } else if (index + 1 === currentStep) {
+                        line.classList.add('active');
+                    }
+                });
+                
+                currentStepSpan.textContent = currentStep;
+            }
+            
+            // Show step
+            function showStep(stepNumber) {
+                step1.classList.add('hidden');
+                step2.classList.add('hidden');
+                step3.classList.add('hidden');
+                successMessage.classList.add('hidden');
+                
+                if (stepNumber === 1) {
+                    step1.classList.remove('hidden');
+                } else if (stepNumber === 2) {
+                    step2.classList.remove('hidden');
+                } else if (stepNumber === 3) {
+                    step3.classList.remove('hidden');
+                }
+                
+                currentStep = stepNumber;
+                updateProgressBar();
+                
+                // Animate the step
+                const currentStepElement = document.getElementById(`step${stepNumber}`);
+                currentStepElement.style.animation = 'none';
+                setTimeout(() => {
+                    currentStepElement.style.animation = 'slide-in 0.4s ease-out forwards';
+                }, 10);
+            }
+            
+            // Validate step 1
+            function validateStep1() {
+                const inputs = step1.querySelectorAll('input[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.style.borderColor = '#ef4444';
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+                
+                // Check password match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password && confirmPassword && password !== confirmPassword) {
+                    showError('Passwords do not match');
+                    document.getElementById('confirmPassword').style.borderColor = '#ef4444';
+                    isValid = false;
+                }
+                
+                // Check terms agreement
+                if (!document.getElementById('terms').checked) {
+                    showError('You must agree to the terms and conditions');
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorMessage.querySelector('#errorText').textContent = message;
+                errorMessage.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                }, 5000);
+            }
+            
+            // Password strength checker
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                
+                if (password.length >= 8) strength++;
+                if (/[A-Z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+                
+                const strengthFill = document.getElementById('passwordStrength');
+                strengthFill.className = 'password-strength-fill';
+                
+                if (strength === 0) {
+                    return 'strength-weak';
+                } else if (strength === 1) {
+                    strengthFill.classList.add('strength-weak');
+                } else if (strength === 2) {
+                    strengthFill.classList.add('strength-fair');
+                } else if (strength === 3) {
+                    strengthFill.classList.add('strength-good');
+                } else {
+                    strengthFill.classList.add('strength-strong');
+                }
+            }
+            
+            // Platform selection
+            function initPlatformSelection() {
+                const platformOptions = document.querySelectorAll('.platform-option');
+                platformOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        platformOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                    });
+                });
+            }
+            
+            // Toggle password visibility
+            function initPasswordToggle() {
+                const toggleButtons = ['togglePassword1', 'togglePassword2'];
+                
+                toggleButtons.forEach(buttonId => {
+                    const button = document.getElementById(buttonId);
+                    if (button) {
+                        button.addEventListener('click', () => {
+                            const inputId = buttonId === 'togglePassword1' ? 'password' : 'confirmPassword';
+                            const passwordInput = document.getElementById(inputId);
+                            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordInput.setAttribute('type', type);
+                            
+                            // Toggle icon
+                            const icon = button.querySelector('.material-symbols-outlined');
+                            if (type === 'text') {
+                                icon.textContent = 'visibility';
+                            } else {
+                                icon.textContent = 'visibility_off';
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Real-time password strength check
+            const passwordInput = document.getElementById('password');
+            if (passwordInput) {
+                passwordInput.addEventListener('input', (e) => {
+                    checkPasswordStrength(e.target.value);
+                });
+            }
+            
+            // Real-time username preview
+            const usernameInput = step1.querySelector('input[placeholder="gamer_tag"]');
+            const previewUsername = document.getElementById('previewUsername');
+            
+            if (usernameInput && previewUsername) {
+                usernameInput.addEventListener('input', (e) => {
+                    previewUsername.textContent = e.target.value || 'gamer_tag';
+                });
+            }
+            
+            // Form navigation
+            if (nextStep1Btn) {
+                nextStep1Btn.addEventListener('click', () => {
+                    if (validateStep1()) {
+                        showStep(2);
+                    }
+                });
+            }
+            
+            if (nextStep2Btn) {
+                nextStep2Btn.addEventListener('click', () => {
+                    showStep(3);
+                });
+            }
+            
+            if (prevStep2Btn) {
+                prevStep2Btn.addEventListener('click', () => {
+                    showStep(1);
+                });
+            }
+            
+            if (prevStep3Btn) {
+                prevStep3Btn.addEventListener('click', () => {
+                    showStep(2);
+                });
+            }
+            
+            // Form submission
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    const originalText = completeSignupBtn.innerHTML;
+                    completeSignupBtn.innerHTML = `
+                        <span class="material-symbols-outlined material-icons-fix animate-spin">sync</span>
+                        <span>Creating Your Realm...</span>
+                    `;
+                    completeSignupBtn.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Hide form and show success
+                        step3.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+                        completeSignupBtn.innerHTML = originalText;
+                        completeSignupBtn.disabled = false;
+                    }, 2000);
+                });
+            }
+            
+            // Initialize
+            updateProgressBar();
+            initPlatformSelection();
+            initPasswordToggle();
+            
+            // Social connect buttons
+            const socialButtons = document.querySelectorAll('#step3 button[type="button"]');
+            socialButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = '';
+                    }, 150);
+                    
+                    // Simulate connection
+                    const platform = button.querySelector('span').textContent;
+                    console.log(`Connecting ${platform} account...`);
+                });
+            });
+        }
+        
+        // Interactive background effect
+        function initInteractiveBackground() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                shapes.forEach((shape, index) => {
+                    const speed = 0.3 + (index * 0.1);
+                    const moveX = (x - 0.5) * 15 * speed;
+                    const moveY = (y - 0.5) * 15 * speed;
+                    
+                    shape.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+        }
+        
+        // Add floating animation for particles
+        function addFloatingAnimation() {
+            const floatStyle = document.createElement('style');
+            floatStyle.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translate(0, 0) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${Math.random() * 100 - 50}px, -100vh) rotate(${Math.random() * 360}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(floatStyle);
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            addFloatingAnimation();
+            initMultiStepForm();
+            initInteractiveBackground();
+            
+            console.log('Hyper Realm Signup Page loaded!');
+        });
+    </script>
+</body>
+</html>
