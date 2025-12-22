@@ -10,3 +10,4 @@ class Login(TemplateView):
     
 class Signup(TemplateView):
     template_name= 'signup.html'
+    
