@@ -194,61 +194,45 @@ function initMultiStepForm() {
     }
     
     // Platform selection
-    function initPlatformSelection() {
-        const platformOptions = document.querySelectorAll('.platform-option');
-        let selectedPrimaryPlatform = 'PC';
-        let selectedMobilePlatform = 'Android';
-        
-        platformOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                // Determine which platform group this belongs to
-                const platformText = option.querySelector('p').textContent;
-                const parentDiv = option.closest('div.space-y-2');
-                
-                if (parentDiv.querySelector('label').textContent.includes('Primary Gaming Platform')) {
-                    // Primary platform selection
-                    document.querySelectorAll('#step2 .platform-option').forEach(opt => {
-                        if (opt.closest('div.space-y-2').querySelector('label').textContent.includes('Primary Gaming Platform')) {
-                            opt.classList.remove('selected');
-                        }
-                    });
-                    option.classList.add('selected');
-                    selectedPrimaryPlatform = platformText;
-                    
-                    // Update preview
-                    document.getElementById('previewPlatform').textContent = selectedPrimaryPlatform;
-                } else if (parentDiv.querySelector('label').textContent.includes('Mobile Platform')) {
-                    // Mobile platform selection
-                    document.querySelectorAll('#step2 .platform-option').forEach(opt => {
-                        if (opt.closest('div.space-y-2').querySelector('label').textContent.includes('Mobile Platform')) {
-                            opt.classList.remove('selected');
-                        }
-                    });
-                    option.classList.add('selected');
-                    selectedMobilePlatform = platformText;
-                    
-                    // Update preview
-                    document.getElementById('previewMobilePlatform').textContent = selectedMobilePlatform;
-                }
-            });
-        });
-        
-        // Set default selections
-        if (platformOptions.length > 0) {
-            // Select first primary platform option (PC)
-            const primaryPlatformOptions = document.querySelectorAll('#step2 .platform-option');
-            if (primaryPlatformOptions.length >= 5) {
-                primaryPlatformOptions[0].classList.add('selected');
-            }
-            
-            // Select first mobile platform option (Android)
-            const mobilePlatformOptions = document.querySelectorAll('#step2 div:nth-child(3) .platform-option');
-            if (mobilePlatformOptions.length > 0) {
-                mobilePlatformOptions[0].classList.add('selected');
-            }
-        }
+   function initPlatformSelection() {
+    const platformOptions = document.querySelectorAll('.platform-option');
+    const platformInput = document.getElementById('platformInput'); // hidden input
+    let selectedPrimaryPlatform = '';
+
+    // Function to select a platform
+    const selectPlatform = (option) => {
+        const platformText = option.querySelector('p').textContent.trim();
+
+        // Remove selection from all options
+        platformOptions.forEach(opt => opt.classList.remove('selected'));
+
+        // Highlight clicked option
+        option.classList.add('selected');
+
+        // Update selected variable
+        selectedPrimaryPlatform = platformText;
+
+        // Update hidden input in lowercase
+        if (platformInput) platformInput.value = selectedPrimaryPlatform.toLowerCase();
+
+        // Update preview if exists
+        const preview = document.getElementById('previewPlatform');
+        if (preview) preview.textContent = selectedPrimaryPlatform;
+    };
+
+    // Add click event to each option
+    platformOptions.forEach(option => {
+        option.addEventListener('click', () => selectPlatform(option));
+    });
+
+    // ✅ Set default selection (first option) if none selected
+    if (platformOptions.length > 0) {
+        const defaultOption = platformOptions[0];
+        selectPlatform(defaultOption);
     }
-    
+}
+
+
     // Toggle password visibility
     function initPasswordToggle() {
         const toggleButtons = ['togglePassword1', 'togglePassword2'];
@@ -338,7 +322,7 @@ function initMultiStepForm() {
     const csrftoken= getcookie('csrftoken');
 
     if (signupForm){
-        signupForm.addEventListener('submit',async(e)=>{
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const originalText= completeSignupBtn.innerHTML;
@@ -353,19 +337,27 @@ function initMultiStepForm() {
                 const formdata= new FormData(signupForm);
 
                 // calling api
-                const  response= await fetch('',
-                {
+                const  response= await fetch('/signup/user/',{
                     method: 'POST',
                     headers:{
-                        'X-CSRFToken': csrftoken
+                        'X-CSRFToken': csrftoken,
+                        'Accept': 'application/json',
                     },
                     body: formdata
                 });
                 
-                const data= await response.json();
+                let data={};
+                try{
+                    data= await response.json();
+                }catch(e){}
 
-                if(!response.ok || !data.success){
-                    throw new Error(data.error || 'signup failed');
+                if (!response.ok){
+                    throw new Error(
+                      data.confirm_password?.[0] ||
+                      data.password?.[0] ||
+                      data.username?.[0] ||
+                      'signup failed'
+                    );
                 }
 
                 step3.classList.add('hidden');

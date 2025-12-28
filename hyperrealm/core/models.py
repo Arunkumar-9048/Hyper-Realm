@@ -22,5 +22,5 @@ class User(AbstractUser):
     platform= models.CharField(max_length=30, choices= PLATFORM, default='mobile')
     genres= models.ManyToManyField(Genres, blank=True)
     timezone= models.CharField(max_length=30, blank=True, null=True)
-    public_profile= models.BooleanField(default=True)
+    public_profile= models.BooleanField(default=False)
     bio= models.TextField(blank= True, null= True)
