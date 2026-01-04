@@ -579,7 +579,7 @@
                         <div class="stat-label">Following</div>
                     </div>
                 </div>
-                <button class="post-button" style="width: 100%;">Edit Profile</button>
+                <button class="post-button" style="width: 100%;">View Profile</button>
             </div>
 
             <div class="quick-actions">
@@ -874,7 +874,7 @@
 
         // Create post functionality
         document.querySelector('.post-button[style*="width: 100%"]').addEventListener('click', () => {
-            alert('Edit profile feature coming soon!');
+            window.location.href="{% url 'user profile' %}"
         });
 
         document.querySelector('.create-post .post-button').addEventListener('click', () => {

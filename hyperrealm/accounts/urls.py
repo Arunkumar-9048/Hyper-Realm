@@ -19,6 +19,7 @@ from accounts.views import *
 
 urlpatterns = [
     # write your urls of accounts app here 
-    path('home/',Home.as_view(),name='home')
+    path('home/',Home.as_view(),name='home'),
+    path('profile/',UserProfile.as_view(),name="user profile")
     
 ]
