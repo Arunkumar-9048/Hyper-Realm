@@ -1,7 +1,11 @@
-from  rest_framework import serializers
-from .models import *
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import authenticate, get_user_model
+from  rest_framework import serializers
+from .models import Genres
 
+User= get_user_model()
+
+#serializer for user signup  
 class UserSignupSerializer(serializers.ModelSerializer):
     genres = serializers.ListField(child= serializers.CharField(), write_only= True)
     password= serializers.CharField(write_only= True, validators=[validate_password])
@@ -33,3 +37,32 @@ class UserSignupSerializer(serializers.ModelSerializer):
         user.genres.set(genre_obj)
         
         return user
+
+# serialier for user login 
+class UserLoginSerializer(serializers.Serializer):
+    
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only= True)
+    
+    def validate(self, data):
+        
+        email= data.get("email","").strip().lower()
+        
+        try:
+            usr_name = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('Error : Invalid email or password')
+        
+        user= authenticate(
+            username= usr_name.username,
+            password= data['password']
+        )
+        
+        if not user:
+            raise serializers.ValidationError('Error : Invalid email or password')
+        
+        if not user.is_active:
+            raise serializers.ValidationError('Account is disabled')
+        
+        data['user']= user
+        return data
