@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerPro Profile | Hyper Realm</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a15;
+            --darker-bg: #050510;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(15, 20, 35, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+        }
+
+        .neon-border {
+            border-color: rgba(0, 243, 255, 0.2);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #2ecc71;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+
+        .status-playing {
+            background: #ff4757;
+            box-shadow: 0 0 10px #ff4757;
+        }
+
+        .status-streaming {
+            background: #b967ff;
+            box-shadow: 0 0 10px #b967ff;
+        }
+
+        .status-away {
+            background: #ffa726;
+            box-shadow: 0 0 10px #ffa726;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+        }
+
+        .game-card {
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+        }
+
+        .achievement-card {
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[rgba(10,15,25,0.8)] backdrop-blur-xl border-b border-[rgba(0,243,255,0.2)] py-4 px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[var(--neon-cyan)]">hub</span>
+                <span class="orbitron text-xl font-bold text-[var(--neon-cyan)] neon-text">Hyper Realm</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="flex items-center gap-8">
+                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
+                    <span class="material-symbols-outlined">home</span>
+                    <span>Feed</span>
+                </a>
+                <a href="#" class="flex items-center gap-2 text-[var(--neon-cyan)]">
+                    <span class="material-symbols-outlined">person</span>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span>Communities</span>
+                </a>
+                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
+                    <span class="material-symbols-outlined">trophy</span>
+                    <span>Leaderboards</span>
+                </a>
+            </div>
+
+            <!-- User Menu -->
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <span class="material-symbols-outlined cursor-pointer hover:text-[var(--neon-cyan)]">notifications</span>
+                    <div class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</div>
+                </div>
+                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center font-bold cursor-pointer">GP</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-6">
+        <!-- Profile Header -->
+        <div class="glass-card rounded-2xl p-8 mb-6">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <!-- Profile Avatar -->
+                <div class="relative">
+                    <div class="w-40 h-40 rounded-full gradient-bg flex items-center justify-center text-4xl font-bold">
+                        GP
+                    </div>
+                    <div class="absolute bottom-4 right-4 online-dot"></div>
+                    <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-[var(--dark-bg)] rounded-full flex items-center justify-center border-2 border-[var(--neon-cyan)] cursor-pointer hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[var(--neon-cyan)]">photo_camera</span>
+                    </div>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-center md:items-start mb-6">
+                        <div>
+                            <h1 class="orbitron text-3xl font-bold gradient-text">GamerPro</h1>
+                            <p class="text-gray-400">Professional Gamer & Streamer</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="material-symbols-outlined text-yellow-500 text-sm">location_on</span>
+                                <span class="text-sm">North America • EST Timezone</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 mt-4 md:mt-0">
+                            <button class="px-6 py-2 gradient-bg rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2">
+                                <span class="material-symbols-outlined">edit</span>
+                                Edit Profile
+                            </button>
+                            <button class="px-6 py-2 border border-[var(--neon-cyan)] text-[var(--neon-cyan)] rounded-lg font-medium hover:bg-[rgba(0,243,255,0.1)] transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined">share</span>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">142</div>
+                            <div class="text-gray-400 text-sm">Posts</div>
+                        </div>
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">1.2K</div>
+                            <div class="text-gray-400 text-sm">Followers</div>
+                        </div>
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">856</div>
+                            <div class="text-gray-400 text-sm">Following</div>
+                        </div>
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">2.4K</div>
+                            <div class="text-gray-400 text-sm">Hours Played</div>
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="mb-6">
+                        <h3 class="orbitron text-lg mb-2 text-[var(--neon-cyan)]">About</h3>
+                        <p class="text-gray-300">
+                            Competitive FPS player specializing in Valorant and CS2. Currently ranked Diamond 3. 
+                            Streaming 5 days a week. Always looking for competitive teammates. 
+                            PC Specs: RTX 4090 • i9-13900K • 32GB DDR5 • 240Hz Monitor
+                        </p>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4">
+                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
+                            <span class="material-symbols-outlined">link</span>
+                            <span>twitch.tv/gamerpro</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
+                            <span class="material-symbols-outlined">link</span>
+                            <span>twitter.com/gamerpro</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
+                            <span class="material-symbols-outlined">link</span>
+                            <span>discord.gg/gamerpro</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column - Stats & Games -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Game Stats -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Game Statistics</h2>
+                        <select class="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-2 text-sm">
+                            <option>Last 30 Days</option>
+                            <option>Last 90 Days</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Valorant Stats -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                                        <span class="material-symbols-outlined">military_tech</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Valorant</h4>
+                                        <p class="text-sm text-gray-400">Diamond 3 • 320 hours</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-lg font-bold gradient-text">1.8 K/D</div>
+                                    <p class="text-sm text-gray-400">Win Rate: 58%</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 58%"></div>
+                            </div>
+                        </div>
+
+                        <!-- CS2 Stats -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                                        <span class="material-symbols-outlined">target</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Counter-Strike 2</h4>
+                                        <p class="text-sm text-gray-400">Global Elite • 840 hours</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-lg font-bold gradient-text">1.5 K/D</div>
+                                    <p class="text-sm text-gray-400">Win Rate: 62%</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 62%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Fortnite Stats -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                                        <span class="material-symbols-outlined">explosion</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Fortnite</h4>
+                                        <p class="text-sm text-gray-400">Champion • 156 hours</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-lg font-bold gradient-text">3.2 K/D</div>
+                                    <p class="text-sm text-gray-400">Win Rate: 42%</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 42%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Achievements -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h2 class="orbitron text-xl text-[var(--neon-cyan)] mb-6">Recent Achievements</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
+                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="material-symbols-outlined text-2xl">military_tech</span>
+                            </div>
+                            <h4 class="font-medium mb-1">Diamond Rank</h4>
+                            <p class="text-sm text-gray-400">Valorant • Today</p>
+                        </div>
+                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
+                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="material-symbols-outlined text-2xl">emoji_events</span>
+                            </div>
+                            <h4 class="font-medium mb-1">Tournament Winner</h4>
+                            <p class="text-sm text-gray-400">CS2 • 2 days ago</p>
+                        </div>
+                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
+                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="material-symbols-outlined text-2xl">stream</span>
+                            </div>
+                            <h4 class="font-medium mb-1">1000 Followers</h4>
+                            <p class="text-sm text-gray-400">Twitch • 1 week ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Activity & Friends -->
+            <div class="space-y-6">
+                <!-- Current Status -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h2 class="orbitron text-xl text-[var(--neon-cyan)] mb-4">Current Status</h2>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="status-playing rounded-full w-3 h-3"></div>
+                        <div>
+                            <div class="font-medium">Playing Valorant</div>
+                            <div class="text-sm text-gray-400">Competitive • 45 minutes</div>
+                        </div>
+                    </div>
+                    <button class="w-full gradient-bg rounded-lg py-3 font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">add</span>
+                        Join Session
+                    </button>
+                </div>
+
+                <!-- Recent Games -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Recent Games</h2>
+                        <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-[var(--neon-cyan)]">more_vert</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="game-card glass-card rounded-xl p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                                    <span class="material-symbols-outlined">military_tech</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Valorant</div>
+                                    <div class="text-sm text-gray-400">45 min ago • Win</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-green-500">13 - 7</div>
+                                <div class="text-sm text-gray-400">K/D: 24/12</div>
+                            </div>
+                        </div>
+                        <div class="game-card glass-card rounded-xl p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                                    <span class="material-symbols-outlined">target</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium">CS2</div>
+                                    <div class="text-sm text-gray-400">3 hours ago • Win</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-green-500">16 - 10</div>
+                                <div class="text-sm text-gray-400">K/D: 31/18</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Friends -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Top Friends</h2>
+                        <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-[var(--neon-cyan)]">group_add</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center font-bold">
+                                        S
+                                    </div>
+                                    <div class="status-streaming absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">StreamQueen</div>
+                                    <div class="text-sm text-gray-400">Streaming Fortnite</div>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold">
+                                        P
+                                    </div>
+                                    <div class="online-dot absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">ProPlayer</div>
+                                    <div class="text-sm text-gray-400">Playing Valorant</div>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center font-bold">
+                                        T
+                                    </div>
+                                    <div class="status-away absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
+                                </div>
+                                <div>
+                                    <div class="font-medium">TechWizard</div>
+                                    <div class="text-sm text-gray-400">Away</div>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Interactive Stats Cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const number = this.querySelector('.orbitron');
+                const originalText = number.textContent;
+                
+                // Add pulse effect
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+                this.style.borderColor = 'var(--neon-cyan)';
+                this.style.boxShadow = '0 0 20px rgba(0, 243, 255, 0.3)';
+                
+                // Add count animation
+                if (!isNaN(parseInt(originalText))) {
+                    let count = parseInt(originalText);
+                    number.textContent = count + 1;
+                    
+                    setTimeout(() => {
+                        number.textContent = originalText;
+                    }, 1000);
+                }
+                
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }, 300);
+            });
+        });
+
+        // Join Session Button
+        document.querySelector('button:contains("Join Session")')?.addEventListener('click', function() {
+            this.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Joining...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = '<span class="material-symbols-outlined">check</span> Joined!';
+                this.style.background = 'linear-gradient(45deg, #2ecc71, #1abc9c)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<span class="material-symbols-outlined">add</span> Join Session';
+                    this.style.background = '';
+                    this.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+
+        // Achievement Cards Animation
+        document.querySelectorAll('.achievement-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                icon.style.transform = 'rotateY(360deg)';
+                icon.style.transition = 'transform 0.5s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                icon.style.transform = 'rotateY(0deg)';
+            });
+        });
+
+        // Game Cards Hover Effect
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const gameName = this.querySelector('.font-medium').textContent;
+                alert(`Viewing detailed stats for ${gameName}`);
+            });
+        });
+
+        // Friend List Interaction
+        document.querySelectorAll('.cursor-pointer').forEach(item => {
+            if (item.textContent.includes('StreamQueen') || 
+                item.textContent.includes('ProPlayer') || 
+                item.textContent.includes('TechWizard')) {
+                item.addEventListener('click', function() {
+                    const friendName = this.querySelector('.font-medium').textContent;
+                    alert(`Opening ${friendName}'s profile`);
+                });
+            }
+        });
+
+        // Edit Profile Button
+        document.querySelector('button:contains("Edit Profile")')?.addEventListener('click', function() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="glass-card rounded-2xl p-8 max-w-md w-full mx-4">
+                    <h3 class="orbitron text-xl text-[var(--neon-cyan)] mb-4">Edit Profile</h3>
+                    <div class="space-y-4">
+                        <input type="text" placeholder="Display Name" class="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3" value="GamerPro">
+                        <textarea placeholder="Bio" class="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 h-32">Competitive FPS player specializing in Valorant and CS2.</textarea>
+                        <div class="flex gap-3 justify-end">
+                            <button class="px-4 py-2 border border-gray-600 rounded-lg hover:bg-[rgba(255,255,255,0.05)]" onclick="this.closest('.fixed').remove()">Cancel</button>
+                            <button class="px-4 py-2 gradient-bg rounded-lg font-medium hover:opacity-90">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.querySelector('button:contains("Save Changes")').addEventListener('click', function() {
+                alert('Profile updated! (This is a demo)');
+                modal.remove();
+            });
+            
+            document.body.appendChild(modal);
+            
+            // Close modal on background click
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.remove();
+                }
+            });
+        });
+
+        // Share Profile Button
+        document.querySelector('button:contains("Share")')?.addEventListener('click', function() {
+            const shareUrl = window.location.href;
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="material-symbols-outlined">check</span> Copied!';
+                this.style.background = 'linear-gradient(45deg, #2ecc71, #1abc9c)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = '';
+                }, 2000);
+            });
+        });
+
+        // Timezone display based on user's actual time
+        function updateTimezone() {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const timezoneElement = document.querySelector('span:contains("EST Timezone")');
+            if (timezoneElement) {
+                timezoneElement.textContent = timezone;
+            }
+        }
+        
+        updateTimezone();
+
+        // Simulate real-time status updates
+        function updateStatus() {
+            const statuses = ['Playing Valorant', 'Streaming', 'Away', 'In Queue'];
+            const games = ['Valorant', 'CS2', 'Fortnite', 'Apex Legends'];
+            const statusElement = document.querySelector('.font-medium:contains("Playing Valorant")');
+            
+            if (statusElement && Math.random() > 0.7) {
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                const randomGame = games[Math.floor(Math.random() * games.length)];
+                statusElement.textContent = randomStatus === 'Playing' ? `${randomStatus} ${randomGame}` : randomStatus;
+                
+                // Update status dot color
+                const statusDot = document.querySelector('.status-playing');
+                if (statusDot) {
+                    if (randomStatus === 'Streaming') {
+                        statusDot.className = 'status-streaming rounded-full w-3 h-3';
+                    } else if (randomStatus === 'Away') {
+                        statusDot.className = 'status-away rounded-full w-3 h-3';
+                    } else {
+                        statusDot.className = 'status-playing rounded-full w-3 h-3';
+                    }
+                }
+            }
+        }
+        
+        // Update status every 30 seconds
+        setInterval(updateStatus, 30000);
+    </script>
+</body>
+</html>
