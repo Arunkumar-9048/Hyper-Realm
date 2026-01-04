@@ -5,6 +5,7 @@ from .models import Genres
 
 User= get_user_model()
 
+#serializer for user signup  
 class UserSignupSerializer(serializers.ModelSerializer):
     genres = serializers.ListField(child= serializers.CharField(), write_only= True)
     password= serializers.CharField(write_only= True, validators=[validate_password])
@@ -37,6 +38,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
         
         return user
 
+# serialier for user login 
 class UserLoginSerializer(serializers.Serializer):
     
     email = serializers.EmailField()
@@ -44,8 +46,10 @@ class UserLoginSerializer(serializers.Serializer):
     
     def validate(self, data):
         
+        email= data.get("email","").strip().lower()
+        
         try:
-            usr_name = User.objects.get(email=data['email'].lower().strip())
+            usr_name = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError('Error : Invalid email or password')
         

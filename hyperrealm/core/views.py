@@ -50,7 +50,7 @@ class LoginAPIView(APIView):
         serializer = UserLoginSerializer(data= request.data)
         serializer.is_valid(raise_exception=True)
         
-        user= serializer.validated_data('user')
+        user = serializer.validated_data['user']
         
         user.last_login= now()
         user.save(update_fields=['last_login'])
