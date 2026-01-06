@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hyper Realm | Feed</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --neon-cyan: #00f3ff;
@@ -15,975 +23,1097 @@
             --darker-bg: #050510;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Enhanced Background */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
             min-height: 100vh;
         }
 
-        /* Navigation */
-        .navbar {
-            background: rgba(10, 15, 25, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
-            position: sticky;
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 400px;
-            margin: 0 2rem;
-            position: relative;
-        }
-
-        .search-bar input {
+            left: 0;
             width: 100%;
-            padding: 0.75rem 1rem 0.75rem 3rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 0.75rem;
-            color: white;
-            font-size: 0.9rem;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .search-bar .material-symbols-outlined {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-icon {
-            color: rgba(255, 255, 255, 0.8);
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-icon:hover {
-            color: var(--neon-cyan);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff4757;
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Main Layout */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 280px 1fr 320px;
-            gap: 2rem;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 5rem;
-            height: fit-content;
-        }
-
-        .profile-card {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--neon-cyan);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .quick-actions {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            padding: 1.5rem;
-        }
-
-        .quick-actions h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 1rem;
-            color: var(--neon-cyan);
-        }
-
-        .action-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .action-item .material-symbols-outlined {
-            color: var(--neon-purple);
-        }
-
-        /* Feed */
-        .feed-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .create-post {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .post-input {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .post-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .post-textarea {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            resize: none;
-            outline: none;
-            min-height: 60px;
-        }
-
-        .post-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .media-options {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .media-option {
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .media-option:hover {
-            color: var(--neon-cyan);
-        }
-
-        .post-button {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .post-button:hover {
-            opacity: 0.9;
-        }
-
-        /* Post Card */
-        .post-card {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-        }
-
-        .post-user {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .post-avatar-small {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b6b, #ffa726);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-info h4 {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .user-info span {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .post-more {
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-        }
-
-        .post-content {
-            padding: 0 1.5rem 1rem;
-        }
-
-        .post-caption {
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .post-media {
+        /* Scanning line effect */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(255, 167, 38, 0.1));
-            aspect-ratio: 16/9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            animation: scan-line 8s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.3;
         }
 
-        .post-media .material-symbols-outlined {
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.3);
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
         }
 
-        .post-engagement {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
         }
 
-        .engagement-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
 
-        .engagement-actions {
-            display: flex;
-            gap: 1rem;
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
 
-        .engagement-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
         }
 
-        .engagement-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--neon-cyan);
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
         }
 
-        .engagement-btn.active {
-            color: #ff4757;
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        /* Right Sidebar */
-        .right-sidebar {
-            position: sticky;
-            top: 5rem;
-            height: fit-content;
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
         }
 
-        .trending-card, .online-card, .suggested-card {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
         }
 
-        .trending-card h3, .online-card h3, .suggested-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 1rem;
-            color: var(--neon-cyan);
+        .transition-all {
+            transition: all 0.3s ease;
         }
 
-        .trending-item, .online-user, .community-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-bottom: 0.5rem;
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .trending-item:hover, .online-user:hover, .community-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+        /* Sidebar fixed positioning - Enlarged */
+        .sidebar-left {
+            position: fixed;
+            left: 20px;
+            top: 80px; /* Adjusted for fixed navbar */
+            width: 320px; /* Enlarged from 280px */
+            height: calc(100vh - 100px);
+            z-index: 40;
+            overflow: hidden; /* Prevent scrollbar */
         }
 
-        .trending-number {
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .sidebar-right {
+            position: fixed;
+            right: 20px;
+            top: 80px; /* Adjusted for fixed navbar */
+            width: 320px; /* Enlarged from 280px */
+            height: calc(100vh - 100px);
+            z-index: 40;
+            overflow: hidden; /* Prevent scrollbar */
         }
 
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            background: #2ecc71;
-            border-radius: 50%;
-            margin-left: auto;
+        /* Main content margins for sidebars */
+        .main-content {
+            margin-left: 360px; /* Adjusted for enlarged sidebars */
+            margin-right: 360px; /* Adjusted for enlarged sidebars */
+            max-width: 100%;
+            padding-top: 80px; /* Space for fixed navbar */
         }
 
-        .community-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 0.75rem;
-            background: linear-gradient(45deg, var(--neon-purple), #ff6b6b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Fixed Navigation Bar */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
         }
 
-        /* Responsive */
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        @media (max-width: 1400px) {
+            .sidebar-left, .sidebar-right {
+                width: 300px;
+            }
+            .main-content {
+                margin-left: 340px;
+                margin-right: 340px;
+            }
+        }
+
         @media (max-width: 1200px) {
-            .main-container {
-                grid-template-columns: 280px 1fr;
-            }
-            .right-sidebar {
+            .sidebar-right {
                 display: none;
+            }
+            .sidebar-left {
+                display: none;
+            }
+            .main-content {
+                margin-left: 20px;
+                margin-right: 20px;
             }
         }
 
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                padding: 1rem;
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Post animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .sidebar {
-                position: static;
-                display: none;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            .search-bar {
-                display: none;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
         }
     </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="material-symbols-outlined">hub</span>
-                Hyper Realm
+    <!-- Background Elements -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+
+    <div class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- Top Navigation Bar - Fixed -->
+        <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Left: Logo and Menu Button -->
+                    <div class="flex items-center space-x-6">
+                        <!-- Three Bars Menu Button -->
+                        <button id="mainMenuButton" class="text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                        </button>
+                        
+                        <!-- Logo -->
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                            <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                        </div>
+                    </div>
+
+                    <!-- Center: Search Bar -->
+                    <div class="flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                                placeholder="Search gamers, communities, games..."
+                            />
+                            <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                                <!-- Search results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Notifications, Messages, and Navigation Dropdown -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications with Dropdown -->
+                        <div class="relative" id="notificationsMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
+                            </button>
+                            
+                            <div id="notificationsDropdown" class="hidden absolute right-0 mt-2 w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl z-50 slide-down">
+                                <div class="p-4">
+                                    <h3 class="text-white font-bold mb-3 flex items-center">
+                                        <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">notifications</span>
+                                        Notifications
+                                    </h3>
+                                    <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-white text-sm material-icons-fix">person_add</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-white text-sm">ApexMaster_99 started following you</p>
+                                                    <p class="text-gray-400 text-xs">2 minutes ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-white text-sm material-icons-fix">favorite</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-white text-sm">LoreRunner liked your post</p>
+                                                    <p class="text-gray-400 text-xs">1 hour ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-white text-sm material-icons-fix">comment</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-white text-sm">TeamStratPro commented on your strategy</p>
+                                                    <p class="text-gray-400 text-xs">3 hours ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-white text-sm material-icons-fix">military_tech</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-white text-sm">You earned the "Legendary Gamer" badge</p>
+                                                    <p class="text-gray-400 text-xs">Yesterday</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-3 py-2 text-center text-neon-cyan text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                                        View All Notifications
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Messages with Dropdown -->
+                        <div class="relative" id="messagesMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                            </button>
+                            
+                            <div id="messagesDropdown" class="hidden absolute right-0 mt-2 w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl z-50 slide-down">
+                                <div class="p-4">
+                                    <h3 class="text-white font-bold mb-3 flex items-center">
+                                        <span class="material-symbols-outlined mr-2 text-neon-purple material-icons-fix">chat</span>
+                                        Messages
+                                    </h3>
+                                    <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                                    <span class="text-white font-bold">AM</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-center">
+                                                        <div class="text-white font-medium">ApexMaster_99</div>
+                                                        <span class="text-gray-400 text-xs">2 min</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-sm truncate">Great play in that last match!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                                    <span class="text-white font-bold">LR</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-center">
+                                                        <div class="text-white font-medium">LoreRunner</div>
+                                                        <span class="text-gray-400 text-xs">1 hr</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                                    <span class="text-white font-bold">TS</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="flex justify-between items-center">
+                                                        <div class="text-white font-medium">TeamStratPro</div>
+                                                        <span class="text-gray-400 text-xs">3 hrs</span>
+                                                    </div>
+                                                    <p class="text-gray-400 text-sm truncate">Want to join our practice session?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-3 py-2 text-center text-neon-purple text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                                        View All Messages
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="search-bar">
-                <span class="material-symbols-outlined">search</span>
-                <input type="text" placeholder="Search gamers, communities...">
-            </div>
-            
-            <div class="nav-icons">
-                <div class="nav-icon">
-                    <span class="material-symbols-outlined">home</span>
-                </div>
-                <div class="nav-icon">
-                    <span class="material-symbols-outlined">movie</span>
-                </div>
-                <div class="nav-icon">
-                    <span class="material-symbols-outlined">add_box</span>
-                </div>
-                <div class="nav-icon">
-                    <span class="material-symbols-outlined">favorite</span>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="nav-icon">
-                    <span class="material-symbols-outlined">chat</span>
-                    <span class="notification-badge">5</span>
-                </div>
-                <div class="user-avatar">GP</div>
+        </nav>
+
+        <!-- Main Navigation Menu Dropdown -->
+        <div id="mainMenuDropdown" class="hidden fixed left-4 top-16 mt-2 w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl z-50 slide-down">
+            <div class="py-2">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">home</span>
+                    Home
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                    Communities
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                    Games
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                    Explore
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                    Profile
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                    Settings
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                    Logout
+                </a>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-avatar">GP</div>
-                    <h3>GamerPro</h3>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Professional Gamer & Streamer</p>
+        <!-- Left Sidebar - Fixed -->
+        <aside class="sidebar-left">
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 h-full overflow-y-auto no-scrollbar">
+                <!-- User Profile Card -->
+                <div class="text-center mb-8">
+                    <div class="relative mx-auto mb-4">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center mx-auto">
+                            <span class="text-white text-3xl font-bold">JD</span>
+                        </div>
+                        <div class="absolute bottom-0 right-8 w-6 h-6 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                    </div>
+                    <h3 class="text-white font-bold text-xl mb-1">JohnDoe_Gamer</h3>
+                    <p class="text-gray-400 text-sm mb-4">Level 75 • Legendary</p>
+                    <div class="flex justify-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-neon-cyan font-bold text-2xl">1.2K</div>
+                            <div class="text-gray-400 text-xs">Following</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-neon-purple font-bold text-2xl">856</div>
+                            <div class="text-gray-400 text-xs">Followers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-white font-bold text-2xl">342</div>
+                            <div class="text-gray-400 text-xs">Posts</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile-stats">
-                    <div>
-                        <div class="stat-number">142</div>
-                        <div class="stat-label">Posts</div>
-                    </div>
-                    <div>
-                        <div class="stat-number">1.2K</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                    <div>
-                        <div class="stat-number">856</div>
-                        <div class="stat-label">Following</div>
-                    </div>
-                </div>
-                <button class="post-button" style="width: 100%;">View Profile</button>
-            </div>
 
-            <div class="quick-actions">
-                <h3>Quick Actions</h3>
-                <div class="action-item">
-                    <span class="material-symbols-outlined">add_circle</span>
-                    <span>Create Post</span>
+                <!-- Quick Stats -->
+                <div class="space-y-5 mb-8">
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-gray-300 text-sm">Weekly Activity</span>
+                            <span class="text-neon-cyan font-bold">86%</span>
+                        </div>
+                        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-neon-cyan to-neon-purple" style="width: 86%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-gray-300 text-sm">Game Completion</span>
+                            <span class="text-neon-purple font-bold">64%</span>
+                        </div>
+                        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-neon-purple to-neon-blue" style="width: 64%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="action-item">
-                    <span class="material-symbols-outlined">groups</span>
-                    <span>Communities</span>
+
+                <!-- Quick Actions -->
+                <div class="space-y-4 mb-8">
+                    <button class="w-full flex items-center justify-center space-x-3 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all">
+                        <span class="material-symbols-outlined material-icons-fix">add</span>
+                        <span class="text-lg">Create Post</span>
+                    </button>
+                    <button class="w-full flex items-center justify-center space-x-3 py-3 rounded-xl glassmorphism-light text-white font-bold hover:bg-white/10 transition-all">
+                        <span class="material-symbols-outlined material-icons-fix">live_tv</span>
+                        <span class="text-lg">Go Live</span>
+                    </button>
                 </div>
-                <div class="action-item">
-                    <span class="material-symbols-outlined">people</span>
-                    <span>Find Friends</span>
-                </div>
-                <div class="action-item">
-                    <span class="material-symbols-outlined">movie</span>
-                    <span>Watch Reels</span>
+
+                <!-- Trending Games -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">trending_up</span>
+                        Trending Games
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-red-400 text-2xl material-icons-fix">military_tech</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">Valorant</div>
+                                <div class="text-gray-400 text-sm">12.4K online</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-purple-400 text-2xl material-icons-fix">sword</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">Elden Ring</div>
+                                <div class="text-gray-400 text-sm">8.7K online</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-teal-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-green-400 text-2xl material-icons-fix">sports_esports</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">League</div>
+                                <div class="text-gray-400 text-sm">24.1K online</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Feed -->
-        <main class="feed-container">
-            <!-- Create Post -->
-            <div class="create-post">
-                <div class="post-input">
-                    <div class="post-avatar">GP</div>
-                    <textarea class="post-textarea" placeholder="What's happening in your gaming world?"></textarea>
-                </div>
-                <div class="post-actions">
-                    <div class="media-options">
-                        <div class="media-option">
-                            <span class="material-symbols-outlined">image</span>
-                            <span>Photo</span>
+        <!-- Right Sidebar - Fixed -->
+        <aside class="sidebar-right">
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 h-full overflow-y-auto no-scrollbar">
+                <!-- Online Friends -->
+                <div class="mb-8">
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">group</span>
+                        Online Friends
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">RP</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">RaidParty</div>
+                                <div class="text-gray-400 text-sm">Playing Destiny 2</div>
+                            </div>
                         </div>
-                        <div class="media-option">
-                            <span class="material-symbols-outlined">videocam</span>
-                            <span>Video</span>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">CS</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">ClutchShot</div>
+                                <div class="text-gray-400 text-sm">Streaming CS2</div>
+                            </div>
                         </div>
-                        <div class="media-option">
-                            <span class="material-symbols-outlined">emoji_emotions</span>
-                            <span>Feeling</span>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">MG</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">MetaGamer</div>
+                                <div class="text-gray-400 text-sm">In Lobby</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">BB</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">BattleBorn</div>
+                                <div class="text-gray-400 text-sm">Playing Apex</div>
+                            </div>
                         </div>
                     </div>
-                    <button class="post-button">Post</button>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="mb-8">
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-purple material-icons-fix">history</span>
+                        Recent Activity
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix">trophy</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-base">You reached <span class="text-neon-cyan font-bold">Level 75</span></p>
+                                <p class="text-gray-400 text-sm">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple/20 to-pink-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-purple material-icons-fix">forum</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-base">Liked your post about <span class="text-neon-purple font-bold">Valorant strategies</span></p>
+                                <p class="text-gray-400 text-sm">5 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-cyan/20 to-teal-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix">group_add</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-base">Joined <span class="text-neon-cyan font-bold">#FPSCommunity</span></p>
+                                <p class="text-gray-400 text-sm">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">event</span>
+                        Upcoming Events
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-neon-cyan/10 to-transparent border border-neon-cyan/20">
+                            <div class="text-neon-cyan text-base font-bold">Tournament</div>
+                            <div class="text-white text-base font-medium">Hyper Realm Cup Finals</div>
+                            <div class="text-gray-400 text-sm">Tomorrow • 8:00 PM EST</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-neon-purple/10 to-transparent border border-neon-purple/20">
+                            <div class="text-neon-purple text-base font-bold">Community</div>
+                            <div class="text-white text-base font-medium">Dev Stream & Q&A</div>
+                            <div class="text-gray-400 text-sm">March 15 • 6:00 PM EST</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area - Scrollable -->
+        <main class="main-content py-6 px-4 sm:px-6">
+            <!-- Create Post Card -->
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 mb-6 max-w-3xl mx-auto">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                        <span class="text-white font-bold">JD</span>
+                    </div>
+                    <input 
+                        type="text" 
+                        placeholder="What's happening in your gaming world?"
+                        class="flex-1 bg-transparent border-none text-white placeholder-gray-400 focus:outline-none focus:ring-0 text-lg"
+                        id="postInput"
+                    />
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-6">
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">image</span>
+                            <span class="text-base">Media</span>
+                        </button>
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-neon-purple transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">videocam</span>
+                            <span class="text-base">Stream</span>
+                        </button>
+                        <button class="flex items-center space-x-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">tag</span>
+                            <span class="text-base">Tag</span>
+                        </button>
+                    </div>
+                    <button 
+                        id="postButton"
+                        class="px-8 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all text-lg"
+                    >
+                        Post
+                    </button>
                 </div>
             </div>
 
-            <!-- Posts Feed -->
-            <div class="posts-feed">
+            <!-- Feed Content -->
+            <div id="feedContainer" class="space-y-6 max-w-3xl mx-auto">
                 <!-- Post 1 -->
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-user">
-                            <div class="post-avatar-small" style="background: linear-gradient(45deg, #ff6b6b, #ffa726);">P</div>
-                            <div class="user-info">
-                                <h4>ProPlayer</h4>
-                                <span>2 hours ago • #Valorant</span>
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 fade-in-up">
+                    <!-- Post Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                <span class="text-white font-bold">AM</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="text-white font-bold text-lg">ApexMaster_99</h4>
+                                    <span class="text-xs px-3 py-1 rounded-full bg-red-500/20 text-red-300">Predator</span>
+                                </div>
+                                <p class="text-gray-400 text-sm">2 hours ago • Playing Apex Legends</p>
                             </div>
                         </div>
-                        <span class="post-more material-symbols-outlined">more_vert</span>
+                        <button class="text-gray-400 hover:text-white">
+                            <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                        </button>
                     </div>
-                    <div class="post-content">
-                        <p class="post-caption">Just hit Diamond rank in Valorant! The grind was real but totally worth it. Any fellow diamond players looking to squad up?</p>
-                        <div class="post-media">
-                            <span class="material-symbols-outlined">military_tech</span>
+
+                    <!-- Post Content -->
+                    <p class="text-white text-lg mb-4">Just hit Masters in Apex Legends! That final game was intense - 12 kills and the game-winning play. Who's grinding ranked this season? 🔥 #ApexLegends #Ranked #Gaming</p>
+                    
+                    <!-- Post Media -->
+                    <div class="rounded-xl overflow-hidden mb-4">
+                        <div class="h-72 bg-gradient-to-r from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="material-symbols-outlined text-7xl text-red-400 material-icons-fix">play_circle</span>
+                                <p class="text-white mt-3 text-lg">Gameplay Highlight</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="post-engagement">
-                        <div class="engagement-stats">
-                            <span>1.2K likes • 84 comments</span>
-                            <span>42 shares</span>
+
+                    <!-- Post Stats -->
+                    <div class="flex items-center justify-between text-gray-400 text-base mb-4">
+                        <div class="flex items-center space-x-6">
+                            <span class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span>2.4K</span>
+                            </span>
+                            <span class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span>184</span>
+                            </span>
+                            <span class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span>42</span>
+                            </span>
                         </div>
-                        <div class="engagement-actions">
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">favorite</span>
-                                <span>Like</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">chat_bubble</span>
-                                <span>Comment</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">share</span>
-                                <span>Share</span>
-                            </button>
-                        </div>
+                        <span>12.4K views</span>
+                    </div>
+
+                    <!-- Post Actions -->
+                    <div class="flex items-center space-x-2 border-t border-white/10 pt-4">
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors like-post">
+                            <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                            <span class="text-base">Like</span>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chat</span>
+                            <span class="text-base">Comment</span>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">share</span>
+                            <span class="text-base">Share</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Post 2 (Reel) -->
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-user">
-                            <div class="post-avatar-small" style="background: linear-gradient(45deg, #b967ff, #ff6b6b);">S</div>
-                            <div class="user-info">
-                                <h4>StreamQueen</h4>
-                                <span>4 hours ago • #Fortnite</span>
+                <!-- Post 2 -->
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 fade-in-up">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                <span class="text-white font-bold">LR</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="text-white font-bold text-lg">LoreRunner</h4>
+                                    <span class="text-xs px-3 py-1 rounded-full bg-purple-500/20 text-purple-300">Storyteller</span>
+                                </div>
+                                <p class="text-gray-400 text-sm">5 hours ago • Exploring Elden Ring</p>
                             </div>
                         </div>
-                        <span class="post-more material-symbols-outlined">more_vert</span>
+                        <button class="text-gray-400 hover:text-white">
+                            <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                        </button>
                     </div>
-                    <div class="post-content">
-                        <p class="post-caption">Just dropped my latest Fortnite montage! Check out this insane victory royale clip 🔥</p>
-                        <div class="post-media">
-                            <span class="material-symbols-outlined">play_circle</span>
-                        </div>
-                    </div>
-                    <div class="post-engagement">
-                        <div class="engagement-stats">
-                            <span>2.5K likes • 312 comments</span>
-                            <span>89 shares</span>
-                        </div>
-                        <div class="engagement-actions">
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">favorite</span>
-                                <span>Like</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">chat_bubble</span>
-                                <span>Comment</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">share</span>
-                                <span>Share</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Post 3 -->
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-user">
-                            <div class="post-avatar-small" style="background: linear-gradient(45deg, #00f3ff, #0066ff);">T</div>
-                            <div class="user-info">
-                                <h4>TechWizard</h4>
-                                <span>6 hours ago • #GamingSetup</span>
-                            </div>
-                        </div>
-                        <span class="post-more material-symbols-outlined">more_vert</span>
+                    <p class="text-white text-lg mb-4">Just discovered a new hidden area in Elden Ring's DLC! The environmental storytelling in this game is absolutely phenomenal. Found some lore tablets that completely change the perspective on Queen Marika's motives. 🏰✨</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="h-48 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20"></div>
+                        <div class="h-48 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
                     </div>
-                    <div class="post-content">
-                        <p class="post-caption">Finally completed my gaming setup! RTX 4090, 240Hz monitor, mechanical keyboard - the dream is real. What's your favorite gaming gear?</p>
-                        <div class="post-media">
-                            <span class="material-symbols-outlined">desktop_windows</span>
+
+                    <div class="flex items-center justify-between text-gray-400 text-base mb-4">
+                        <div class="flex items-center space-x-6">
+                            <span class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span>1.8K</span>
+                            </span>
+                            <span class="flex items-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span>312</span>
+                            </span>
                         </div>
+                        <span>8.7K views</span>
                     </div>
-                    <div class="post-engagement">
-                        <div class="engagement-stats">
-                            <span>890 likes • 56 comments</span>
-                            <span>23 shares</span>
-                        </div>
-                        <div class="engagement-actions">
-                            <button class="engagement-btn active">
-                                <span class="material-symbols-outlined">favorite</span>
-                                <span>Liked</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">chat_bubble</span>
-                                <span>Comment</span>
-                            </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">share</span>
-                                <span>Share</span>
-                            </button>
-                        </div>
+
+                    <div class="flex items-center space-x-2 border-t border-white/10 pt-4">
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors like-post">
+                            <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                            <span class="text-base">Like</span>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chat</span>
+                            <span class="text-base">Comment</span>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">share</span>
+                            <span class="text-base">Share</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </main>
-
-        <!-- Right Sidebar -->
-        <aside class="right-sidebar">
-            <div class="trending-card">
-                <h3>Trending Now</h3>
-                <div class="trending-item">
-                    <div class="trending-number">1</div>
-                    <div>
-                        <div style="font-weight: 500;">New Season Update</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">5.2K posts</div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-number">2</div>
-                    <div>
-                        <div style="font-weight: 500;">Pro Tournament Live</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">3.8K posts</div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-number">3</div>
-                    <div>
-                        <div style="font-weight: 500;">Legendary Skin Drop</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">2.9K posts</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="online-card">
-                <h3>Online Friends</h3>
-                <div class="online-user">
-                    <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(45deg, #2ecc71, #1abc9c); display: flex; align-items: center; justify-content: center; font-weight: 600;">G</div>
-                    <div>
-                        <div style="font-weight: 500;">GamerX</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Playing Valorant</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-                <div class="online-user">
-                    <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(45deg, #9b59b6, #8e44ad); display: flex; align-items: center; justify-content: center; font-weight: 600;">S</div>
-                    <div>
-                        <div style="font-weight: 500;">StreamQueen</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Streaming Fortnite</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-                <div class="online-user">
-                    <div style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(45deg, #3498db, #2980b9); display: flex; align-items: center; justify-content: center; font-weight: 600;">P</div>
-                    <div>
-                        <div style="font-weight: 500;">ProPlayer</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Playing Call of Duty</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-            </div>
-
-            <div class="suggested-card">
-                <h3>Suggested Communities</h3>
-                <div class="community-item">
-                    <div class="community-avatar">
-                        <span class="material-symbols-outlined">military_tech</span>
-                    </div>
-                    <div>
-                        <div style="font-weight: 500;">FPS Masters</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">45K members</div>
-                    </div>
-                </div>
-                <div class="community-item">
-                    <div class="community-avatar">
-                        <span class="material-symbols-outlined">sports_esports</span>
-                    </div>
-                    <div>
-                        <div style="font-weight: 500;">Battle Royale</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">68K members</div>
-                    </div>
-                </div>
-                <div class="community-item">
-                    <div class="community-avatar">
-                        <span class="material-symbols-outlined">psychology</span>
-                    </div>
-                    <div>
-                        <div style="font-weight: 500;">Strategy Gamers</div>
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">32K members</div>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
 
     <script>
-        // Like button functionality
-        document.querySelectorAll('.engagement-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const icon = this.querySelector('.material-symbols-outlined');
-                const text = this.querySelector('span:not(.material-symbols-outlined)');
-                
-                if (icon.textContent === 'favorite') {
-                    icon.textContent = 'favorite';
-                    this.classList.add('active');
-                    text.textContent = 'Liked';
-                    
-                    // Update like count (simplified)
-                    const post = this.closest('.post-card');
-                    const stats = post.querySelector('.engagement-stats span:first-child');
-                    const current = stats.textContent.match(/\d+(\.\d+K)?/)[0];
-                    let newCount;
-                    
-                    if (current.includes('K')) {
-                        const num = parseFloat(current) + 0.1;
-                        newCount = num.toFixed(1) + 'K';
-                    } else {
-                        newCount = parseInt(current) + 1;
-                    }
-                    
-                    stats.textContent = stats.textContent.replace(/\d+(\.\d+K)?/, newCount);
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main menu dropdown
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            mainMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mainMenuDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                notificationsDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Notifications dropdown
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            notificationsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationsDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Messages dropdown
+            const messagesMenu = document.getElementById('messagesMenu');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+            
+            messagesMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                messagesDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                notificationsDropdown.classList.add('hidden');
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target)) {
+                    mainMenuDropdown.classList.add('hidden');
+                }
+                if (!notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target)) {
+                    notificationsDropdown.classList.add('hidden');
+                }
+                if (!messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target)) {
+                    messagesDropdown.classList.add('hidden');
                 }
             });
-        });
 
-        // Create post functionality
-        document.querySelector('.post-button[style*="width: 100%"]').addEventListener('click', () => {
-            window.location.href="{% url 'user profile' %}"
-        });
-
-        document.querySelector('.create-post .post-button').addEventListener('click', () => {
-            const textarea = document.querySelector('.post-textarea');
-            const content = textarea.value.trim();
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
             
-            if (content) {
-                // Create new post
-                const postsFeed = document.querySelector('.posts-feed');
-                const newPost = document.createElement('div');
-                newPost.className = 'post-card';
-                newPost.innerHTML = `
-                    <div class="post-header">
-                        <div class="post-user">
-                            <div class="post-avatar-small" style="background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));">GP</div>
-                            <div class="user-info">
-                                <h4>GamerPro</h4>
-                                <span>Just now</span>
+            searchInput.addEventListener('focus', function() {
+                showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+            });
+            
+            searchInput.addEventListener('input', function(e) {
+                if (e.target.value.length > 0) {
+                    showSearchResults(['Results for: ' + e.target.value]);
+                } else {
+                    showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+                }
+            });
+            
+            function showSearchResults(items) {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = items.map(item => `
+                    <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                            <span>${item}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // Create post functionality - without post flicker
+            const postButton = document.getElementById('postButton');
+            const postInput = document.getElementById('postInput');
+            const feedContainer = document.getElementById('feedContainer');
+            
+            postButton.addEventListener('click', function() {
+                const postContent = postInput.value.trim();
+                if (postContent) {
+                    // Create new post element
+                    const newPost = document.createElement('div');
+                    newPost.className = 'glassmorphism-light backdrop-blur-lg rounded-2xl p-6 fade-in-up';
+                    newPost.innerHTML = `
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                                    <span class="text-white font-bold">JD</span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <h4 class="text-white font-bold text-lg">JohnDoe_Gamer</h4>
+                                        <span class="text-xs px-3 py-1 rounded-full bg-neon-cyan/20 text-neon-cyan">You</span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm">Just now</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-white delete-post">
+                                <span class="material-symbols-outlined material-icons-fix">close</span>
+                            </button>
+                        </div>
+                        <p class="text-white text-lg mb-4">${postContent}</p>
+                        <div class="flex items-center justify-between text-gray-400 text-base mb-4">
+                            <div class="flex items-center space-x-6">
+                                <span class="flex items-center space-x-2">
+                                    <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                    <span>0</span>
+                                </span>
+                                <span class="flex items-center space-x-2">
+                                    <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                    <span>0</span>
+                                </span>
+                                <span class="flex items-center space-x-2">
+                                    <span class="material-symbols-outlined material-icons-fix">share</span>
+                                    <span>0</span>
+                                </span>
                             </div>
                         </div>
-                        <span class="post-more material-symbols-outlined">more_vert</span>
-                    </div>
-                    <div class="post-content">
-                        <p class="post-caption">${content}</p>
-                    </div>
-                    <div class="post-engagement">
-                        <div class="engagement-stats">
-                            <span>0 likes • 0 comments</span>
-                            <span>0 shares</span>
-                        </div>
-                        <div class="engagement-actions">
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">favorite</span>
-                                <span>Like</span>
+                        <div class="flex items-center space-x-2 border-t border-white/10 pt-4">
+                            <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors like-post">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span class="text-base">Like</span>
                             </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">chat_bubble</span>
-                                <span>Comment</span>
+                            <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="text-base">Comment</span>
                             </button>
-                            <button class="engagement-btn">
-                                <span class="material-symbols-outlined">share</span>
-                                <span>Share</span>
+                            <button class="flex-1 flex items-center justify-center space-x-3 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span class="text-base">Share</span>
                             </button>
                         </div>
-                    </div>
-                `;
-                
-                // Add to top of feed
-                postsFeed.insertBefore(newPost, postsFeed.firstChild);
-                
-                // Clear textarea
-                textarea.value = '';
-                
-                // Add event listeners to new buttons
-                newPost.querySelectorAll('.engagement-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const icon = this.querySelector('.material-symbols-outlined');
-                        const text = this.querySelector('span:not(.material-symbols-outlined)');
-                        
-                        if (icon.textContent === 'favorite') {
-                            icon.textContent = 'favorite';
-                            this.classList.add('active');
-                            text.textContent = 'Liked';
-                        }
+                    `;
+                    
+                    // Insert at the top of the feed
+                    feedContainer.insertBefore(newPost, feedContainer.firstChild);
+                    
+                    // Clear input
+                    postInput.value = '';
+                    
+                    // Add event listener to delete button
+                    newPost.querySelector('.delete-post').addEventListener('click', function() {
+                        feedContainer.removeChild(newPost);
                     });
-                });
-            }
-        });
-
-        // Media options hover effects
-        document.querySelectorAll('.media-option').forEach(option => {
-            option.addEventListener('mouseenter', function() {
-                const icon = this.querySelector('.material-symbols-outlined');
-                icon.style.color = 'var(--neon-cyan)';
-            });
-            
-            option.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.material-symbols-outlined');
-                icon.style.color = '';
-            });
-        });
-
-        // Quick actions
-        document.querySelectorAll('.action-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const action = this.querySelector('span:not(.material-symbols-outlined)').textContent;
-                alert(`${action} feature coming soon!`);
-            });
-        });
-
-        // Trending items
-        document.querySelectorAll('.trending-item, .online-user, .community-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.background = 'rgba(0, 243, 255, 0.1)';
-                setTimeout(() => {
-                    this.style.background = '';
-                }, 300);
-            });
-        });
-
-        // Simple search
-        const searchInput = document.querySelector('.search-bar input');
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const query = searchInput.value.trim();
-                if (query) {
-                    alert(`Searching for: ${query}`);
+                    
+                    // Add event listener to like button - without causing flicker
+                    newPost.querySelector('.like-post').addEventListener('click', function(e) {
+                        const button = e.target.closest('.like-post');
+                        const likeSpan = button.querySelector('span:last-child');
+                        const currentLikes = parseInt(likeSpan.textContent);
+                        likeSpan.textContent = currentLikes + 1;
+                        
+                        // Change icon to filled without causing layout shift
+                        const icon = button.querySelector('.material-symbols-outlined');
+                        icon.textContent = 'favorite';
+                        icon.style.fontVariationSettings = '"FILL" 1';
+                    });
                 }
-            }
+            });
+
+            // Like functionality for existing posts - without causing flicker
+            document.querySelectorAll('.like-post').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const likeSpan = e.target.closest('.like-post').querySelector('span:last-child');
+                    const currentLikes = parseInt(likeSpan.textContent);
+                    likeSpan.textContent = currentLikes + 1;
+                    
+                    // Change icon to filled without causing layout shift
+                    const icon = e.target.closest('.like-post').querySelector('.material-symbols-outlined');
+                    icon.textContent = 'favorite';
+                    icon.style.fontVariationSettings = '"FILL" 1';
+                });
+            });
+
+            // Notification pulse effect
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                notification.classList.toggle('pulse-notification');
+                setTimeout(() => {
+                    notification.classList.toggle('pulse-notification');
+                }, 100);
+            }, 4000);
+
+            console.log('Hyper Realm Dashboard initialized!');
         });
     </script>
 </body>
