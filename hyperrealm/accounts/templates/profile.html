@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamerPro Profile | Hyper Realm</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <!-- Custom Styles -->
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Profile</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --neon-cyan: #00f3ff;
@@ -21,638 +25,904 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
         }
 
-        .orbitron {
+        h1, h2, h3, h4 {
             font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
         }
 
-        .glass-card {
-            background: rgba(15, 20, 35, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Enhanced Background */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Scanning line effect */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            animation: scan-line 8s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
 
         .neon-text {
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
         }
 
-        .neon-border {
-            border-color: rgba(0, 243, 255, 0.2);
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
         }
 
-        .gradient-bg {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .gradient-text {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
         }
 
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            background: #2ecc71;
-            box-shadow: 0 0 10px #2ecc71;
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
         }
 
-        .status-playing {
-            background: #ff4757;
-            box-shadow: 0 0 10px #ff4757;
+        .transition-all {
+            transition: all 0.3s ease;
         }
 
-        .status-streaming {
-            background: #b967ff;
-            box-shadow: 0 0 10px #b967ff;
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .status-away {
-            background: #ffa726;
-            box-shadow: 0 0 10px #ffa726;
+        /* Fixed Navigation Bar */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        /* Profile specific styles */
+        .profile-banner {
+            height: 280px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(185, 103, 255, 0.2));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(185, 103, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .profile-avatar {
+            width: 160px;
+            height: 160px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .online-status {
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--darker-bg);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
         }
 
         .progress-bar {
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .progress-fill {
             height: 100%;
             border-radius: 4px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--neon-cyan);
-            border-radius: 4px;
         }
 
         .stat-card {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(15, 20, 35, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            border-color: var(--neon-cyan);
+            background: rgba(15, 20, 35, 0.7);
+            border-color: rgba(0, 243, 255, 0.3);
         }
 
         .game-card {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            background: rgba(15, 20, 35, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.3s ease;
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-purple);
+            transform: translateY(-3px);
+            background: rgba(15, 20, 35, 0.7);
+            border-color: rgba(185, 103, 255, 0.3);
         }
 
-        .achievement-card {
-            transition: all 0.3s ease;
+        /* Main content padding for fixed navbar */
+        .main-content {
+            padding-top: 80px;
         }
 
-        .achievement-card:hover {
-            transform: scale(1.05);
+        @media (max-width: 768px) {
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+            .profile-banner {
+                height: 200px;
+            }
         }
     </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
 </head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-[rgba(10,15,25,0.8)] backdrop-blur-xl border-b border-[rgba(0,243,255,0.2)] py-4 px-8">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-[var(--neon-cyan)]">hub</span>
-                <span class="orbitron text-xl font-bold text-[var(--neon-cyan)] neon-text">Hyper Realm</span>
-            </div>
 
-            <!-- Navigation Links -->
-            <div class="flex items-center gap-8">
-                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
-                    <span class="material-symbols-outlined">home</span>
-                    <span>Feed</span>
-                </a>
-                <a href="#" class="flex items-center gap-2 text-[var(--neon-cyan)]">
-                    <span class="material-symbols-outlined">person</span>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
-                    <span class="material-symbols-outlined">groups</span>
-                    <span>Communities</span>
-                </a>
-                <a href="#" class="flex items-center gap-2 hover:text-[var(--neon-cyan)] transition-colors">
-                    <span class="material-symbols-outlined">trophy</span>
-                    <span>Leaderboards</span>
-                </a>
-            </div>
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
 
-            <!-- User Menu -->
-            <div class="flex items-center gap-4">
-                <div class="relative">
-                    <span class="material-symbols-outlined cursor-pointer hover:text-[var(--neon-cyan)]">notifications</span>
-                    <div class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</div>
-                </div>
-                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center font-bold cursor-pointer">GP</div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto p-6">
-        <!-- Profile Header -->
-        <div class="glass-card rounded-2xl p-8 mb-6">
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-                <!-- Profile Avatar -->
-                <div class="relative">
-                    <div class="w-40 h-40 rounded-full gradient-bg flex items-center justify-center text-4xl font-bold">
-                        GP
+    <div class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- Top Navigation Bar - Fixed -->
+        <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo on left side -->
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                        <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
                     </div>
-                    <div class="absolute bottom-4 right-4 online-dot"></div>
-                    <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-[var(--dark-bg)] rounded-full flex items-center justify-center border-2 border-[var(--neon-cyan)] cursor-pointer hover:scale-110 transition-transform">
-                        <span class="material-symbols-outlined text-[var(--neon-cyan)]">photo_camera</span>
-                    </div>
-                </div>
 
-                <!-- Profile Info -->
-                <div class="flex-1">
-                    <div class="flex flex-col md:flex-row justify-between items-center md:items-start mb-6">
-                        <div>
-                            <h1 class="orbitron text-3xl font-bold gradient-text">GamerPro</h1>
-                            <p class="text-gray-400">Professional Gamer & Streamer</p>
-                            <div class="flex items-center gap-2 mt-2">
-                                <span class="material-symbols-outlined text-yellow-500 text-sm">location_on</span>
-                                <span class="text-sm">North America • EST Timezone</span>
+                    <!-- Search bar centered -->
+                    <div class="flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                                placeholder="Search gamers, communities, games..."
+                            />
+                            <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                                <!-- Search results will appear here -->
                             </div>
                         </div>
-                        <div class="flex gap-3 mt-4 md:mt-0">
-                            <button class="px-6 py-2 gradient-bg rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2">
-                                <span class="material-symbols-outlined">edit</span>
-                                Edit Profile
-                            </button>
-                            <button class="px-6 py-2 border border-[var(--neon-cyan)] text-[var(--neon-cyan)] rounded-lg font-medium hover:bg-[rgba(0,243,255,0.1)] transition-colors flex items-center gap-2">
-                                <span class="material-symbols-outlined">share</span>
-                                Share
+                    </div>
+
+                    <!-- Right: Navigation icons -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Home Link -->
+                        <a href="dashboard.html" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">home</span>
+                        </a>
+
+                        <!-- Notifications -->
+                        <div class="relative" id="notificationsMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
                             </button>
                         </div>
-                    </div>
 
-                    <!-- Stats -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-                        <div class="stat-card glass-card rounded-xl p-4 text-center">
-                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">142</div>
-                            <div class="text-gray-400 text-sm">Posts</div>
+                        <!-- Messages -->
+                        <div class="relative" id="messagesMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                            </button>
                         </div>
-                        <div class="stat-card glass-card rounded-xl p-4 text-center">
-                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">1.2K</div>
-                            <div class="text-gray-400 text-sm">Followers</div>
-                        </div>
-                        <div class="stat-card glass-card rounded-xl p-4 text-center">
-                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">856</div>
-                            <div class="text-gray-400 text-sm">Following</div>
-                        </div>
-                        <div class="stat-card glass-card rounded-xl p-4 text-center">
-                            <div class="orbitron text-2xl text-[var(--neon-cyan)]">2.4K</div>
-                            <div class="text-gray-400 text-sm">Hours Played</div>
-                        </div>
-                    </div>
 
-                    <!-- Bio -->
-                    <div class="mb-6">
-                        <h3 class="orbitron text-lg mb-2 text-[var(--neon-cyan)]">About</h3>
-                        <p class="text-gray-300">
-                            Competitive FPS player specializing in Valorant and CS2. Currently ranked Diamond 3. 
-                            Streaming 5 days a week. Always looking for competitive teammates. 
-                            PC Specs: RTX 4090 • i9-13900K • 32GB DDR5 • 240Hz Monitor
-                        </p>
-                    </div>
-
-                    <!-- Social Links -->
-                    <div class="flex gap-4">
-                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
-                            <span class="material-symbols-outlined">link</span>
-                            <span>twitch.tv/gamerpro</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
-                            <span class="material-symbols-outlined">link</span>
-                            <span>twitter.com/gamerpro</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-2 text-gray-400 hover:text-[var(--neon-cyan)] transition-colors">
-                            <span class="material-symbols-outlined">link</span>
-                            <span>discord.gg/gamerpro</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Left Column - Stats & Games -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Game Stats -->
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Game Statistics</h2>
-                        <select class="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-2 text-sm">
-                            <option>Last 30 Days</option>
-                            <option>Last 90 Days</option>
-                            <option>All Time</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-6">
-                        <!-- Valorant Stats -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
-                                        <span class="material-symbols-outlined">military_tech</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Valorant</h4>
-                                        <p class="text-sm text-gray-400">Diamond 3 • 320 hours</p>
-                                    </div>
+                        <!-- Profile Dropdown -->
+                        <div class="relative" id="profileMenu">
+                            <button class="flex items-center space-x-2 focus:outline-none">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">JD</span>
                                 </div>
-                                <div class="text-right">
-                                    <div class="text-lg font-bold gradient-text">1.8 K/D</div>
-                                    <p class="text-sm text-gray-400">Win Rate: 58%</p>
+                            </button>
+                            
+                            <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl z-50 slide-down">
+                                <div class="py-2">
+                                    <a href="profile.html" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                                        <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                                        My Profile
+                                    </a>
+                                    <a href="dashboard.html" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                                        <span class="material-symbols-outlined mr-3 material-icons-fix">dashboard</span>
+                                        Dashboard
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                                        <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                                        Settings
+                                    </a>
+                                    <hr class="border-white/10 my-1">
+                                    <a href="index.html" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                                        <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                                        Logout
+                                    </a>
                                 </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 58%"></div>
-                            </div>
-                        </div>
-
-                        <!-- CS2 Stats -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                                        <span class="material-symbols-outlined">target</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Counter-Strike 2</h4>
-                                        <p class="text-sm text-gray-400">Global Elite • 840 hours</p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-lg font-bold gradient-text">1.5 K/D</div>
-                                    <p class="text-sm text-gray-400">Win Rate: 62%</p>
-                                </div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 62%"></div>
-                            </div>
-                        </div>
-
-                        <!-- Fortnite Stats -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                                        <span class="material-symbols-outlined">explosion</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium">Fortnite</h4>
-                                        <p class="text-sm text-gray-400">Champion • 156 hours</p>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-lg font-bold gradient-text">3.2 K/D</div>
-                                    <p class="text-sm text-gray-400">Win Rate: 42%</p>
-                                </div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 42%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Achievements -->
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="orbitron text-xl text-[var(--neon-cyan)] mb-6">Recent Achievements</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
-                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="material-symbols-outlined text-2xl">military_tech</span>
-                            </div>
-                            <h4 class="font-medium mb-1">Diamond Rank</h4>
-                            <p class="text-sm text-gray-400">Valorant • Today</p>
-                        </div>
-                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
-                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="material-symbols-outlined text-2xl">emoji_events</span>
-                            </div>
-                            <h4 class="font-medium mb-1">Tournament Winner</h4>
-                            <p class="text-sm text-gray-400">CS2 • 2 days ago</p>
-                        </div>
-                        <div class="achievement-card glass-card rounded-xl p-4 text-center">
-                            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="material-symbols-outlined text-2xl">stream</span>
-                            </div>
-                            <h4 class="font-medium mb-1">1000 Followers</h4>
-                            <p class="text-sm text-gray-400">Twitch • 1 week ago</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </nav>
 
-            <!-- Right Column - Activity & Friends -->
-            <div class="space-y-6">
-                <!-- Current Status -->
-                <div class="glass-card rounded-2xl p-6">
-                    <h2 class="orbitron text-xl text-[var(--neon-cyan)] mb-4">Current Status</h2>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="status-playing rounded-full w-3 h-3"></div>
-                        <div>
-                            <div class="font-medium">Playing Valorant</div>
-                            <div class="text-sm text-gray-400">Competitive • 45 minutes</div>
-                        </div>
-                    </div>
-                    <button class="w-full gradient-bg rounded-lg py-3 font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">add</span>
-                        Join Session
-                    </button>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Profile Banner -->
+            <div class="profile-banner relative">
+                <!-- Banner Pattern -->
+                <div class="absolute inset-0 opacity-20">
+                    <div class="absolute top-10 left-10 w-32 h-32 rounded-full bg-neon-cyan/30 blur-3xl"></div>
+                    <div class="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-neon-purple/30 blur-3xl"></div>
                 </div>
-
-                <!-- Recent Games -->
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Recent Games</h2>
-                        <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-[var(--neon-cyan)]">more_vert</span>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="game-card glass-card rounded-xl p-4 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
-                                    <span class="material-symbols-outlined">military_tech</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium">Valorant</div>
-                                    <div class="text-sm text-gray-400">45 min ago • Win</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-lg font-bold text-green-500">13 - 7</div>
-                                <div class="text-sm text-gray-400">K/D: 24/12</div>
-                            </div>
-                        </div>
-                        <div class="game-card glass-card rounded-xl p-4 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                                    <span class="material-symbols-outlined">target</span>
-                                </div>
-                                <div>
-                                    <div class="font-medium">CS2</div>
-                                    <div class="text-sm text-gray-400">3 hours ago • Win</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-lg font-bold text-green-500">16 - 10</div>
-                                <div class="text-sm text-gray-400">K/D: 31/18</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top Friends -->
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="orbitron text-xl text-[var(--neon-cyan)]">Top Friends</h2>
-                        <span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-[var(--neon-cyan)]">group_add</span>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center font-bold">
-                                        S
-                                    </div>
-                                    <div class="status-streaming absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
-                                </div>
-                                <div>
-                                    <div class="font-medium">StreamQueen</div>
-                                    <div class="text-sm text-gray-400">Streaming Fortnite</div>
-                                </div>
-                            </div>
-                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold">
-                                        P
-                                    </div>
-                                    <div class="online-dot absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
-                                </div>
-                                <div>
-                                    <div class="font-medium">ProPlayer</div>
-                                    <div class="text-sm text-gray-400">Playing Valorant</div>
-                                </div>
-                            </div>
-                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 hover:bg-[rgba(255,255,255,0.05)] rounded-lg cursor-pointer">
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center font-bold">
-                                        T
-                                    </div>
-                                    <div class="status-away absolute -bottom-1 -right-1 rounded-full w-3 h-3"></div>
-                                </div>
-                                <div>
-                                    <div class="font-medium">TechWizard</div>
-                                    <div class="text-sm text-gray-400">Away</div>
-                                </div>
-                            </div>
-                            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
-                        </div>
-                    </div>
-                </div>
+                
+                <!-- Edit Banner Button -->
+                <button class="absolute top-4 right-4 p-2 rounded-lg glassmorphism-light hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-white material-icons-fix">edit</span>
+                </button>
             </div>
-        </div>
-    </main>
+
+            <!-- Profile Info Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10">
+                <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8">
+                    <!-- Profile Avatar and Basic Info -->
+                    <div class="flex flex-col md:flex-row items-center md:items-end gap-6">
+                        <div class="relative">
+                            <div class="profile-avatar rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                                <span class="text-white text-4xl font-bold">JD</span>
+                            </div>
+                            <div class="online-status rounded-full bg-green-500 absolute bottom-4 right-4"></div>
+                            <!-- Edit Avatar Button -->
+                            <button class="absolute bottom-0 right-0 p-2 rounded-full glassmorphism-light hover:bg-white/10 transition-colors">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">photo_camera</span>
+                            </button>
+                        </div>
+                        
+                        <div class="text-center md:text-left">
+                            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">JohnDoe_Gamer</h1>
+                            <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4">
+                                <span class="badge bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 text-neon-cyan border border-neon-cyan/30">
+                                    <span class="material-symbols-outlined mr-1 text-sm material-icons-fix">military_tech</span>
+                                    Level 75 • Legendary
+                                </span>
+                                <span class="text-gray-400">🎮 Professional Gamer</span>
+                                <span class="text-gray-400">📍 New York, USA</span>
+                                <span class="text-gray-400">📅 Joined March 2023</span>
+                            </div>
+                            <p class="text-gray-300 max-w-2xl">
+                                Competitive FPS player with a passion for strategy games. Always looking for new challenges and teammates.
+                                Streaming regularly on weekends. Let's game together! 🎯
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center gap-3">
+                        <button class="px-6 py-3 rounded-xl glassmorphism-light hover:bg-white/10 transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined material-icons-fix">add</span>
+                            <span>Follow</span>
+                        </button>
+                        <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined material-icons-fix">chat</span>
+                            <span>Message</span>
+                        </button>
+                        <button class="p-3 rounded-xl glassmorphism-light hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400 text-sm">Followers</span>
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">group</span>
+                        </div>
+                        <div class="text-2xl font-bold text-white">12.5K</div>
+                        <div class="text-green-400 text-sm flex items-center">
+                            <span class="material-symbols-outlined mr-1 text-sm material-icons-fix">trending_up</span>
+                            +245 this month
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400 text-sm">Following</span>
+                            <span class="material-symbols-outlined text-neon-purple material-icons-fix">group_add</span>
+                        </div>
+                        <div class="text-2xl font-bold text-white">856</div>
+                        <div class="text-gray-400 text-sm">Active connections</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400 text-sm">Posts</span>
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">post</span>
+                        </div>
+                        <div class="text-2xl font-bold text-white">342</div>
+                        <div class="text-gray-400 text-sm">Content shared</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400 text-sm">Win Rate</span>
+                            <span class="material-symbols-outlined text-neon-purple material-icons-fix">trophy</span>
+                        </div>
+                        <div class="text-2xl font-bold text-white">68.5%</div>
+                        <div class="progress-bar mt-2">
+                            <div class="progress-fill bg-gradient-to-r from-neon-cyan to-neon-purple" style="width: 68.5%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Left Column: About & Details -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <!-- About Section -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-white">About</h2>
+                                <button class="text-gray-400 hover:text-neon-cyan transition-colors">
+                                    <span class="material-symbols-outlined material-icons-fix">edit</span>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h3 class="text-gray-400 text-sm mb-1">Bio</h3>
+                                    <p class="text-gray-300">
+                                        Professional gamer and content creator specializing in FPS and strategy games. 
+                                        Competed in multiple tournaments with top placements. Love helping new players 
+                                        improve their skills through coaching sessions.
+                                    </p>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h3 class="text-gray-400 text-sm mb-1">Platforms</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="badge bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-300">PC Master</span>
+                                            <span class="badge bg-gradient-to-r from-green-500/20 to-green-600/20 text-green-300">PlayStation 5</span>
+                                            <span class="badge bg-gradient-to-r from-red-500/20 to-red-600/20 text-red-300">Xbox Series X</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h3 class="text-gray-400 text-sm mb-1">Languages</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="badge bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-purple-300">English (Native)</span>
+                                            <span class="badge bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 text-yellow-300">Spanish</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-white">Recent Activity</h2>
+                                <button class="text-gray-400 hover:text-neon-cyan transition-colors">
+                                    <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-red-400 material-icons-fix">military_tech</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-white">
+                                            Reached <span class="text-neon-cyan font-bold">Top 500</span> in Apex Legends ranked
+                                        </p>
+                                        <p class="text-gray-400 text-sm">2 hours ago</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-purple-400 material-icons-fix">forum</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-white">
+                                            Posted a new strategy guide for <span class="text-neon-purple font-bold">Elden Ring DLC</span>
+                                        </p>
+                                        <p class="text-gray-400 text-sm">1 day ago</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-green-400 material-icons-fix">group_add</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-white">
+                                            Joined the <span class="text-neon-cyan font-bold">#CompetitiveFPS</span> community
+                                        </p>
+                                        <p class="text-gray-400 text-sm">3 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Posts -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-white">Recent Posts</h2>
+                                <button class="text-gray-400 hover:text-neon-cyan transition-colors">
+                                    <span class="material-symbols-outlined material-icons-fix">add</span>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <!-- Post 1 -->
+                                <div class="p-4 rounded-xl glassmorphism-light hover:bg-white/5 transition-colors">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple"></div>
+                                            <div>
+                                                <div class="text-white font-medium">JohnDoe_Gamer</div>
+                                                <div class="text-gray-400 text-sm">Playing Valorant • 4 hours ago</div>
+                                            </div>
+                                        </div>
+                                        <button class="text-gray-400 hover:text-white">
+                                            <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                                        </button>
+                                    </div>
+                                    <p class="text-gray-300 mb-4">
+                                        Just had an insane 1v5 clutch in Valorant ranked! The new agent's abilities are game-changing. 
+                                        Who else is loving the latest update? 🎯 #Valorant #Gaming
+                                    </p>
+                                    <div class="flex items-center justify-between text-gray-400 text-sm">
+                                        <div class="flex items-center gap-4">
+                                            <span class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                                324
+                                            </span>
+                                            <span class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                                45
+                                            </span>
+                                        </div>
+                                        <span>2.1K views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Stats & Games -->
+                    <div class="space-y-8">
+                        <!-- Gaming Stats -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <h2 class="text-xl font-bold text-white mb-6">Gaming Stats</h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-gray-400 text-sm">Accuracy</span>
+                                        <span class="text-neon-cyan font-bold">84%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-neon-cyan to-neon-blue" style="width: 84%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-gray-400 text-sm">Headshot Rate</span>
+                                        <span class="text-neon-purple font-bold">72%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-neon-purple to-pink-500" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-gray-400 text-sm">K/D Ratio</span>
+                                        <span class="text-green-400 font-bold">3.2</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-green-500 to-teal-500" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-gray-400 text-sm">Play Time</span>
+                                        <span class="text-yellow-400 font-bold">1,250h</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-yellow-500 to-orange-500" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Games -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-white">Top Games</h2>
+                                <button class="text-gray-400 hover:text-neon-cyan transition-colors">
+                                    <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                                </button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="game-card">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-red-400 material-icons-fix">military_tech</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-white font-medium">Valorant</div>
+                                                <div class="text-gray-400 text-sm">350 hours</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-neon-cyan font-bold">Platinum III</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-red-500 to-orange-500" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="game-card">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/20 to-teal-500/20 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-green-400 material-icons-fix">sports_esports</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-white font-medium">League of Legends</div>
+                                                <div class="text-gray-400 text-sm">420 hours</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-neon-purple font-bold">Diamond IV</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-green-500 to-teal-500" style="width: 68%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="game-card">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-blue-400 material-icons-fix">sword</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-white font-medium">Elden Ring</div>
+                                                <div class="text-gray-400 text-sm">180 hours</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-yellow-400 font-bold">100%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill bg-gradient-to-r from-blue-500 to-purple-500" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Badges & Achievements -->
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-white">Badges</h2>
+                                <button class="text-gray-400 hover:text-neon-cyan transition-colors">
+                                    <span class="material-symbols-outlined material-icons-fix">more_vert</span>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-neon-cyan/10 to-transparent border border-neon-cyan/20">
+                                    <span class="material-symbols-outlined text-3xl text-neon-cyan mb-2 material-icons-fix">military_tech</span>
+                                    <span class="text-white text-sm text-center">Legendary Gamer</span>
+                                </div>
+                                
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-neon-purple/10 to-transparent border border-neon-purple/20">
+                                    <span class="material-symbols-outlined text-3xl text-neon-purple mb-2 material-icons-fix">trophy</span>
+                                    <span class="text-white text-sm text-center">Tournament Champion</span>
+                                </div>
+                                
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-yellow-500/10 to-transparent border border-yellow-500/20">
+                                    <span class="material-symbols-outlined text-3xl text-yellow-400 mb-2 material-icons-fix">star</span>
+                                    <span class="text-white text-sm text-center">Content Creator</span>
+                                </div>
+                                
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-green-500/10 to-transparent border border-green-500/20">
+                                    <span class="material-symbols-outlined text-3xl text-green-400 mb-2 material-icons-fix">group</span>
+                                    <span class="text-white text-sm text-center">Community Leader</span>
+                                </div>
+                                
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/20">
+                                    <span class="material-symbols-outlined text-3xl text-red-400 mb-2 material-icons-fix">bolt</span>
+                                    <span class="text-white text-sm text-center">Speed Runner</span>
+                                </div>
+                                
+                                <div class="flex flex-col items-center p-3 rounded-lg bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20">
+                                    <span class="material-symbols-outlined text-3xl text-blue-400 mb-2 material-icons-fix">forum</span>
+                                    <span class="text-white text-sm text-center">Mentor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Spacing -->
+                <div class="h-20"></div>
+            </div>
+        </main>
+    </div>
 
     <script>
-        // Interactive Stats Cards
-        document.querySelectorAll('.stat-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const number = this.querySelector('.orbitron');
-                const originalText = number.textContent;
-                
-                // Add pulse effect
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-                this.style.borderColor = 'var(--neon-cyan)';
-                this.style.boxShadow = '0 0 20px rgba(0, 243, 255, 0.3)';
-                
-                // Add count animation
-                if (!isNaN(parseInt(originalText))) {
-                    let count = parseInt(originalText);
-                    number.textContent = count + 1;
-                    
-                    setTimeout(() => {
-                        number.textContent = originalText;
-                    }, 1000);
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Profile dropdown menu
+            const profileMenu = document.getElementById('profileMenu');
+            const profileDropdown = document.getElementById('profileDropdown');
+            
+            profileMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!profileMenu.contains(e.target)) {
+                    profileDropdown.classList.add('hidden');
                 }
-                
-                setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                }, 300);
             });
-        });
 
-        // Join Session Button
-        document.querySelector('button:contains("Join Session")')?.addEventListener('click', function() {
-            this.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Joining...';
-            this.disabled = true;
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
             
-            setTimeout(() => {
-                this.innerHTML = '<span class="material-symbols-outlined">check</span> Joined!';
-                this.style.background = 'linear-gradient(45deg, #2ecc71, #1abc9c)';
-                
-                setTimeout(() => {
-                    this.innerHTML = '<span class="material-symbols-outlined">add</span> Join Session';
-                    this.style.background = '';
-                    this.disabled = false;
-                }, 2000);
-            }, 1500);
-        });
-
-        // Achievement Cards Animation
-        document.querySelectorAll('.achievement-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const icon = this.querySelector('.material-symbols-outlined');
-                icon.style.transform = 'rotateY(360deg)';
-                icon.style.transition = 'transform 0.5s ease';
+            searchInput.addEventListener('focus', function() {
+                showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
             });
             
-            card.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.material-symbols-outlined');
-                icon.style.transform = 'rotateY(0deg)';
+            searchInput.addEventListener('input', function(e) {
+                if (e.target.value.length > 0) {
+                    showSearchResults(['Results for: ' + e.target.value]);
+                } else {
+                    showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+                }
             });
-        });
-
-        // Game Cards Hover Effect
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const gameName = this.querySelector('.font-medium').textContent;
-                alert(`Viewing detailed stats for ${gameName}`);
-            });
-        });
-
-        // Friend List Interaction
-        document.querySelectorAll('.cursor-pointer').forEach(item => {
-            if (item.textContent.includes('StreamQueen') || 
-                item.textContent.includes('ProPlayer') || 
-                item.textContent.includes('TechWizard')) {
-                item.addEventListener('click', function() {
-                    const friendName = this.querySelector('.font-medium').textContent;
-                    alert(`Opening ${friendName}'s profile`);
-                });
-            }
-        });
-
-        // Edit Profile Button
-        document.querySelector('button:contains("Edit Profile")')?.addEventListener('click', function() {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-            modal.innerHTML = `
-                <div class="glass-card rounded-2xl p-8 max-w-md w-full mx-4">
-                    <h3 class="orbitron text-xl text-[var(--neon-cyan)] mb-4">Edit Profile</h3>
-                    <div class="space-y-4">
-                        <input type="text" placeholder="Display Name" class="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3" value="GamerPro">
-                        <textarea placeholder="Bio" class="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 h-32">Competitive FPS player specializing in Valorant and CS2.</textarea>
-                        <div class="flex gap-3 justify-end">
-                            <button class="px-4 py-2 border border-gray-600 rounded-lg hover:bg-[rgba(255,255,255,0.05)]" onclick="this.closest('.fixed').remove()">Cancel</button>
-                            <button class="px-4 py-2 gradient-bg rounded-lg font-medium hover:opacity-90">Save Changes</button>
+            
+            function showSearchResults(items) {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = items.map(item => `
+                    <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                            <span>${item}</span>
                         </div>
                     </div>
-                </div>
-            `;
+                `).join('');
+            }
             
-            modal.querySelector('button:contains("Save Changes")').addEventListener('click', function() {
-                alert('Profile updated! (This is a demo)');
-                modal.remove();
-            });
-            
-            document.body.appendChild(modal);
-            
-            // Close modal on background click
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.remove();
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
                 }
             });
-        });
 
-        // Share Profile Button
-        document.querySelector('button:contains("Share")')?.addEventListener('click', function() {
-            const shareUrl = window.location.href;
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span class="material-symbols-outlined">check</span> Copied!';
-                this.style.background = 'linear-gradient(45deg, #2ecc71, #1abc9c)';
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.style.background = '';
-                }, 2000);
-            });
-        });
-
-        // Timezone display based on user's actual time
-        function updateTimezone() {
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const timezoneElement = document.querySelector('span:contains("EST Timezone")');
-            if (timezoneElement) {
-                timezoneElement.textContent = timezone;
-            }
-        }
-        
-        updateTimezone();
-
-        // Simulate real-time status updates
-        function updateStatus() {
-            const statuses = ['Playing Valorant', 'Streaming', 'Away', 'In Queue'];
-            const games = ['Valorant', 'CS2', 'Fortnite', 'Apex Legends'];
-            const statusElement = document.querySelector('.font-medium:contains("Playing Valorant")');
-            
-            if (statusElement && Math.random() > 0.7) {
-                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                const randomGame = games[Math.floor(Math.random() * games.length)];
-                statusElement.textContent = randomStatus === 'Playing' ? `${randomStatus} ${randomGame}` : randomStatus;
-                
-                // Update status dot color
-                const statusDot = document.querySelector('.status-playing');
-                if (statusDot) {
-                    if (randomStatus === 'Streaming') {
-                        statusDot.className = 'status-streaming rounded-full w-3 h-3';
-                    } else if (randomStatus === 'Away') {
-                        statusDot.className = 'status-away rounded-full w-3 h-3';
+            // Follow button toggle
+            const followButton = document.querySelector('button:contains("Follow")');
+            if (followButton) {
+                followButton.addEventListener('click', function() {
+                    if (this.textContent.includes('Follow')) {
+                        this.innerHTML = '<span class="material-symbols-outlined material-icons-fix">check</span><span>Following</span>';
+                        this.classList.remove('glassmorphism-light');
+                        this.classList.add('bg-gradient-to-r', 'from-green-500', 'to-teal-500');
                     } else {
-                        statusDot.className = 'status-playing rounded-full w-3 h-3';
+                        this.innerHTML = '<span class="material-symbols-outlined material-icons-fix">add</span><span>Follow</span>';
+                        this.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-teal-500');
+                        this.classList.add('glassmorphism-light');
                     }
-                }
+                });
             }
-        }
-        
-        // Update status every 30 seconds
-        setInterval(updateStatus, 30000);
+
+            // Notification pulse effect
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                if (notification) {
+                    notification.classList.toggle('pulse-notification');
+                    setTimeout(() => {
+                        notification.classList.toggle('pulse-notification');
+                    }, 100);
+                }
+            }, 4000);
+
+            // Interactive stat cards
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            console.log('Hyper Realm Profile Page initialized!');
+        });
     </script>
 </body>
 </html>
