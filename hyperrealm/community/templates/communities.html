@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Communities | Hyper Realm Gaming Platform</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Communities</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -18,26 +22,22 @@
             --dark-bg: #0a0a15;
             --darker-bg: #050510;
         }
-        
-        .material-symbols-outlined {
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
-        }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             color: #ffffff;
             overflow-x: hidden;
             background: #000000;
         }
-        
+
         h1, h2, h3, h4 {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
         }
-        
+
         /* Enhanced Background */
         .main-bg {
-            background: 
+            background:
                 radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
@@ -47,7 +47,7 @@
             position: relative;
             min-height: 100vh;
         }
-        
+
         /* Grid overlay for tech feel */
         .grid-overlay {
             position: fixed;
@@ -55,139 +55,66 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
         }
-        
-        /* Pulsing glow effect */
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 4s ease-in-out infinite;
-        }
-        
-        /* Scanning line effect */
-        @keyframes scan-line {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-        
-        .scan-line {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            animation: scan-line 8s linear infinite;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-        
+
         .glassmorphism {
-            background: rgba(10, 15, 25, 0.25) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
+            background: rgba(10, 15, 25, 0.85) !important;
             backdrop-filter: blur(20px) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 
+            box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
         }
-        
+
         .glassmorphism-light {
-            background: rgba(15, 20, 35, 0.2) !important;
-            -webkit-backdrop-filter: blur(15px) !important;
+            background: rgba(15, 20, 35, 0.7) !important;
             backdrop-filter: blur(15px) !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
-        
-        .neon-border {
-            position: relative;
-            border: 1px solid rgba(0, 243, 255, 0.2);
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
-        
-        .neon-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-blue), var(--neon-purple));
-            z-index: -1;
-            border-radius: inherit;
-            opacity: 0.3;
-        }
-        
-        .neon-border-purple::before {
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue), var(--neon-cyan), var(--neon-purple));
-        }
-        
+
         .neon-text {
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
-                         0 0 20px rgba(0, 243, 255, 0.5),
-                         0 0 30px rgba(0, 243, 255, 0.3);
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
         }
-        
+
         .neon-text-purple {
             text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
-                         0 0 20px rgba(185, 103, 255, 0.5),
-                         0 0 30px rgba(185, 103, 255, 0.3);
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
         }
-        
+
         .neon-glow {
-            box-shadow: 
+            box-shadow:
                 0 0 15px rgba(0, 243, 255, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
-        
-        .neon-glow-purple {
-            box-shadow: 
-                0 0 15px rgba(185, 103, 255, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-        
+
         .hover-glow:hover {
             box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
-            transform: translateY(-5px);
         }
-        
+
         .hover-glow-purple:hover {
             box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
-            transform: translateY(-5px);
         }
-        
+
         .transition-all {
             transition: all 0.3s ease;
         }
-        
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 2;
-        }
-        
-        .scroll-hidden {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .scroll-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Ensure icons display properly */
+
+        /* Material Icons fix */
         .material-icons-fix {
             font-family: 'Material Symbols Outlined';
             font-weight: normal;
@@ -202,177 +129,307 @@
             direction: ltr;
             -webkit-font-smoothing: antialiased;
         }
-        
-        /* Floating shapes in background */
-        .floating-shape {
-            position: absolute;
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            33% {
-                transform: translate(30px, -50px) rotate(120deg);
-            }
-            66% {
-                transform: translate(-20px, 20px) rotate(240deg);
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-            }
-        }
-        
-        /* Data stream effect */
-        .data-stream {
+
+        /* Fixed Navigation Bar */
+        .fixed-nav {
             position: fixed;
             top: 0;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
-            opacity: 0.1;
-            z-index: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
         }
-        
-        /* Content wrapper to ensure content is above background */
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
+
+        /* FIXED: Navigation dropdowns - fixed position */
+        .fixed-dropdown {
+            position: fixed !important;
+            top: 60px !important; /* Position below navbar */
+            z-index: 60 !important;
         }
-        
-        /* Community specific styles */
+
+        .notifications-dropdown {
+            right: 140px !important; /* Adjusted position */
+        }
+
+        .messages-dropdown {
+            right: 90px !important; /* Adjusted position */
+        }
+
+        .mainmenu-dropdown {
+            right: 20px !important; /* Adjusted position */
+        }
+
+        /* Community Card Styles */
         .community-card {
-            transition: all 0.3s ease;
-        }
-        
-        .community-card:hover {
-            transform: translateY(-8px);
-        }
-        
-        .active-member {
-            background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent);
-        }
-        
-        .trending-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(45deg, #ff0066, #ff9900);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-        
-        .members-count {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-        }
-        
-        .category-chip {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-        
-        .category-chip:hover {
-            background: rgba(0, 243, 255, 0.2);
-            transform: scale(1.05);
-        }
-        
-        .category-chip.active {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
-            color: white;
-            font-weight: bold;
-        }
-        
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #00ff00;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-            box-shadow: 0 0 10px #00ff00;
-        }
-        
-        /* Chat bubble styling */
-        .chat-bubble {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            margin-bottom: 12px;
             position: relative;
-        }
-        
-        .chat-bubble.user {
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.15), rgba(0, 102, 255, 0.15));
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            align-self: flex-end;
-        }
-        
-        .chat-bubble.other {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            align-self: flex-start;
-        }
-        
-        /* Search bar styling */
-        .search-bar {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
             transition: all 0.3s ease;
         }
-        
-        .search-bar:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+
+        .community-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            opacity: 0.7;
         }
-        
-        /* Progress bar styling */
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                        0 0 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .community-banner {
+            height: 120px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(185, 103, 255, 0.2));
+            position: relative;
             overflow: hidden;
         }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 3px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-        }
-        
-        /* Tab styling */
-        .tab-button {
-            padding: 12px 24px;
-            border-bottom: 2px solid transparent;
+
+        .community-avatar {
+            width: 80px;
+            height: 80px;
+            border: 4px solid var(--dark-bg);
+            margin-top: -40px;
             transition: all 0.3s ease;
         }
-        
-        .tab-button.active {
-            border-bottom-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            background: rgba(0, 243, 255, 0.05);
+
+        .community-card:hover .community-avatar {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
         }
-        
-        .tab-button:hover:not(.active) {
-            border-bottom-color: rgba(255, 255, 255, 0.2);
+
+        /* Category Filter Styles */
+        .category-filter {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .category-chip.active {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
+        /* Active Members Animation */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Fade animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        /* Search highlight */
+        .search-highlight {
+            background: linear-gradient(120deg, rgba(0, 243, 255, 0.3), rgba(185, 103, 255, 0.3));
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+
+        /* Join button animation */
+        @keyframes joinPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .join-pulse {
+            animation: joinPulse 2s infinite;
+        }
+
+        /* Main content margins */
+        .main-content {
+            margin-left: 20px;
+            margin-right: 20px;
+            max-width: 100%;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        @media (min-width: 1200px) {
+            .main-content {
+                margin-left: 20px;
+                margin-right: 20px;
+                max-width: 1400px;
+                margin: 0 auto;
+                padding-top: 80px;
+            }
+        }
+
+        /* Community modal */
+        .community-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .community-modal.show {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 99;
+            display: none;
+        }
+
+        .modal-backdrop.show {
+            display: block;
+        }
+
+        /* Trending communities carousel */
+        .trending-carousel {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .trending-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 300px;
+            scroll-snap-align: start;
+        }
+
+        /* Activity feed */
+        .activity-item {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
+        }
+
+        .activity-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            z-index: 1;
+        }
+
+        /* Member list styles */
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .member-avatar:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
+        /* Popularity badge */
+        .popularity-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
     </style>
     <script>
@@ -391,7 +448,7 @@
                         "orbitron": ["Orbitron", "sans-serif"],
                         "inter": ["Inter", "sans-serif"]
                     },
-                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
                     backdropBlur: {
                         'xs': '2px',
                         'sm': '4px',
@@ -405,994 +462,1385 @@
         }
     </script>
 </head>
+
 <body>
-    <!-- Enhanced Background Elements -->
+    <!-- Background Elements -->
     <div class="main-bg fixed inset-0"></div>
     <div class="grid-overlay"></div>
-    <div class="scan-line"></div>
-    
-    <!-- Data Streams -->
-    <div class="data-stream left-[10%]" style="animation: stream-flow 15s infinite linear;"></div>
-    <div class="data-stream left-[30%]" style="animation: stream-flow 20s infinite linear 2s;"></div>
-    <div class="data-stream left-[70%]" style="animation: stream-flow 18s infinite linear 1s;"></div>
-    <div class="data-stream left-[90%]" style="animation: stream-flow 22s infinite linear 3s;"></div>
-    
-    <!-- Particles Background -->
-    <div id="particles-container" class="fixed inset-0 overflow-hidden pointer-events-none z-1"></div>
-    
-    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden content-wrapper">
-        <div class="layout-container flex h-full grow flex-col">
-            <!-- Larger container width -->
-            <div class="flex flex-1 justify-center px-4 sm:px-8 md:px-12 lg:px-20 xl:px-32 py-5">
-                <div class="layout-content-container flex w-full max-w-[1400px] flex-1 flex-col">
-                    <!-- TopNavBar -->
-                    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-neon-cyan/20 px-4 sm:px-6 lg:px-10 py-4 sticky top-5 z-50 glassmorphism backdrop-blur-xl rounded-2xl">
-                        <div class="flex items-center gap-4 text-white">
-                            <a href="index.html" class="flex items-center gap-4">
-                                <div class="size-8">
-                                    <span class="material-symbols-outlined text-neon-cyan text-3xl material-icons-fix">hub</span>
-                                </div>
-                                <h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text">Hyper Realm</h2>
-                            </a>
-                        </div>
-                        <div class="hidden md:flex flex-1 justify-end gap-8">
-                            <div class="flex items-center gap-9">
-                                <a class="text-white text-sm font-medium leading-normal hover:text-neon-cyan transition-colors hover:scale-105" href="index.html">Home</a>
-                                <a class="text-white text-sm font-medium leading-normal hover:text-neon-purple transition-colors hover:scale-105" href="#discover">Discover</a>
-                                <a class="text-white text-sm font-medium leading-normal hover:text-neon-cyan transition-colors hover:scale-105" href="#my-communities">My Communities</a>
-                                <a class="text-white text-sm font-medium leading-normal hover:text-neon-purple transition-colors hover:scale-105" href="#trending">Trending</a>
+
+    <!-- Community Detail Modal -->
+    <div class="modal-backdrop" id="communityModalBackdrop"></div>
+    <div id="communityModal" class="community-modal glassmorphism-dark backdrop-blur-xl rounded-2xl p-6 border border-neon-cyan/30">
+        <!-- Modal content will be loaded here -->
+    </div>
+
+    <div class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- Top Navigation Bar - Fixed (EXACT COPY FROM DASHBOARD) -->
+        <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo moved to left side -->
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                        <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                    </div>
+
+                    <!-- Search bar centered -->
+                    <div class="flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
                             </div>
-                            <div class="flex items-center gap-4 ml-4">
-                                <button class="relative p-2 text-white hover:text-neon-cyan transition-colors">
-                                    <span class="material-symbols-outlined text-2xl material-icons-fix">notifications</span>
-                                    <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                                </button>
-                                <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-11 px-5 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-bold leading-normal tracking-[0.015em] neon-glow hover:opacity-90 transition-all hover:scale-105">
-                                    <span class="truncate">Create Community</span>
-                                </button>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                                placeholder="Search communities, games, topics..."
+                            />
+                            <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                                <!-- Search results will appear here -->
                             </div>
                         </div>
-                        <div class="md:hidden">
-                            <button class="text-white" id="mobile-menu-btn">
-                                <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                    </div>
+
+                    <!-- Right: Notifications, Messages, and Three Bars Menu -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications with Dropdown -->
+                        <div class="relative" id="notificationsMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
                             </button>
                         </div>
-                    </header>
 
-                    <main class="flex flex-col gap-12 mt-12">
-                        <!-- Community Hero Section -->
-                        <section class="scroll-hidden" id="community-hero">
-                            <div class="glassmorphism-light backdrop-blur-lg rounded-3xl p-8 md:p-12 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-neon-purple/10 to-transparent rounded-full -translate-y-32 translate-x-32"></div>
-                                <div class="relative z-10">
-                                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 neon-text">
-                                        Find Your Gaming Tribe
-                                    </h1>
-                                    <p class="text-slate-300 text-lg md:text-xl max-w-3xl mb-8">
-                                        Discover, join, and create communities with gamers who share your passion. From casual players to competitive esports teams, find your perfect match.
-                                    </p>
-                                    <div class="flex flex-col sm:flex-row gap-4">
-                                        <div class="relative flex-1">
-                                            <input type="text" placeholder="Search communities, games, or tags..." class="w-full h-14 pl-14 pr-6 text-white search-bar rounded-xl focus:outline-none">
-                                            <span class="material-symbols-outlined absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400 material-icons-fix">search</span>
-                                        </div>
-                                        <button class="flex items-center justify-center h-14 px-8 bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold rounded-xl neon-glow hover:opacity-90 transition-all hover:scale-105 whitespace-nowrap">
-                                            <span class="material-symbols-outlined mr-2 material-icons-fix">search</span>
-                                            Search
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Categories Filter -->
-                        <section class="scroll-hidden" id="categories">
-                            <div class="mb-6">
-                                <h2 class="text-white text-2xl md:text-3xl font-bold mb-4 neon-text-purple">Browse Categories</h2>
-                                <p class="text-slate-300">Filter communities by game genre or interest</p>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <button class="category-chip active">All Communities</button>
-                                <button class="category-chip">FPS</button>
-                                <button class="category-chip">RPG</button>
-                                <button class="category-chip">MOBA</button>
-                                <button class="category-chip">Battle Royale</button>
-                                <button class="category-chip">Strategy</button>
-                                <button class="category-chip">Sports</button>
-                                <button class="category-chip">Racing</button>
-                                <button class="category-chip">Fighting</button>
-                                <button class="category-chip">Indie Games</button>
-                                <button class="category-chip">Esports</button>
-                                <button class="category-chip">Creative</button>
-                            </div>
-                        </section>
-
-                        <!-- Tabs for Discover/My Communities -->
-                        <section class="scroll-hidden">
-                            <div class="flex border-b border-slate-700/50 mb-8">
-                                <button class="tab-button active" data-tab="discover">
-                                    <span class="material-symbols-outlined mr-2 material-icons-fix">explore</span>
-                                    Discover Communities
-                                </button>
-                                <button class="tab-button" data-tab="my-communities">
-                                    <span class="material-symbols-outlined mr-2 material-icons-fix">groups</span>
-                                    My Communities
-                                    <span class="ml-2 bg-neon-cyan text-black text-xs font-bold rounded-full px-2 py-1">3</span>
-                                </button>
-                                <button class="tab-button" data-tab="trending">
-                                    <span class="material-symbols-outlined mr-2 material-icons-fix">trending_up</span>
-                                    Trending Now
-                                </button>
-                            </div>
-                        </section>
-
-                        <!-- Discover Communities Tab Content -->
-                        <section class="scroll-hidden tab-content active" id="discover-tab">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                <!-- Community Card 1 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-blue-400 material-icons-fix">
-                                                military_tech
-                                            </span>
-                                        </div>
-                                        <span class="trending-badge">TRENDING</span>
-                                        <span class="members-count">124K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Valorant Elite</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Competitive Valorant community for ranked players and tournament enthusiasts.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 85%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-cyan to-neon-blue text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 2 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow-purple transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-purple-400 material-icons-fix">
-                                                castle
-                                            </span>
-                                        </div>
-                                        <span class="members-count">98K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Elder Scrolls Guild</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Role-playing community for Elder Scrolls Online and Skyrim players.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 72%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-purple to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 3 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-green-400 material-icons-fix">
-                                                sports_esports
-                                            </span>
-                                        </div>
-                                        <span class="trending-badge">HOT</span>
-                                        <span class="members-count">156K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">League Legends</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">League of Legends community for players of all ranks and regions.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 91%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-cyan to-neon-blue text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 4 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow-purple transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-yellow-500/20 to-red-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-yellow-400 material-icons-fix">
-                                                sports
-                                            </span>
-                                        </div>
-                                        <span class="members-count">210K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Apex Predators</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Apex Legends community for battle royale enthusiasts and competitive players.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 78%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-purple to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 5 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-indigo-400 material-icons-fix">
-                                                sword
-                                            </span>
-                                        </div>
-                                        <span class="members-count">67K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Soulsborne Warriors</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Community for Dark Souls, Elden Ring, and Souls-like game enthusiasts.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 65%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-cyan to-neon-blue text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 6 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow-purple transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-cyan-400 material-icons-fix">
-                                                rocket
-                                            </span>
-                                        </div>
-                                        <span class="trending-badge">NEW</span>
-                                        <span class="members-count">42K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Starfield Explorers</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Community for Starfield players sharing discoveries, builds, and stories.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 88%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-purple to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 7 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-emerald-500/20 to-green-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-emerald-400 material-icons-fix">
-                                                sports_martial_arts
-                                            </span>
-                                        </div>
-                                        <span class="members-count">89K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Fighting Game Dojo</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Community for Street Fighter, Tekken, and other fighting game enthusiasts.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 74%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-cyan to-neon-blue text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Community Card 8 -->
-                                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden hover-glow-purple transition-all">
-                                    <div class="relative">
-                                        <div class="h-40 bg-gradient-to-r from-rose-500/20 to-pink-500/20 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-rose-400 material-icons-fix">
-                                                puzzle
-                                            </span>
-                                        </div>
-                                        <span class="members-count">55K Members</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h3 class="text-white text-xl font-bold">Indie Game Hub</h3>
-                                            <span class="online-dot"></span>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">Celebrating indie games and connecting developers with players.</p>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <span class="text-xs text-slate-400">Activity: </span>
-                                                <div class="w-32 h-2 bg-slate-700 rounded-full overflow-hidden mt-1">
-                                                    <div class="h-full bg-green-500 rounded-full" style="width: 69%"></div>
-                                                </div>
-                                            </div>
-                                            <button class="text-xs bg-gradient-to-r from-neon-purple to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Load More Button -->
-                            <div class="flex justify-center mt-12">
-                                <button class="flex items-center justify-center h-14 px-10 glassmorphism-light backdrop-blur-lg border border-white/10 text-white font-bold rounded-xl hover:bg-white/5 transition-all hover:scale-105">
-                                    <span class="material-symbols-outlined mr-2 material-icons-fix">expand_more</span>
-                                    Load More Communities
-                                </button>
-                            </div>
-                        </section>
-
-                        <!-- My Communities Tab Content -->
-                        <section class="scroll-hidden tab-content hidden" id="my-communities-tab">
-                            <div class="glassmorphism-light backdrop-blur-lg rounded-3xl p-8">
-                                <h2 class="text-white text-2xl md:text-3xl font-bold mb-8 neon-text">My Active Communities</h2>
-                                
-                                <div class="space-y-6">
-                                    <!-- My Community 1 -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 p-6 active-member rounded-2xl">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-16 h-16 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-3xl text-blue-400 material-icons-fix">
-                                                    military_tech
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-xl font-bold">Valorant Elite</h3>
-                                                <p class="text-slate-300 text-sm">You joined 3 months ago</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <span class="text-slate-300 text-sm">Your activity level</span>
-                                                <span class="text-neon-cyan font-bold">High</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 85%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center gap-4">
-                                            <div class="text-center">
-                                                <div class="text-white text-2xl font-bold">42</div>
-                                                <div class="text-slate-300 text-xs">Friends</div>
-                                            </div>
-                                            <button class="h-10 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-bold rounded-lg neon-glow hover:opacity-90 transition-opacity">
-                                                Enter
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- My Community 2 -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 p-6 active-member rounded-2xl">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-16 h-16 rounded-xl bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-3xl text-green-400 material-icons-fix">
-                                                    sports_esports
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-xl font-bold">League Legends</h3>
-                                                <p class="text-slate-300 text-sm">You joined 6 months ago</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <span class="text-slate-300 text-sm">Your activity level</span>
-                                                <span class="text-neon-cyan font-bold">Very High</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 91%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center gap-4">
-                                            <div class="text-center">
-                                                <div class="text-white text-2xl font-bold">28</div>
-                                                <div class="text-slate-300 text-xs">Friends</div>
-                                            </div>
-                                            <button class="h-10 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-bold rounded-lg neon-glow hover:opacity-90 transition-opacity">
-                                                Enter
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- My Community 3 -->
-                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-6 p-6 active-member rounded-2xl">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-16 h-16 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-3xl text-cyan-400 material-icons-fix">
-                                                    rocket
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-xl font-bold">Starfield Explorers</h3>
-                                                <p class="text-slate-300 text-sm">You joined 1 month ago</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <span class="text-slate-300 text-sm">Your activity level</span>
-                                                <span class="text-neon-cyan font-bold">Medium</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 65%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center gap-4">
-                                            <div class="text-center">
-                                                <div class="text-white text-2xl font-bold">15</div>
-                                                <div class="text-slate-300 text-xs">Friends</div>
-                                            </div>
-                                            <button class="h-10 px-6 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-bold rounded-lg neon-glow hover:opacity-90 transition-opacity">
-                                                Enter
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Trending Communities Tab Content -->
-                        <section class="scroll-hidden tab-content hidden" id="trending-tab">
-                            <div class="glassmorphism-light backdrop-blur-lg rounded-3xl p-8">
-                                <h2 class="text-white text-2xl md:text-3xl font-bold mb-8 neon-text-purple">🔥 Trending This Week</h2>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- Trending Community 1 -->
-                                    <div class="p-6 rounded-2xl bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20">
-                                        <div class="flex items-center gap-4 mb-4">
-                                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500/20 to-red-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-2xl text-orange-400 material-icons-fix">
-                                                    trending_up
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-lg font-bold">Cyberpunk 2077</h3>
-                                                <p class="text-slate-300 text-sm">+24% growth this week</p>
-                                            </div>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">New expansion has revitalized the community with fresh content and players.</p>
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-sm text-slate-300">8.2K new members</span>
-                                            <button class="text-xs bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join Trend
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Trending Community 2 -->
-                                    <div class="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20">
-                                        <div class="flex items-center gap-4 mb-4">
-                                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-2xl text-purple-400 material-icons-fix">
-                                                    trending_up
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-lg font-bold">Baldur's Gate 3</h3>
-                                                <p class="text-slate-300 text-sm">+18% growth this week</p>
-                                            </div>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">New patch and modding community exploding with creative builds.</p>
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-sm text-slate-300">6.5K new members</span>
-                                            <button class="text-xs bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join Trend
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Trending Community 3 -->
-                                    <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20">
-                                        <div class="flex items-center gap-4 mb-4">
-                                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-2xl text-cyan-400 material-icons-fix">
-                                                    trending_up
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-white text-lg font-bold">Starfield</h3>
-                                                <p class="text-slate-300 text-sm">+32% growth this week</p>
-                                            </div>
-                                        </div>
-                                        <p class="text-slate-300 text-sm mb-4">New DLC announcement has sparked massive community engagement.</p>
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-sm text-slate-300">12.4K new members</span>
-                                            <button class="text-xs bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                                                Join Trend
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Top Communities Leaderboard -->
-                                <div class="mt-12">
-                                    <h3 class="text-white text-xl font-bold mb-6 neon-text">Top Communities by Activity</h3>
-                                    <div class="space-y-4">
-                                        <div class="flex items-center justify-between p-4 glassmorphism-light backdrop-blur-sm rounded-xl">
-                                            <div class="flex items-center gap-4">
-                                                <div class="text-white font-bold text-lg">1</div>
-                                                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-blue-400 material-icons-fix">military_tech</span>
-                                                </div>
-                                                <div>
-                                                    <div class="text-white font-medium">Valorant Elite</div>
-                                                    <div class="text-slate-300 text-xs">12.4K online</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-neon-cyan font-bold">98% activity</div>
-                                        </div>
-                                        
-                                        <div class="flex items-center justify-between p-4 glassmorphism-light backdrop-blur-sm rounded-xl">
-                                            <div class="flex items-center gap-4">
-                                                <div class="text-white font-bold text-lg">2</div>
-                                                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-green-400 material-icons-fix">sports_esports</span>
-                                                </div>
-                                                <div>
-                                                    <div class="text-white font-medium">League Legends</div>
-                                                    <div class="text-slate-300 text-xs">9.8K online</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-neon-cyan font-bold">94% activity</div>
-                                        </div>
-                                        
-                                        <div class="flex items-center justify-between p-4 glassmorphism-light backdrop-blur-sm rounded-xl">
-                                            <div class="flex items-center gap-4">
-                                                <div class="text-white font-bold text-lg">3</div>
-                                                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-yellow-500/20 to-red-500/20 flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-yellow-400 material-icons-fix">sports</span>
-                                                </div>
-                                                <div>
-                                                    <div class="text-white font-medium">Apex Predators</div>
-                                                    <div class="text-slate-300 text-xs">8.2K online</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-neon-cyan font-bold">89% activity</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Community Stats Section -->
-                        <section class="scroll-hidden">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 text-center">
-                                    <div class="text-neon-cyan text-4xl font-bold mb-2">1.2M+</div>
-                                    <div class="text-slate-300">Total Members</div>
-                                </div>
-                                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 text-center">
-                                    <div class="text-neon-purple text-4xl font-bold mb-2">8,400+</div>
-                                    <div class="text-slate-300">Active Communities</div>
-                                </div>
-                                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 text-center">
-                                    <div class="text-neon-cyan text-4xl font-bold mb-2">256K</div>
-                                    <div class="text-slate-300">Online Now</div>
-                                </div>
-                                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 text-center">
-                                    <div class="text-neon-purple text-4xl font-bold mb-2">42</div>
-                                    <div class="text-slate-300">Game Categories</div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Create Community CTA -->
-                        <section class="scroll-hidden">
-                            <div class="glassmorphism-light backdrop-blur-xl rounded-3xl p-10 text-center relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neon-cyan to-transparent"></div>
-                                <h2 class="text-white text-3xl md:text-4xl font-bold mb-6 neon-text">Can't Find Your Community?</h2>
-                                <p class="text-slate-300 text-lg max-w-2xl mx-auto mb-8">Create your own gaming community and invite players who share your interests, playstyle, or favorite games.</p>
-                                <button class="inline-flex items-center justify-center h-16 px-10 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-lg font-bold rounded-xl neon-glow hover:opacity-90 transition-all hover:scale-105">
-                                    <span class="material-symbols-outlined mr-3 material-icons-fix">add_circle</span>
-                                    Create New Community
-                                </button>
-                            </div>
-                        </section>
-                    </main>
-
-                    <!-- Footer -->
-                    <footer class="flex flex-col sm:flex-row items-center justify-between gap-6 mt-20 py-8 border-t border-solid border-neon-cyan/20">
-                        <div class="flex items-center gap-4 mb-4 sm:mb-0">
-                            <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
-                            <p class="text-base text-slate-300">© 2024 Hyper Realm. All Rights Reserved.</p>
+                        <!-- Messages with Dropdown -->
+                        <div class="relative" id="messagesMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                            </button>
                         </div>
-                        <div class="flex items-center gap-8">
-                            <div class="flex items-center gap-6">
-                                <a class="text-base text-slate-300 hover:text-neon-cyan transition-colors hover:scale-105" href="#">Terms</a>
-                                <a class="text-base text-slate-300 hover:text-neon-purple transition-colors hover:scale-105" href="#">Privacy</a>
-                                <a class="text-base text-slate-300 hover:text-neon-cyan transition-colors hover:scale-105" href="#">Support</a>
-                                <a class="text-base text-slate-300 hover:text-neon-purple transition-colors hover:scale-105" href="#">Contact</a>
-                            </div>
-                            <div class="flex items-center gap-4 ml-6">
-                                <a class="text-slate-300 hover:text-neon-cyan transition-colors text-xl hover:scale-110" href="#">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="text-slate-300 hover:text-neon-purple transition-colors text-xl hover:scale-110" href="#">
-                                    <i class="fab fa-discord"></i>
-                                </a>
-                                <a class="text-slate-300 hover:text-neon-cyan transition-colors text-xl hover:scale-110" href="#">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </footer>
+
+                        <!-- Three Bars Menu moved to right side, next to messages -->
+                        <button id="mainMenuButton" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+        </nav>
+
+        <!-- FIXED: Navigation dropdowns with fixed positioning (EXACT COPY FROM DASHBOARD) -->
+
+        <!-- Notifications Dropdown - Fixed -->
+        <div id="notificationsDropdown" class="hidden fixed-dropdown notifications-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="p-4">
+                <h3 class="text-white font-bold mb-3 flex items-center">
+                    <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">notifications</span>
+                    Notifications
+                </h3>
+                <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">person_add</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">ApexMaster_99 started following you</p>
+                                <p class="text-gray-400 text-xs">2 minutes ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">favorite</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">LoreRunner liked your post</p>
+                                <p class="text-gray-400 text-xs">1 hour ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">comment</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">TeamStratPro commented on your strategy</p>
+                                <p class="text-gray-400 text-xs">3 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">military_tech</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">You earned the "Legendary Gamer" badge</p>
+                                <p class="text-gray-400 text-xs">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-3 py-2 text-center text-neon-cyan text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                    View All Notifications
+                </button>
+            </div>
         </div>
+
+        <!-- Messages Dropdown - Fixed -->
+        <div id="messagesDropdown" class="hidden fixed-dropdown messages-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="p-4">
+                <h3 class="text-white font-bold mb-3 flex items-center">
+                    <span class="material-symbols-outlined mr-2 text-neon-purple material-icons-fix">chat</span>
+                    Messages
+                </h3>
+                <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                <span class="text-white font-bold">AM</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">ApexMaster_99</div>
+                                    <span class="text-gray-400 text-xs">2 min</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Great play in that last match!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                <span class="text-white font-bold">LR</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">LoreRunner</div>
+                                    <span class="text-gray-400 text-xs">1 hr</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                <span class="text-white font-bold">TS</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">TeamStratPro</div>
+                                    <span class="text-gray-400 text-xs">3 hrs</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Want to join our practice session?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-3 py-2 text-center text-neon-purple text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                    View All Messages
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Navigation Menu Dropdown - Fixed -->
+        <div id="mainMenuDropdown" class="hidden fixed-dropdown mainmenu-dropdown w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="py-2">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">home</span>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                    Communities
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                    Games
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                    Explore
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                    Profile
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                    Settings
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content py-6 px-4 sm:px-6">
+            <!-- Page Header -->
+            <div class="mb-8 fade-in-up">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 neon-text">Communities</h1>
+                        <p class="text-gray-400">Connect with gamers, share strategies, and build your network</p>
+                    </div>
+                    <button id="createCommunityBtn" class="flex items-center space-x-3 px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all">
+                        <span class="material-symbols-outlined material-icons-fix">add</span>
+                        <span>Create Community</span>
+                    </button>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm mb-1">Total Communities</p>
+                                <p class="text-white text-3xl font-bold">2,847</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">groups</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm mb-1">Your Communities</p>
+                                <p class="text-white text-3xl font-bold">12</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-neon-purple/20 to-pink-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-purple text-2xl material-icons-fix">person</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm mb-1">Online Members</p>
+                                <p class="text-white text-3xl font-bold">48.2K</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-green-400 text-2xl material-icons-fix">online_prediction</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm mb-1">Active Now</p>
+                                <p class="text-white text-3xl font-bold">1.2K</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500/20 to-red-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-yellow-400 text-2xl material-icons-fix">bolt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="mb-8 fade-in-up">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-white">Browse Categories</h2>
+                    <button id="clearFilters" class="text-gray-400 hover:text-white text-sm transition-colors">
+                        Clear Filters
+                    </button>
+                </div>
+                <div class="flex overflow-x-auto space-x-3 pb-4 category-filter">
+                    <button class="category-chip active px-6 py-3 rounded-xl glassmorphism-light text-white font-medium transition-all" data-category="all">
+                        All Communities
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="fps">
+                        <span class="material-symbols-outlined mr-2 text-red-400 material-icons-fix">military_tech</span>
+                        FPS Games
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="rpg">
+                        <span class="material-symbols-outlined mr-2 text-purple-400 material-icons-fix">sword</span>
+                        RPG & Adventure
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="strategy">
+                        <span class="material-symbols-outlined mr-2 text-green-400 material-icons-fix">tactic</span>
+                        Strategy
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="sports">
+                        <span class="material-symbols-outlined mr-2 text-blue-400 material-icons-fix">sports_soccer</span>
+                        Sports & Racing
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="indie">
+                        <span class="material-symbols-outlined mr-2 text-yellow-400 material-icons-fix">stars</span>
+                        Indie Games
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="esports">
+                        <span class="material-symbols-outlined mr-2 text-cyan-400 material-icons-fix">trophy</span>
+                        Esports
+                    </button>
+                    <button class="category-chip px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white font-medium transition-all" data-category="creative">
+                        <span class="material-symbols-outlined mr-2 text-pink-400 material-icons-fix">brush</span>
+                        Creative
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trending Communities -->
+            <div class="mb-12 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">trending_up</span>
+                        Trending This Week
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="carousel-prev p-2 rounded-lg glassmorphism-light text-gray-300 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chevron_left</span>
+                        </button>
+                        <button class="carousel-next p-2 rounded-lg glassmorphism-light text-gray-300 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="trending-carousel flex overflow-x-auto space-x-6 pb-6 snap-x" id="trendingCarousel">
+                    <!-- Trending communities will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Community Grid -->
+            <div class="mb-8 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white">Recommended For You</h2>
+                    <div class="flex items-center space-x-4">
+                        <button id="gridView" class="p-2 rounded-lg glassmorphism-light text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">grid_view</span>
+                        </button>
+                        <button id="listView" class="p-2 rounded-lg glassmorphism-light text-gray-300 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">view_list</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="communitiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Community cards will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Loading More -->
+            <div class="text-center py-8">
+                <button id="loadMoreBtn" class="px-8 py-3 rounded-xl glassmorphism-light text-white font-medium hover:bg-white/10 transition-colors">
+                    Load More Communities
+                </button>
+            </div>
+        </main>
     </div>
 
     <script>
-        // Initialize particles
-        function initParticles() {
-            const container = document.getElementById('particles-container');
-            const particleCount = 40;
+        // Community Data
+        const communities = [
+            {
+                id: 1,
+                name: "Apex Legends Elite",
+                description: "For competitive Apex Legends players. Share strategies, find teammates, and discuss meta changes.",
+                category: "fps",
+                members: 12500,
+                online: 842,
+                isJoined: true,
+                popularity: 95,
+                tags: ["FPS", "Battle Royale", "Competitive"],
+                bannerColor: "from-red-500/20 to-orange-500/20",
+                icon: "military_tech",
+                iconColor: "text-red-400"
+            },
+            {
+                id: 2,
+                name: "Elden Ring Lore Hunters",
+                description: "Dive deep into the rich lore of Elden Ring. Theorycrafting, secret discoveries, and story analysis.",
+                category: "rpg",
+                members: 8700,
+                online: 521,
+                isJoined: false,
+                popularity: 88,
+                tags: ["RPG", "Lore", "Exploration"],
+                bannerColor: "from-purple-500/20 to-blue-500/20",
+                icon: "sword",
+                iconColor: "text-purple-400"
+            },
+            {
+                id: 3,
+                name: "Valorant Strategy Hub",
+                description: "Advanced tactics, agent guides, and map strategies for serious Valorant competitors.",
+                category: "fps",
+                members: 15400,
+                online: 1200,
+                isJoined: true,
+                popularity: 92,
+                tags: ["Tactical", "Esports", "Training"],
+                bannerColor: "from-green-500/20 to-teal-500/20",
+                icon: "tactic",
+                iconColor: "text-green-400"
+            },
+            {
+                id: 4,
+                name: "Indie Game Developers",
+                description: "Connect with indie devs, share projects, and get feedback on your game development journey.",
+                category: "indie",
+                members: 6300,
+                online: 385,
+                isJoined: false,
+                popularity: 85,
+                tags: ["Development", "Unity", "Game Design"],
+                bannerColor: "from-yellow-500/20 to-red-500/20",
+                icon: "brush",
+                iconColor: "text-yellow-400"
+            },
+            {
+                id: 5,
+                name: "Speedrunning Central",
+                description: "World records, strategies, and community events for speedrunners across all games.",
+                category: "creative",
+                members: 9200,
+                online: 642,
+                isJoined: true,
+                popularity: 90,
+                tags: ["Speedrun", "Records", "Challenge"],
+                bannerColor: "from-cyan-500/20 to-blue-500/20",
+                icon: "timer",
+                iconColor: "text-cyan-400"
+            },
+            {
+                id: 6,
+                name: "Fighting Game Masters",
+                description: "Tekken, Street Fighter, Guilty Gear - discuss frame data, combos, and tournament play.",
+                category: "esports",
+                members: 7500,
+                online: 498,
+                isJoined: false,
+                popularity: 87,
+                tags: ["Fighting", "Competitive", "Tournament"],
+                bannerColor: "from-pink-500/20 to-purple-500/20",
+                icon: "sports_martial_arts",
+                iconColor: "text-pink-400"
+            },
+            {
+                id: 7,
+                name: "Retro Gaming Collective",
+                description: "Celebrating classic games from NES, SNES, PS1, and other retro platforms.",
+                category: "rpg",
+                members: 4800,
+                online: 321,
+                isJoined: false,
+                popularity: 82,
+                tags: ["Retro", "Classic", "Nostalgia"],
+                bannerColor: "from-orange-500/20 to-yellow-500/20",
+                icon: "arcade",
+                iconColor: "text-orange-400"
+            },
+            {
+                id: 8,
+                name: "MMO Raiders Guild",
+                description: "Organize raids, discuss strategies, and find guilds for WoW, FFXIV, and other MMOs.",
+                category: "rpg",
+                members: 11200,
+                online: 950,
+                isJoined: true,
+                popularity: 93,
+                tags: ["MMO", "Raiding", "Guild"],
+                bannerColor: "from-blue-500/20 to-purple-500/20",
+                icon: "castle",
+                iconColor: "text-blue-400"
+            }
+        ];
+
+        // Trending communities
+        const trendingCommunities = communities.slice(0, 5);
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize navigation dropdowns (EXACT COPY FROM DASHBOARD)
+            initializeNavigation();
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
+            // Render trending communities
+            renderTrendingCommunities();
+            
+            // Render all communities
+            renderCommunities();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initialize search
+            initializeSearch();
+        });
+
+        // Initialize navigation dropdowns (EXACT COPY FROM DASHBOARD)
+        function initializeNavigation() {
+            // Main menu dropdown
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            if (mainMenuButton && mainMenuDropdown) {
+                mainMenuButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Toggle main menu
+                    mainMenuDropdown.classList.toggle('hidden');
+                    // Close other dropdowns
+                    notificationsDropdown.classList.add('hidden');
+                    messagesDropdown.classList.add('hidden');
+                });
+
+                // Notifications dropdown
+                const notificationsMenu = document.getElementById('notificationsMenu');
+                const notificationsDropdown = document.getElementById('notificationsDropdown');
                 
-                const size = Math.random() * 3 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                notificationsMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Toggle notifications
+                    notificationsDropdown.classList.toggle('hidden');
+                    // Close other dropdowns
+                    mainMenuDropdown.classList.add('hidden');
+                    messagesDropdown.classList.add('hidden');
+                });
+
+                // Messages dropdown
+                const messagesMenu = document.getElementById('messagesMenu');
+                const messagesDropdown = document.getElementById('messagesDropdown');
                 
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                messagesMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Toggle messages
+                    messagesDropdown.classList.toggle('hidden');
+                    // Close other dropdowns
+                    mainMenuDropdown.classList.add('hidden');
+                    notificationsDropdown.classList.add('hidden');
+                });
+
+                // Close dropdowns when clicking outside
+                document.addEventListener('click', function(e) {
+                    // Check if click is outside any dropdown or its trigger button
+                    const isClickOutsideMainMenu = !mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target);
+                    const isClickOutsideNotifications = !notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target);
+                    const isClickOutsideMessages = !messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target);
+                    
+                    if (isClickOutsideMainMenu) {
+                        mainMenuDropdown.classList.add('hidden');
+                    }
+                    if (isClickOutsideNotifications) {
+                        notificationsDropdown.classList.add('hidden');
+                    }
+                    if (isClickOutsideMessages) {
+                        messagesDropdown.classList.add('hidden');
+                    }
+                });
+
+                // Navigation search functionality
+                const searchInput = document.getElementById('searchInput');
+                const searchResults = document.getElementById('searchResults');
                 
-                const duration = Math.random() * 20 + 10;
-                particle.style.animation = `float ${duration}s infinite linear`;
+                searchInput.addEventListener('focus', function() {
+                    showSearchResults(['Communities', 'Gamers', 'Games', 'Posts']);
+                });
                 
-                const colors = [
-                    'rgba(0, 243, 255, 0.6)',
-                    'rgba(185, 103, 255, 0.6)',
-                    'rgba(0, 102, 255, 0.6)'
-                ];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.backgroundColor = color;
+                searchInput.addEventListener('input', function(e) {
+                    if (e.target.value.length > 0) {
+                        showSearchResults(['Results for: ' + e.target.value]);
+                    } else {
+                        showSearchResults(['Communities', 'Gamers', 'Games', 'Posts']);
+                    }
+                });
                 
-                container.appendChild(particle);
+                function showSearchResults(items) {
+                    searchResults.classList.remove('hidden');
+                    searchResults.innerHTML = items.map(item => `
+                        <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                                <span>${item}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                
+                // Hide search results when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (searchInput && searchResults) {
+                        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                            searchResults.classList.add('hidden');
+                        }
+                    }
+                });
+
+                // Notification pulse effect
+                setInterval(() => {
+                    const notification = document.querySelector('.pulse-notification');
+                    if (notification) {
+                        notification.classList.toggle('pulse-notification');
+                        setTimeout(() => {
+                            notification.classList.toggle('pulse-notification');
+                        }, 100);
+                    }
+                }, 4000);
+            }
+        }
+
+        // Render trending communities
+        function renderTrendingCommunities() {
+            const container = document.getElementById('trendingCarousel');
+            if (!container) return;
+            
+            container.innerHTML = trendingCommunities.map(community => `
+                <div class="carousel-item">
+                    <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden">
+                        <div class="relative">
+                            <div class="community-banner ${community.bannerColor}"></div>
+                            <div class="popularity-badge">
+                                <div class="flex items-center space-x-1 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-sm">
+                                    <span class="material-symbols-outlined ${community.iconColor} material-icons-fix text-sm">${community.icon}</span>
+                                    <span>${community.popularity}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="community-avatar rounded-full bg-gradient-to-r ${community.bannerColor.replace('/20', '')} flex items-center justify-center">
+                                    <span class="material-symbols-outlined ${community.iconColor} text-3xl material-icons-fix">${community.icon}</span>
+                                </div>
+                                <button class="view-community-btn px-4 py-2 rounded-lg glassmorphism-light text-gray-300 hover:text-white transition-colors" data-id="${community.id}">
+                                    View Details
+                                </button>
+                            </div>
+                            <h3 class="text-white font-bold text-xl mb-2">${community.name}</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">${community.description}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="material-symbols-outlined text-green-400 text-sm material-icons-fix">person</span>
+                                        <span class="text-white text-sm">${formatNumber(community.members)}</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="material-symbols-outlined text-neon-cyan text-sm material-icons-fix">online_prediction</span>
+                                        <span class="text-white text-sm">${community.online}</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    ${community.tags.slice(0, 2).map(tag => `
+                                        <span class="px-2 py-1 text-xs rounded-full bg-white/10 text-gray-300">${tag}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render all communities
+        function renderCommunities(filterCategory = 'all') {
+            const container = document.getElementById('communitiesGrid');
+            if (!container) return;
+            
+            const filteredCommunities = filterCategory === 'all' 
+                ? communities 
+                : communities.filter(c => c.category === filterCategory);
+            
+            container.innerHTML = filteredCommunities.map(community => `
+                <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden fade-in-up" data-category="${community.category}">
+                    <div class="relative">
+                        <div class="community-banner ${community.bannerColor}"></div>
+                        <div class="popularity-badge">
+                            <div class="flex items-center space-x-1 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-sm">
+                                <span class="material-symbols-outlined ${community.iconColor} material-icons-fix text-sm">${community.icon}</span>
+                                <span>${community.popularity}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="community-avatar rounded-full bg-gradient-to-r ${community.bannerColor.replace('/20', '')} flex items-center justify-center">
+                                <span class="material-symbols-outlined ${community.iconColor} text-3xl material-icons-fix">${community.icon}</span>
+                            </div>
+                            <button class="join-btn px-4 py-2 rounded-lg ${community.isJoined ? 'bg-gradient-to-r from-neon-cyan to-neon-blue text-white' : 'glassmorphism-light text-gray-300 hover:text-white'} transition-colors" data-id="${community.id}" data-joined="${community.isJoined}">
+                                ${community.isJoined ? 'Joined' : 'Join'}
+                            </button>
+                        </div>
+                        <h3 class="text-white font-bold text-xl mb-2">${community.name}</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">${community.description}</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-2">
+                                    <span class="material-symbols-outlined text-green-400 text-sm material-icons-fix">person</span>
+                                    <span class="text-white text-sm">${formatNumber(community.members)}</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="material-symbols-outlined text-neon-cyan text-sm material-icons-fix">online_prediction</span>
+                                    <span class="text-white text-sm pulse-glow">${community.online}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs px-3 py-1 rounded-full ${getCategoryColor(community.category)}">${getCategoryName(community.category)}</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${community.tags.map(tag => `
+                                <span class="px-3 py-1 text-xs rounded-full glassmorphism-light text-gray-300">${tag}</span>
+                            `).join('')}
+                        </div>
+                        
+                        <button class="view-community-btn w-full py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white transition-colors flex items-center justify-center space-x-2" data-id="${community.id}">
+                            <span class="material-symbols-outlined material-icons-fix">visibility</span>
+                            <span>View Community</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Category filter
+            document.querySelectorAll('.category-chip').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active category
+                    document.querySelectorAll('.category-chip').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    renderCommunities(category);
+                });
+            });
+
+            // Clear filters
+            const clearFiltersBtn = document.getElementById('clearFilters');
+            if (clearFiltersBtn) {
+                clearFiltersBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-chip').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector('[data-category="all"]').classList.add('active');
+                    renderCommunities('all');
+                });
+            }
+
+            // Join/Leave community
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.join-btn')) {
+                    const button = e.target.closest('.join-btn');
+                    const communityId = parseInt(button.getAttribute('data-id'));
+                    const isJoined = button.getAttribute('data-joined') === 'true';
+                    
+                    // Update community data
+                    const community = communities.find(c => c.id === communityId);
+                    if (community) {
+                        community.isJoined = !isJoined;
+                        if (community.isJoined) {
+                            community.members += 1;
+                        } else {
+                            community.members -= 1;
+                        }
+                        
+                        // Update button
+                        button.setAttribute('data-joined', community.isJoined);
+                        button.innerHTML = community.isJoined ? 'Joined' : 'Join';
+                        button.className = `join-btn px-4 py-2 rounded-lg ${community.isJoined ? 'bg-gradient-to-r from-neon-cyan to-neon-blue text-white' : 'glassmorphism-light text-gray-300 hover:text-white'} transition-colors`;
+                        
+                        // Show toast
+                        showToast(`${community.isJoined ? 'Joined' : 'Left'} "${community.name}"`, community.isJoined ? 'success' : 'info');
+                    }
+                }
+            });
+
+            // View community details
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.view-community-btn')) {
+                    const communityId = parseInt(e.target.closest('.view-community-btn').getAttribute('data-id'));
+                    const community = communities.find(c => c.id === communityId);
+                    if (community) {
+                        showCommunityModal(community);
+                    }
+                }
+            });
+
+            // Create community button
+            const createCommunityBtn = document.getElementById('createCommunityBtn');
+            if (createCommunityBtn) {
+                createCommunityBtn.addEventListener('click', function() {
+                    showCreateCommunityModal();
+                });
+            }
+
+            // View toggle
+            const gridViewBtn = document.getElementById('gridView');
+            const listViewBtn = document.getElementById('listView');
+            const communitiesGrid = document.getElementById('communitiesGrid');
+            
+            if (gridViewBtn && listViewBtn && communitiesGrid) {
+                gridViewBtn.addEventListener('click', function() {
+                    gridViewBtn.classList.add('text-neon-cyan');
+                    listViewBtn.classList.remove('text-neon-cyan', 'text-white');
+                    listViewBtn.classList.add('text-gray-300');
+                    communitiesGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+                });
+
+                listViewBtn.addEventListener('click', function() {
+                    listViewBtn.classList.add('text-neon-cyan');
+                    gridViewBtn.classList.remove('text-neon-cyan', 'text-white');
+                    gridViewBtn.classList.add('text-gray-300');
+                    communitiesGrid.className = 'grid grid-cols-1 gap-6';
+                });
+            }
+
+            // Carousel navigation
+            const carouselPrev = document.querySelector('.carousel-prev');
+            const carouselNext = document.querySelector('.carousel-next');
+            
+            if (carouselPrev && carouselNext) {
+                carouselPrev.addEventListener('click', function() {
+                    const carousel = document.getElementById('trendingCarousel');
+                    if (carousel) {
+                        carousel.scrollLeft -= 316; // card width + gap
+                    }
+                });
+
+                carouselNext.addEventListener('click', function() {
+                    const carousel = document.getElementById('trendingCarousel');
+                    if (carousel) {
+                        carousel.scrollLeft += 316; // card width + gap
+                    }
+                });
+            }
+
+            // Load more communities
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    const button = this;
+                    button.innerHTML = '<span class="material-symbols-outlined animate-spin material-icons-fix">refresh</span> Loading...';
+                    button.disabled = true;
+                    
+                    // Simulate loading more communities
+                    setTimeout(() => {
+                        // In a real app, this would fetch more data from an API
+                        button.innerHTML = 'Load More Communities';
+                        button.disabled = false;
+                        showToast('More communities loaded!', 'success');
+                    }, 1500);
+                });
+            }
+
+            // Modal backdrop click
+            const modalBackdrop = document.getElementById('communityModalBackdrop');
+            if (modalBackdrop) {
+                modalBackdrop.addEventListener('click', function() {
+                    closeCommunityModal();
+                });
+            }
+        }
+
+        // Initialize search functionality
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (!searchInput) return;
+            
+            // Override the navigation search for community-specific search
+            searchInput.removeEventListener('input', null);
+            searchInput.removeEventListener('focus', null);
+            
+            searchInput.addEventListener('input', function(e) {
+                // Hide the navigation search results
+                const searchResults = document.getElementById('searchResults');
+                if (searchResults) {
+                    searchResults.classList.add('hidden');
+                }
+                
+                // Perform community search
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (searchTerm.length > 0) {
+                    const filteredCommunities = communities.filter(community => 
+                        community.name.toLowerCase().includes(searchTerm) ||
+                        community.description.toLowerCase().includes(searchTerm) ||
+                        community.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                    );
+                    
+                    renderCommunitiesWithHighlight(filteredCommunities, searchTerm);
+                } else {
+                    const activeCategory = document.querySelector('.category-chip.active')?.getAttribute('data-category') || 'all';
+                    renderCommunities(activeCategory);
+                }
+            });
+            
+            searchInput.addEventListener('focus', function() {
+                // Hide the navigation search results on focus
+                const searchResults = document.getElementById('searchResults');
+                if (searchResults) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+        }
+
+        // Render communities with search highlight
+        function renderCommunitiesWithHighlight(filteredCommunities, searchTerm) {
+            const container = document.getElementById('communitiesGrid');
+            if (!container) return;
+            
+            const activeCategory = document.querySelector('.category-chip.active')?.getAttribute('data-category') || 'all';
+            
+            container.innerHTML = filteredCommunities
+                .filter(community => activeCategory === 'all' || community.category === activeCategory)
+                .map(community => {
+                    const highlightedName = highlightText(community.name, searchTerm);
+                    const highlightedDesc = highlightText(community.description, searchTerm);
+                    
+                    return `
+                    <div class="community-card glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden fade-in-up" data-category="${community.category}">
+                        <div class="relative">
+                            <div class="community-banner ${community.bannerColor}"></div>
+                            <div class="popularity-badge">
+                                <div class="flex items-center space-x-1 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-sm">
+                                    <span class="material-symbols-outlined ${community.iconColor} material-icons-fix text-sm">${community.icon}</span>
+                                    <span>${community.popularity}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="community-avatar rounded-full bg-gradient-to-r ${community.bannerColor.replace('/20', '')} flex items-center justify-center">
+                                    <span class="material-symbols-outlined ${community.iconColor} text-3xl material-icons-fix">${community.icon}</span>
+                                </div>
+                                <button class="join-btn px-4 py-2 rounded-lg ${community.isJoined ? 'bg-gradient-to-r from-neon-cyan to-neon-blue text-white' : 'glassmorphism-light text-gray-300 hover:text-white'} transition-colors" data-id="${community.id}" data-joined="${community.isJoined}">
+                                    ${community.isJoined ? 'Joined' : 'Join'}
+                                </button>
+                            </div>
+                            <h3 class="text-white font-bold text-xl mb-2">${highlightedName}</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">${highlightedDesc}</p>
+                            
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="material-symbols-outlined text-green-400 text-sm material-icons-fix">person</span>
+                                        <span class="text-white text-sm">${formatNumber(community.members)}</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="material-symbols-outlined text-neon-cyan text-sm material-icons-fix">online_prediction</span>
+                                        <span class="text-white text-sm pulse-glow">${community.online}</span>
+                                    </div>
+                                </div>
+                                <span class="text-xs px-3 py-1 rounded-full ${getCategoryColor(community.category)}">${getCategoryName(community.category)}</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                ${community.tags.map(tag => `
+                                    <span class="px-3 py-1 text-xs rounded-full glassmorphism-light text-gray-300">${highlightText(tag, searchTerm)}</span>
+                                `).join('')}
+                            </div>
+                            
+                            <button class="view-community-btn w-full py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white transition-colors flex items-center justify-center space-x-2" data-id="${community.id}">
+                                <span class="material-symbols-outlined material-icons-fix">visibility</span>
+                                <span>View Community</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+        }
+
+        // Show community details modal
+        function showCommunityModal(community) {
+            const modal = document.getElementById('communityModal');
+            const backdrop = document.getElementById('communityModalBackdrop');
+            
+            if (!modal || !backdrop) return;
+            
+            modal.innerHTML = `
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white text-2xl font-bold">${community.name}</h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined material-icons-fix">close</span>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 mb-6">
+                            <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-3 ${community.iconColor} material-icons-fix">${community.icon}</span>
+                                About This Community
+                            </h4>
+                            <p class="text-gray-300 mb-6">${community.description}</p>
+                            
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div class="text-center p-4 rounded-xl glassmorphism">
+                                    <div class="text-2xl font-bold text-white mb-1">${formatNumber(community.members)}</div>
+                                    <div class="text-gray-400 text-sm">Total Members</div>
+                                </div>
+                                <div class="text-center p-4 rounded-xl glassmorphism">
+                                    <div class="text-2xl font-bold text-neon-cyan mb-1">${community.online}</div>
+                                    <div class="text-gray-400 text-sm">Online Now</div>
+                                </div>
+                                <div class="text-center p-4 rounded-xl glassmorphism">
+                                    <div class="text-2xl font-bold text-neon-purple mb-1">${community.popularity}%</div>
+                                    <div class="text-gray-400 text-sm">Activity Rate</div>
+                                </div>
+                                <div class="text-center p-4 rounded-xl glassmorphism">
+                                    <div class="text-2xl font-bold text-green-400 mb-1">${Math.floor(community.members * 0.1)}</div>
+                                    <div class="text-gray-400 text-sm">Active Today</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-white font-bold mb-3">Popular Tags</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    ${community.tags.map(tag => `
+                                        <span class="px-4 py-2 rounded-full glassmorphism-light text-white font-medium">${tag}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <h4 class="text-white font-bold text-lg mb-4">Recent Activity</h4>
+                            <div class="space-y-4">
+                                ${generateActivityItems()}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 mb-6">
+                            <h4 class="text-white font-bold text-lg mb-4">Community Actions</h4>
+                            <button class="w-full mb-4 py-3 rounded-xl ${community.isJoined ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-neon-cyan to-neon-blue'} text-white font-bold hover:opacity-90 transition-all flex items-center justify-center space-x-2" id="modalJoinBtn" data-id="${community.id}" data-joined="${community.isJoined}">
+                                <span class="material-symbols-outlined material-icons-fix">${community.isJoined ? 'logout' : 'group_add'}</span>
+                                <span>${community.isJoined ? 'Leave Community' : 'Join Community'}</span>
+                            </button>
+                            <button class="w-full py-3 rounded-xl glassmorphism-light text-white font-medium hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 mb-3">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span>Notification Settings</span>
+                            </button>
+                            <button class="w-full py-3 rounded-xl glassmorphism-light text-white font-medium hover:bg-white/10 transition-colors flex items-center justify-center space-x-2">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span>Share Community</span>
+                            </button>
+                        </div>
+                        
+                        <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                            <h4 class="text-white font-bold text-lg mb-4">Top Members</h4>
+                            <div class="space-y-4">
+                                ${generateTopMembers()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Show modal
+            modal.classList.add('show');
+            backdrop.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Add event listener to close button
+            const closeModalBtn = document.getElementById('closeModal');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeCommunityModal);
             }
             
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes float {
-                    0% {
-                        transform: translate(0, 0) rotate(0deg);
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 1;
-                    }
-                    90% {
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: translate(${Math.random() * 100 - 50}px, -100vh) rotate(${Math.random() * 360}deg);
-                        opacity: 0;
-                    }
-                }
-                
-                @keyframes stream-flow {
-                    0% {
-                        top: -100%;
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 0.2;
-                    }
-                    90% {
-                        opacity: 0.2;
-                    }
-                    100% {
-                        top: 100%;
-                        opacity: 0;
-                    }
-                }
-                
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Scroll reveal animation
-        function initScrollReveal() {
-            const scrollElements = document.querySelectorAll('.scroll-hidden');
-            
-            const elementInView = (el, dividend = 1) => {
-                const elementTop = el.getBoundingClientRect().top;
-                return (
-                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
-                );
-            };
-            
-            const displayScrollElement = (element) => {
-                element.classList.add('scroll-visible');
-            };
-            
-            const handleScrollAnimation = () => {
-                scrollElements.forEach((el) => {
-                    if (elementInView(el, 1.15)) {
-                        displayScrollElement(el);
-                    }
-                });
-            };
-            
-            // Initial check
-            handleScrollAnimation();
-            
-            // Listen for scroll
-            window.addEventListener('scroll', () => {
-                handleScrollAnimation();
-            });
-        }
-        
-        // Tab switching functionality
-        function initTabs() {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
+            // Add event listener to join button in modal
+            const modalJoinBtn = document.getElementById('modalJoinBtn');
+            if (modalJoinBtn) {
+                modalJoinBtn.addEventListener('click', function() {
+                    const communityId = parseInt(this.getAttribute('data-id'));
+                    const isJoined = this.getAttribute('data-joined') === 'true';
                     
-                    // Update active tab button
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    // Show corresponding tab content
-                    tabContents.forEach(content => {
-                        content.classList.add('hidden');
-                        content.classList.remove('active');
-                    });
-                    
-                    const activeContent = document.getElementById(`${tabId}-tab`);
-                    if (activeContent) {
-                        activeContent.classList.remove('hidden');
-                        activeContent.classList.add('active');
-                    }
-                });
-            });
-        }
-        
-        // Category filter functionality
-        function initCategoryFilter() {
-            const categoryChips = document.querySelectorAll('.category-chip');
-            
-            categoryChips.forEach(chip => {
-                chip.addEventListener('click', () => {
-                    // Remove active class from all chips
-                    categoryChips.forEach(c => c.classList.remove('active'));
-                    // Add active class to clicked chip
-                    chip.classList.add('active');
-                    
-                    // In a real app, this would filter the communities
-                    console.log(`Filtering by: ${chip.textContent}`);
-                });
-            });
-        }
-        
-        // Join community buttons
-        function initJoinButtons() {
-            const joinButtons = document.querySelectorAll('.community-card button');
-            
-            joinButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const communityName = this.closest('.community-card').querySelector('h3').textContent;
-                    
-                    // Toggle join state
-                    if (this.textContent === 'Join') {
-                        this.textContent = 'Joined';
-                        this.classList.remove('bg-gradient-to-r', 'from-neon-cyan', 'to-neon-blue', 'from-neon-purple', 'to-pink-500');
-                        this.classList.add('bg-slate-700', 'text-slate-300');
-                        this.style.boxShadow = 'none';
-                        
-                        // Show notification
-                        showNotification(`You've joined ${communityName}!`, 'success');
-                    } else {
-                        this.textContent = 'Join';
-                        const isPurple = this.classList.contains('bg-gradient-to-r', 'from-neon-purple', 'to-pink-500');
-                        if (isPurple) {
-                            this.classList.add('bg-gradient-to-r', 'from-neon-purple', 'to-pink-500');
+                    // Update community data
+                    const communityIndex = communities.findIndex(c => c.id === communityId);
+                    if (communityIndex !== -1) {
+                        communities[communityIndex].isJoined = !isJoined;
+                        if (communities[communityIndex].isJoined) {
+                            communities[communityIndex].members += 1;
                         } else {
-                            this.classList.add('bg-gradient-to-r', 'from-neon-cyan', 'to-neon-blue');
+                            communities[communityIndex].members -= 1;
                         }
-                        this.classList.remove('bg-slate-700', 'text-slate-300');
-                        this.style.boxShadow = '';
                         
-                        // Show notification
-                        showNotification(`You've left ${communityName}.`, 'info');
+                        // Update main join buttons
+                        document.querySelectorAll(`.join-btn[data-id="${communityId}"]`).forEach(btn => {
+                            btn.setAttribute('data-joined', communities[communityIndex].isJoined);
+                            btn.innerHTML = communities[communityIndex].isJoined ? 'Joined' : 'Join';
+                            btn.className = `join-btn px-4 py-2 rounded-lg ${communities[communityIndex].isJoined ? 'bg-gradient-to-r from-neon-cyan to-neon-blue text-white' : 'glassmorphism-light text-gray-300 hover:text-white'} transition-colors`;
+                        });
+                        
+                        // Update modal button
+                        this.setAttribute('data-joined', communities[communityIndex].isJoined);
+                        this.innerHTML = `
+                            <span class="material-symbols-outlined material-icons-fix">${communities[communityIndex].isJoined ? 'logout' : 'group_add'}</span>
+                            <span>${communities[communityIndex].isJoined ? 'Leave Community' : 'Join Community'}</span>
+                        `;
+                        this.className = `w-full mb-4 py-3 rounded-xl ${communities[communityIndex].isJoined ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-neon-cyan to-neon-blue'} text-white font-bold hover:opacity-90 transition-all flex items-center justify-center space-x-2`;
+                        
+                        // Show toast
+                        showToast(`${communities[communityIndex].isJoined ? 'Joined' : 'Left'} "${communities[communityIndex].name}"`, communities[communityIndex].isJoined ? 'success' : 'info');
                     }
                 });
-            });
+            }
         }
-        
-        // Show notification
-        function showNotification(message, type) {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = `fixed top-6 right-6 z-50 p-4 rounded-xl backdrop-blur-lg border ${
-                type === 'success' 
-                    ? 'bg-green-500/10 border-green-500/30 text-green-300' 
-                    : 'bg-blue-500/10 border-blue-500/30 text-blue-300'
-            } transform translate-x-full transition-transform duration-300`;
-            notification.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined material-icons-fix">${
-                        type === 'success' ? 'check_circle' : 'info'
-                    }</span>
+
+        // Show create community modal
+        function showCreateCommunityModal() {
+            const modal = document.getElementById('communityModal');
+            const backdrop = document.getElementById('communityModalBackdrop');
+            
+            if (!modal || !backdrop) return;
+            
+            modal.innerHTML = `
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white text-2xl font-bold">Create New Community</h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined material-icons-fix">close</span>
+                    </button>
+                </div>
+                
+                <form id="createCommunityForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-gray-300 mb-2">Community Name *</label>
+                            <input 
+                                type="text" 
+                                required
+                                placeholder="Enter community name"
+                                class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                            />
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-300 mb-2">Category *</label>
+                            <select class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent">
+                                <option value="">Select category</option>
+                                <option value="fps">FPS Games</option>
+                                <option value="rpg">RPG & Adventure</option>
+                                <option value="strategy">Strategy</option>
+                                <option value="sports">Sports & Racing</option>
+                                <option value="indie">Indie Games</option>
+                                <option value="esports">Esports</option>
+                                <option value="creative">Creative</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-300 mb-2">Description *</label>
+                        <textarea 
+                            rows="4"
+                            required
+                            placeholder="Describe your community's purpose, rules, and topics..."
+                            class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent resize-none"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-300 mb-2">Tags (comma separated)</label>
+                        <input 
+                            type="text" 
+                            placeholder="e.g., Gaming, Strategy, Multiplayer"
+                            class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                        />
+                    </div>
+                    
+                    <div class="mb-8">
+                        <label class="block text-gray-300 mb-3">Community Type</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="flex items-center p-4 rounded-xl glassmorphism-light cursor-pointer hover:bg-white/10 transition-colors">
+                                <input type="radio" name="type" value="public" class="mr-3" checked>
+                                <div>
+                                    <div class="text-white font-medium mb-1">Public</div>
+                                    <div class="text-gray-400 text-sm">Anyone can join and view content</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 rounded-xl glassmorphism-light cursor-pointer hover:bg-white/10 transition-colors">
+                                <input type="radio" name="type" value="private" class="mr-3">
+                                <div>
+                                    <div class="text-white font-medium mb-1">Private</div>
+                                    <div class="text-gray-400 text-sm">Requires approval to join</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 rounded-xl glassmorphism-light cursor-pointer hover:bg-white/10 transition-colors">
+                                <input type="radio" name="type" value="secret" class="mr-3">
+                                <div>
+                                    <div class="text-white font-medium mb-1">Secret</div>
+                                    <div class="text-gray-400 text-sm">Invite only, hidden from searches</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" id="cancelCreate" class="px-6 py-3 rounded-xl glassmorphism-light text-gray-300 hover:text-white transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-8 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all">
+                            Create Community
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            // Show modal
+            modal.classList.add('show');
+            backdrop.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Add event listeners
+            const closeModalBtn = document.getElementById('closeModal');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeCommunityModal);
+            }
+            
+            const cancelCreateBtn = document.getElementById('cancelCreate');
+            if (cancelCreateBtn) {
+                cancelCreateBtn.addEventListener('click', closeCommunityModal);
+            }
+            
+            const createCommunityForm = document.getElementById('createCommunityForm');
+            if (createCommunityForm) {
+                createCommunityForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // In a real app, this would submit to an API
+                    showToast('Community created successfully!', 'success');
+                    setTimeout(() => {
+                        closeCommunityModal();
+                        showToast('Your new community is now live!', 'success');
+                    }, 1500);
+                });
+            }
+        }
+
+        // Close community modal
+        function closeCommunityModal() {
+            const modal = document.getElementById('communityModal');
+            const backdrop = document.getElementById('communityModalBackdrop');
+            
+            if (modal) modal.classList.remove('show');
+            if (backdrop) backdrop.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Helper functions
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        function getCategoryColor(category) {
+            const colors = {
+                'fps': 'bg-red-500/20 text-red-300',
+                'rpg': 'bg-purple-500/20 text-purple-300',
+                'strategy': 'bg-green-500/20 text-green-300',
+                'sports': 'bg-blue-500/20 text-blue-300',
+                'indie': 'bg-yellow-500/20 text-yellow-300',
+                'esports': 'bg-cyan-500/20 text-cyan-300',
+                'creative': 'bg-pink-500/20 text-pink-300'
+            };
+            return colors[category] || 'bg-gray-500/20 text-gray-300';
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'fps': 'FPS Games',
+                'rpg': 'RPG & Adventure',
+                'strategy': 'Strategy',
+                'sports': 'Sports & Racing',
+                'indie': 'Indie Games',
+                'esports': 'Esports',
+                'creative': 'Creative'
+            };
+            return names[category] || 'General';
+        }
+
+        function generateActivityItems() {
+            const activities = [
+                { user: 'ApexMaster_99', action: 'posted a new strategy guide', time: '2h ago', icon: 'edit', color: 'text-neon-cyan' },
+                { user: 'LoreRunner', action: 'shared a lore discovery', time: '4h ago', icon: 'auto_stories', color: 'text-neon-purple' },
+                { user: 'TeamStratPro', action: 'started a tournament', time: '1d ago', icon: 'trophy', color: 'text-yellow-400' },
+                { user: 'ClutchShot', action: 'reached level 100', time: '2d ago', icon: 'military_tech', color: 'text-green-400' }
+            ];
+            
+            return activities.map(activity => `
+                <div class="activity-item">
+                    <div class="activity-dot ${activity.color.replace('text-', 'bg-')}"></div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-white font-medium">${activity.user}</span>
+                            <span class="text-gray-400"> ${activity.action}</span>
+                        </div>
+                        <span class="text-gray-500 text-sm">${activity.time}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function generateTopMembers() {
+            const members = [
+                { name: 'ApexMaster_99', role: 'Admin', level: 95, avatar: 'AM', color: 'from-red-500 to-orange-500' },
+                { name: 'LoreRunner', role: 'Moderator', level: 88, avatar: 'LR', color: 'from-purple-500 to-blue-500' },
+                { name: 'TeamStratPro', role: 'Strategist', level: 92, avatar: 'TS', color: 'from-green-500 to-teal-500' },
+                { name: 'ClutchShot', role: 'VIP Member', level: 85, avatar: 'CS', color: 'from-blue-500 to-cyan-500' }
+            ];
+            
+            return members.map(member => `
+                <div class="flex items-center space-x-3">
+                    <div class="member-avatar w-12 h-12 rounded-full bg-gradient-to-r ${member.color} flex items-center justify-center">
+                        <span class="text-white font-bold">${member.avatar}</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <div class="text-white font-medium">${member.name}</div>
+                            <span class="text-xs px-2 py-1 rounded-full bg-white/10 text-gray-300">${member.role}</span>
+                        </div>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-gray-400 text-sm">Level ${member.level}</span>
+                            <div class="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r ${member.color}" style="width: ${member.level}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-xl glassmorphism-dark backdrop-blur-xl border ${type === 'success' ? 'border-green-500/30' : 'border-neon-cyan/30'} text-white font-medium z-50 fade-in-up`;
+            toast.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <span class="material-symbols-outlined ${type === 'success' ? 'text-green-400' : 'text-neon-cyan'} material-icons-fix">
+                        ${type === 'success' ? 'check_circle' : 'info'}
+                    </span>
                     <span>${message}</span>
                 </div>
             `;
             
-            document.body.appendChild(notification);
+            document.body.appendChild(toast);
             
-            // Animate in
             setTimeout(() => {
-                notification.classList.remove('translate-x-full');
-                notification.classList.add('translate-x-0');
-            }, 10);
-            
-            // Remove after 3 seconds
-            setTimeout(() => {
-                notification.classList.remove('translate-x-0');
-                notification.classList.add('translate-x-full');
+                toast.classList.add('hidden');
                 setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
+                    document.body.removeChild(toast);
                 }, 300);
             }, 3000);
         }
-        
-        // Mobile menu toggle
-        function initMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    // Create mobile menu overlay
-                    let mobileMenu = document.getElementById('mobile-menu-overlay');
-                    
-                    if (!mobileMenu) {
-                        mobileMenu = document.createElement('div');
-                        mobileMenu.id = 'mobile-menu-overlay';
-                        mobileMenu.className = 'fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-2xl';
-                        mobileMenu.innerHTML = `
-                            <button class="absolute top-6 right-6 text-white text-3xl" id="close-mobile-menu">
-                                <span class="material-symbols-outlined material-icons-fix">close</span>
-                            </button>
-                            <div class="flex flex-col items-center gap-8 p-8">
-                                <a class="text-white text-2xl font-medium hover:text-neon-cyan transition-colors" href="index.html">Home</a>
-                                <a class="text-white text-2xl font-medium hover:text-neon-purple transition-colors" href="#discover">Discover</a>
-                                <a class="text-white text-2xl font-medium hover:text-neon-cyan transition-colors" href="#my-communities">My Communities</a>
-                                <a class="text-white text-2xl font-medium hover:text-neon-purple transition-colors" href="#trending">Trending</a>
-                                <button class="mt-8 px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-xl font-bold rounded-xl neon-glow">
-                                    Create Community
-                                </button>
-                            </div>
-                        `;
-                        document.body.appendChild(mobileMenu);
-                        
-                        // Add close event
-                        document.getElementById('close-mobile-menu').addEventListener('click', () => {
-                            mobileMenu.remove();
-                        });
-                        
-                        // Add click events for mobile menu links
-                        mobileMenu.querySelectorAll('a').forEach(link => {
-                            link.addEventListener('click', () => {
-                                mobileMenu.remove();
-                            });
-                        });
-                    }
-                });
-            }
-        }
-        
-        // Smooth scrolling for anchor links
-        function initSmoothScrolling() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 120,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-        
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initParticles();
-            initScrollReveal();
-            initTabs();
-            initCategoryFilter();
-            initJoinButtons();
-            initMobileMenu();
-            initSmoothScrolling();
-            
-            // Initialize hero animations
-            const heroElements = document.querySelectorAll('#community-hero .scroll-hidden');
-            heroElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.classList.add('scroll-visible');
-                }, index * 300);
-            });
-            
-            console.log('Hyper Realm Communities Page loaded successfully!');
-        });
+
+        console.log('Hyper Realm Communities page initialized!');
     </script>
 </body>
 </html>
