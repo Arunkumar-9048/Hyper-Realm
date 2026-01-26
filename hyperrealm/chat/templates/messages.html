@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Messages</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a15;
+            --darker-bg: #050510;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Enhanced Background */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
+        }
+
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+        }
+
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Chat-specific styles */
+        .chat-container {
+            display: flex;
+            height: calc(100vh - 80px);
+            margin-top: 80px;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .contacts-sidebar {
+            width: 380px;
+            min-width: 380px;
+            overflow: hidden;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .contact-item {
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.1);
+        }
+
+        .contact-item.active {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .message-bubble {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .message-bubble.sent {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(0, 102, 255, 0.2));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 4px;
+            display: block;
+            text-align: right;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 243, 255, 0.5);
+        }
+
+        /* Fixed Navigation Bar - EXACT SAME AS DASHBOARD */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        /* FIXED: Navigation dropdowns - fixed position */
+        .fixed-dropdown {
+            position: fixed !important;
+            top: 60px !important;
+            z-index: 60 !important;
+        }
+
+        .notifications-dropdown {
+            right: 140px !important;
+        }
+
+        .messages-dropdown {
+            right: 90px !important;
+        }
+
+        .mainmenu-dropdown {
+            right: 20px !important;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .contacts-sidebar {
+                width: 300px;
+                min-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .contacts-sidebar {
+                width: 100%;
+                min-width: 100%;
+                max-height: 200px;
+            }
+        }
+
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- EXACT SAME NAVIGATION BAR AS DASHBOARD -->
+    <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo moved to left side -->
+                <div class="flex items-center space-x-3">
+                    <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                    <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                </div>
+
+                <!-- Search bar centered -->
+                <div class="flex-1 max-w-2xl mx-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                            placeholder="Search gamers, communities, games..."
+                        />
+                        <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                            <!-- Search results will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications, Messages, and Three Bars Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications with Dropdown -->
+                    <div class="relative" id="notificationsMenu">
+                        <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
+                        </button>
+                    </div>
+
+                    <!-- Messages with Dropdown - Now active since we're on messages page -->
+                    <div class="relative" id="messagesMenu">
+                        <button class="relative p-2 text-neon-purple transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chat</span>
+                            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                        </button>
+                    </div>
+
+                    <!-- Three Bars Menu moved to right side, next to messages -->
+                    <button id="mainMenuButton" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                        <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FIXED: Navigation dropdowns with fixed positioning - EXACT SAME AS DASHBOARD -->
+
+    <!-- Notifications Dropdown - Fixed -->
+    <div id="notificationsDropdown" class="hidden fixed-dropdown notifications-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="p-4">
+            <h3 class="text-white font-bold mb-3 flex items-center">
+                <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">notifications</span>
+                Notifications
+            </h3>
+            <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white text-sm material-icons-fix">person_add</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white text-sm">ApexMaster_99 started following you</p>
+                            <p class="text-gray-400 text-xs">2 minutes ago</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white text-sm material-icons-fix">favorite</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white text-sm">LoreRunner liked your post</p>
+                            <p class="text-gray-400 text-xs">1 hour ago</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white text-sm material-icons-fix">comment</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white text-sm">TeamStratPro commented on your strategy</p>
+                            <p class="text-gray-400 text-xs">3 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white text-sm material-icons-fix">military_tech</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white text-sm">You earned the "Legendary Gamer" badge</p>
+                            <p class="text-gray-400 text-xs">Yesterday</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="w-full mt-3 py-2 text-center text-neon-cyan text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                View All Notifications
+            </button>
+        </div>
+    </div>
+
+    <!-- Messages Dropdown - Fixed -->
+    <div id="messagesDropdown" class="hidden fixed-dropdown messages-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="p-4">
+            <h3 class="text-white font-bold mb-3 flex items-center">
+                <span class="material-symbols-outlined mr-2 text-neon-purple material-icons-fix">chat</span>
+                Messages
+            </h3>
+            <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                            <span class="text-white font-bold">AM</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">ApexMaster_99</div>
+                                <span class="text-gray-400 text-xs">2 min</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Great play in that last match!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                            <span class="text-white font-bold">LR</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">LoreRunner</div>
+                                <span class="text-gray-400 text-xs">1 hr</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                            <span class="text-white font-bold">TS</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">TeamStratPro</div>
+                                <span class="text-gray-400 text-xs">3 hrs</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Want to join our practice session?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="w-full mt-3 py-2 text-center text-neon-purple text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                View All Messages
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Navigation Menu Dropdown - Fixed -->
+    <div id="mainMenuDropdown" class="hidden fixed-dropdown mainmenu-dropdown w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="py-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">home</span>
+                Home
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                Communities
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                Games
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                Explore
+            </a>
+            <hr class="border-white/10 my-1">
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                Profile
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                Settings
+            </a>
+            <hr class="border-white/10 my-1">
+            <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Chat Container -->
+    <div class="chat-container">
+        <!-- Contacts Sidebar -->
+        <div class="contacts-sidebar glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden">
+            <div class="p-6 border-b border-white/10">
+                <h2 class="text-white text-2xl font-bold mb-2">Messages</h2>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                    </div>
+                    <input 
+                        type="text" 
+                        placeholder="Search conversations..."
+                        class="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                    />
+                </div>
+            </div>
+
+            <div class="overflow-y-auto h-[calc(100%-120px)]">
+                <!-- Contact List -->
+                <div class="space-y-1 p-2">
+                    <!-- Active Chat -->
+                    <div class="contact-item active" data-contact="ApexMaster_99">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">AM</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">ApexMaster_99</h4>
+                                    <span class="text-xs text-gray-400">2 min</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">Great play in that last match!</p>
+                            </div>
+                            <span class="w-2 h-2 rounded-full bg-neon-cyan"></span>
+                        </div>
+                    </div>
+
+                    <!-- Other Contacts -->
+                    <div class="contact-item" data-contact="LoreRunner">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">LR</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">LoreRunner</h4>
+                                    <span class="text-xs text-gray-400">1 hr</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" data-contact="TeamStratPro">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">TS</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">TeamStratPro</h4>
+                                    <span class="text-xs text-gray-400">3 hrs</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">Want to join our practice session?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" data-contact="RaidParty">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">RP</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">RaidParty</h4>
+                                    <span class="text-xs text-gray-400">Yesterday</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">Raid at 8 PM EST tonight?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" data-contact="ClutchShot">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">CS</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-gray-400 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">ClutchShot</h4>
+                                    <span class="text-xs text-gray-400">2 days</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">New CS2 highlight video is up!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" data-contact="MetaGamer">
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                    <span class="text-white font-bold">MG</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="text-white font-bold text-base truncate">MetaGamer</h4>
+                                    <span class="text-xs text-gray-400">3 days</span>
+                                </div>
+                                <p class="text-gray-300 text-sm truncate">Patch notes analysis is live</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="chat-main glassmorphism-light backdrop-blur-lg rounded-2xl overflow-hidden">
+            <!-- Chat Header -->
+            <div class="chat-header flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                            <span class="text-white font-bold">AM</span>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-xl">ApexMaster_99</h3>
+                        <p class="text-gray-300 text-sm">Online • Playing Apex Legends</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                        <span class="material-symbols-outlined material-icons-fix">call</span>
+                    </button>
+                    <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                        <span class="material-symbols-outlined material-icons-fix">videocam</span>
+                    </button>
+                    <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                        <span class="material-symbols-outlined material-icons-fix">info</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages no-scrollbar">
+                <!-- Date Separator -->
+                <div class="text-center my-6">
+                    <span class="px-4 py-1 rounded-full bg-white/5 text-gray-300 text-sm">Today</span>
+                </div>
+
+                <!-- Received Messages -->
+                <div class="message-bubble received">
+                    <p>Hey John! Just saw your Apex highlights - insane play in that final circle! 🔥</p>
+                    <span class="message-time">10:24 AM</span>
+                </div>
+
+                <div class="message-bubble received">
+                    <p>How did you manage to 1v3 with that loadout? I've been struggling with the new meta</p>
+                    <span class="message-time">10:25 AM</span>
+                </div>
+
+                <!-- Sent Messages -->
+                <div class="message-bubble sent">
+                    <p>Thanks man! The key was using the building for cover and forcing them to push one at a time</p>
+                    <span class="message-time">10:26 AM</span>
+                </div>
+
+                <div class="message-bubble sent">
+                    <p>New Flatline with 2x optic is insane for mid-range. You should try it!</p>
+                    <span class="message-time">10:27 AM</span>
+                </div>
+
+                <!-- Received Message -->
+                <div class="message-bubble received">
+                    <p>Will definitely give it a shot! You down for some ranked later? My team needs a third for tonight's session</p>
+                    <span class="message-time">10:28 AM</span>
+                </div>
+
+                <!-- Sent Message -->
+                <div class="message-bubble sent">
+                    <p>Sounds good! What time were you thinking? I have a streaming session until 7 PM EST</p>
+                    <span class="message-time">10:29 AM</span>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <span class="text-gray-300 text-sm ml-2">ApexMaster_99 is typing...</span>
+                </div>
+
+                <!-- New Messages (Simulated incoming) -->
+                <div class="message-bubble received">
+                    <p>8 PM EST works perfect! We're aiming for Masters push this season</p>
+                    <span class="message-time">Just now</span>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">add</span>
+                        </button>
+                        <button class="p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">image</span>
+                        </button>
+                        <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">gif</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex-1 relative">
+                        <input 
+                            type="text" 
+                            id="messageInput"
+                            placeholder="Type your message..."
+                            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                        />
+                        <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                            <button class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">mood</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="sendMessage" class="p-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white hover:opacity-90 transition-all">
+                        <span class="material-symbols-outlined material-icons-fix">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // EXACT SAME NAVIGATION BAR FUNCTIONALITY AS DASHBOARD
+            
+            // Main menu dropdown
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            mainMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle main menu
+                mainMenuDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                notificationsDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Notifications dropdown
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            notificationsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle notifications
+                notificationsDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Messages dropdown - Disabled on messages page
+            const messagesMenu = document.getElementById('messagesMenu');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+            
+            messagesMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault(); // Prevent dropdown on messages page
+                // On messages page, clicking messages icon does nothing
+                // since we're already on the messages page
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                // Check if click is outside any dropdown or its trigger button
+                const isClickOutsideMainMenu = !mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target);
+                const isClickOutsideNotifications = !notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target);
+                const isClickOutsideMessages = !messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target);
+                
+                if (isClickOutsideMainMenu) {
+                    mainMenuDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideNotifications) {
+                    notificationsDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideMessages) {
+                    messagesDropdown.classList.add('hidden');
+                }
+            });
+
+            // Search functionality - EXACT SAME AS DASHBOARD
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('focus', function() {
+                showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+            });
+            
+            searchInput.addEventListener('input', function(e) {
+                if (e.target.value.length > 0) {
+                    showSearchResults(['Results for: ' + e.target.value]);
+                } else {
+                    showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+                }
+            });
+            
+            function showSearchResults(items) {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = items.map(item => `
+                    <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                            <span>${item}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // CHAT FUNCTIONALITY
+            const contacts = document.querySelectorAll('.contact-item');
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendMessage');
+            const chatMessages = document.querySelector('.chat-messages');
+            const typingIndicator = document.querySelector('.typing-indicator');
+
+            // Contact switching functionality
+            contacts.forEach(contact => {
+                contact.addEventListener('click', function() {
+                    // Remove active class from all contacts
+                    contacts.forEach(c => c.classList.remove('active'));
+                    // Add active class to clicked contact
+                    this.classList.add('active');
+                    
+                    // Update chat header with selected contact
+                    const contactName = this.getAttribute('data-contact');
+                    const contactAvatar = this.querySelector('.rounded-full').cloneNode(true);
+                    const headerAvatar = document.querySelector('.chat-header .rounded-full');
+                    
+                    // Replace header avatar and name
+                    headerAvatar.parentNode.replaceChild(contactAvatar, headerAvatar);
+                    document.querySelector('.chat-header h3').textContent = contactName;
+                    
+                    // Simulate loading new conversation
+                    simulateNewConversation(contactName);
+                });
+            });
+
+            // Send message functionality
+            sendButton.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    // Create new message bubble
+                    const messageBubble = document.createElement('div');
+                    messageBubble.className = 'message-bubble sent';
+                    
+                    const currentTime = new Date();
+                    const timeString = `${currentTime.getHours()}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+                    
+                    messageBubble.innerHTML = `
+                        <p>${message}</p>
+                        <span class="message-time">${timeString}</span>
+                    `;
+                    
+                    // Add to chat
+                    chatMessages.appendChild(messageBubble);
+                    
+                    // Clear input
+                    messageInput.value = '';
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Show typing indicator and simulate reply after delay
+                    typingIndicator.style.display = 'flex';
+                    setTimeout(simulateReply, 2000);
+                }
+            }
+
+            function simulateReply() {
+                // Hide typing indicator
+                typingIndicator.style.display = 'none';
+                
+                // Create reply message
+                const replies = [
+                    "Nice! I'll be there at 8 PM sharp!",
+                    "What's your current rank in Apex?",
+                    "Want to practice some 1v1s before?",
+                    "Check out this new clip I just got!",
+                    "Do you prefer playing controller or M&K?",
+                    "The new season looks amazing!"
+                ];
+                
+                const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                
+                const messageBubble = document.createElement('div');
+                messageBubble.className = 'message-bubble received';
+                
+                const currentTime = new Date();
+                const timeString = `${currentTime.getHours()}:${(currentTime.getMinutes() + 1).toString().padStart(2, '0')}`;
+                
+                messageBubble.innerHTML = `
+                    <p>${randomReply}</p>
+                    <span class="message-time">${timeString}</span>
+                `;
+                
+                // Add to chat
+                chatMessages.appendChild(messageBubble);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function simulateNewConversation(contactName) {
+                // Clear current messages
+                chatMessages.innerHTML = `
+                    <div class="text-center my-6">
+                        <span class="px-4 py-1 rounded-full bg-white/5 text-gray-300 text-sm">Today</span>
+                    </div>
+                `;
+                
+                // Add welcome message
+                const welcomeMessages = {
+                    'LoreRunner': "Welcome to the lands between! Ready to explore some lore?",
+                    'TeamStratPro': "Got some new Valorant strats to discuss!",
+                    'RaidParty': "Ready for tonight's raid? I've got some new gear!",
+                    'ClutchShot': "Check out my latest CS2 highlights!",
+                    'MetaGamer': "New patch analysis just dropped!",
+                    'ApexMaster_99': "Great play in that last match!"
+                };
+                
+                const welcomeMessage = welcomeMessages[contactName] || `Started a conversation with ${contactName}`;
+                
+                const messageBubble = document.createElement('div');
+                messageBubble.className = 'message-bubble received';
+                messageBubble.innerHTML = `
+                    <p>${welcomeMessage}</p>
+                    <span class="message-time">Just now</span>
+                `;
+                
+                chatMessages.appendChild(messageBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Focus input
+                messageInput.focus();
+            }
+
+            // Auto-scroll to bottom on load
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Initialize typing indicator as hidden
+            typingIndicator.style.display = 'none';
+
+            // Simulate incoming message after 5 seconds
+            setTimeout(() => {
+                const messageBubble = document.createElement('div');
+                messageBubble.className = 'message-bubble received';
+                messageBubble.innerHTML = `
+                    <p>Btw, found a new spot on Storm Point with insane loot! Want me to show you?</p>
+                    <span class="message-time">Just now</span>
+                `;
+                chatMessages.appendChild(messageBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 5000);
+
+            // Notification pulse effect - EXACT SAME AS DASHBOARD
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                notification.classList.toggle('pulse-notification');
+                setTimeout(() => {
+                    notification.classList.toggle('pulse-notification');
+                }, 100);
+            }, 4000);
+
+            console.log('Hyper Realm Messages Page initialized!');
+        });
+    </script>
+</body>
+</html>

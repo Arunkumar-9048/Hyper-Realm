@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Explore</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a15;
+            --darker-bg: #050510;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Enhanced Background */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
+        }
+
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+        }
+
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sidebar fixed positioning */
+        .sidebar-left {
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            width: 280px;
+            height: calc(100vh - 100px);
+            z-index: 40;
+            overflow: hidden;
+        }
+
+        /* Main content margins */
+        .main-content {
+            margin-left: 320px;
+            max-width: calc(100% - 340px);
+            padding-top: 100px;
+            padding-right: 20px;
+        }
+
+        /* Fixed Navigation Bar */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        /* FIXED: Navigation dropdowns */
+        .fixed-dropdown {
+            position: fixed !important;
+            top: 60px !important;
+            z-index: 60 !important;
+        }
+
+        .notifications-dropdown {
+            right: 140px !important;
+        }
+
+        .messages-dropdown {
+            right: 90px !important;
+        }
+
+        .mainmenu-dropdown {
+            right: 20px !important;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Explore Page Specific Styles */
+        .explore-hero {
+            background: linear-gradient(135deg, 
+                rgba(0, 243, 255, 0.1) 0%, 
+                rgba(185, 103, 255, 0.1) 50%, 
+                rgba(0, 102, 255, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-category {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .search-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .search-category::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .search-category:hover::after {
+            opacity: 1;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .filter-chip:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-cyan);
+        }
+
+        .filter-chip.active {
+            background: rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .result-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            border: 2px solid var(--darker-bg);
+        }
+
+        .streaming-indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .game-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .game-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .load-more {
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .load-more:hover {
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            border-color: var(--neon-cyan);
+        }
+
+        /* Animation for search results */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        /* Pulse animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar-left {
+                display: none;
+            }
+            .main-content {
+                margin-left: 20px;
+                margin-right: 20px;
+                max-width: 100%;
+                padding-top: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 120px;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- Top Navigation Bar - Fixed (Same as dashboard) -->
+        <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                        <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                    </div>
+
+                    <!-- Search bar centered -->
+                    <div class="flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                                placeholder="Search gamers, communities, games, posts..."
+                                autocomplete="off"
+                            />
+                            <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down max-h-96 overflow-y-auto">
+                                <!-- Search results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Notifications, Messages, and Three Bars Menu -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications with Dropdown -->
+                        <div class="relative" id="notificationsMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
+                            </button>
+                        </div>
+
+                        <!-- Messages with Dropdown -->
+                        <div class="relative" id="messagesMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                            </button>
+                        </div>
+
+                        <!-- Three Bars Menu -->
+                        <button id="mainMenuButton" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Navigation dropdowns (Same as dashboard) -->
+        <div id="notificationsDropdown" class="hidden fixed-dropdown notifications-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <!-- Notifications content same as dashboard -->
+        </div>
+
+        <div id="messagesDropdown" class="hidden fixed-dropdown messages-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <!-- Messages content same as dashboard -->
+        </div>
+
+        <div id="mainMenuDropdown" class="hidden fixed-dropdown mainmenu-dropdown w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="py-2">
+                <a href="dashboard.html" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">dashboard</span>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-neon-cyan hover:bg-white/10 transition-colors bg-white/5">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                    Explore
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                    Communities
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                    Games
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                    Profile
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                    Settings
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Left Sidebar - Explore Filters -->
+        <aside class="sidebar-left">
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 h-full overflow-y-auto no-scrollbar">
+                <h3 class="text-white font-bold text-xl mb-6 flex items-center">
+                    <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">filter_alt</span>
+                    Search Filters
+                </h3>
+
+                <!-- Category Filter -->
+                <div class="mb-8">
+                    <h4 class="text-white font-medium mb-4">Category</h4>
+                    <div class="space-y-2">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="gamers">Gamers</button>
+                        <button class="filter-chip" data-filter="communities">Communities</button>
+                        <button class="filter-chip" data-filter="games">Games</button>
+                        <button class="filter-chip" data-filter="posts">Posts</button>
+                        <button class="filter-chip" data-filter="streams">Live Streams</button>
+                    </div>
+                </div>
+
+                <!-- Sort By -->
+                <div class="mb-8">
+                    <h4 class="text-white font-medium mb-4">Sort By</h4>
+                    <div class="space-y-2">
+                        <button class="filter-chip active" data-sort="relevance">Relevance</button>
+                        <button class="filter-chip" data-sort="popular">Most Popular</button>
+                        <button class="filter-chip" data-sort="recent">Most Recent</button>
+                        <button class="filter-chip" data-sort="active">Most Active</button>
+                    </div>
+                </div>
+
+                <!-- Platform Filter -->
+                <div class="mb-8">
+                    <h4 class="text-white font-medium mb-4">Platform</h4>
+                    <div class="space-y-2">
+                        <button class="filter-chip" data-platform="pc">PC</button>
+                        <button class="filter-chip" data-platform="console">Console</button>
+                        <button class="filter-chip" data-platform="mobile">Mobile</button>
+                        <button class="filter-chip" data-platform="crossplay">Crossplay</button>
+                    </div>
+                </div>
+
+                <!-- Game Genre -->
+                <div class="mb-8">
+                    <h4 class="text-white font-medium mb-4">Game Genre</h4>
+                    <div class="space-y-2">
+                        <button class="filter-chip" data-genre="fps">FPS</button>
+                        <button class="filter-chip" data-genre="moba">MOBA</button>
+                        <button class="filter-chip" data-genre="rpg">RPG</button>
+                        <button class="filter-chip" data-genre="strategy">Strategy</button>
+                        <button class="filter-chip" data-genre="battle-royale">Battle Royale</button>
+                        <button class="filter-chip" data-genre="sports">Sports</button>
+                    </div>
+                </div>
+
+                <!-- Online Status -->
+                <div>
+                    <h4 class="text-white font-medium mb-4">Online Status</h4>
+                    <div class="space-y-2">
+                        <button class="filter-chip" data-status="online">Online Now</button>
+                        <button class="filter-chip" data-status="streaming">Currently Streaming</button>
+                        <button class="filter-chip" data-status="recent">Recently Active</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content py-6">
+            <!-- Explore Hero Section -->
+            <div class="explore-hero rounded-2xl p-8 mb-8 fade-in-up">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 neon-text">Discover Your Next Gaming Adventure</h1>
+                <p class="text-gray-300 text-lg mb-6 max-w-3xl">Find gamers, join communities, explore games, and connect with fellow players across the Hyper Realm universe.</p>
+                
+                <!-- Quick Search Suggestions -->
+                <div class="flex flex-wrap gap-3">
+                    <button class="filter-chip" data-quick-search="valorant">
+                        <span class="material-symbols-outlined text-sm mr-2 material-icons-fix">search</span>
+                        Valorant
+                    </button>
+                    <button class="filter-chip" data-quick-search="esports">
+                        <span class="material-symbols-outlined text-sm mr-2 material-icons-fix">search</span>
+                        Esports Teams
+                    </button>
+                    <button class="filter-chip" data-quick-search="streaming">
+                        <span class="material-symbols-outlined text-sm mr-2 material-icons-fix">search</span>
+                        Live Streams
+                    </button>
+                    <button class="filter-chip" data-quick-search="communities">
+                        <span class="material-symbols-outlined text-sm mr-2 material-icons-fix">search</span>
+                        Active Communities
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Results Area -->
+            <div id="searchResultsArea">
+                <!-- Results will be dynamically loaded here -->
+                
+                <!-- Default/Featured Content -->
+                <div id="featuredContent" class="fade-in-up">
+                    <!-- Featured Gamers -->
+                    <div class="mb-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-white">Featured Gamers</h2>
+                            <a href="#" class="text-neon-cyan hover:text-neon-purple transition-colors flex items-center">
+                                View All
+                                <span class="material-symbols-outlined ml-2 material-icons-fix">chevron_right</span>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Gamer Card 1 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="relative">
+                                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                            <span class="text-white font-bold text-xl">AM</span>
+                                        </div>
+                                        <div class="online-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">ApexMaster_99</h3>
+                                        <p class="text-gray-400 text-sm">Predator • Level 245</p>
+                                        <div class="flex items-center mt-1">
+                                            <span class="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-300 mr-2">Apex Legends</span>
+                                            <span class="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-300">Online</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-300">1.2K Followers</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Follow
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Gamer Card 2 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="relative">
+                                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                            <span class="text-white font-bold text-xl">LR</span>
+                                        </div>
+                                        <div class="online-indicator" style="background: #ef4444;"></div>
+                                        <div class="streaming-indicator">LIVE</div>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">LoreRunner</h3>
+                                        <p class="text-gray-400 text-sm">Storyteller • Level 189</p>
+                                        <div class="flex items-center mt-1">
+                                            <span class="text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300 mr-2">Elden Ring</span>
+                                            <span class="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-300">Streaming</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-300">856 Followers • 2.1K Viewers</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-purple to-pink-500 text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Watch
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Gamer Card 3 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="relative">
+                                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                            <span class="text-white font-bold text-xl">TS</span>
+                                        </div>
+                                        <div class="online-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">TeamStratPro</h3>
+                                        <p class="text-gray-400 text-sm">Strategist • Level 312</p>
+                                        <div class="flex items-center mt-1">
+                                            <span class="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-300 mr-2">Valorant</span>
+                                            <span class="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">In Game</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-300">3.4K Followers</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Follow
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trending Games -->
+                    <div class="mb-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-white">Trending Games</h2>
+                            <a href="#" class="text-neon-cyan hover:text-neon-purple transition-colors flex items-center">
+                                View All
+                                <span class="material-symbols-outlined ml-2 material-icons-fix">chevron_right</span>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Game Card 1 -->
+                            <div class="game-card result-card rounded-2xl overflow-hidden">
+                                <div class="h-48 bg-gradient-to-r from-red-500/30 to-orange-500/30 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-6xl text-red-400 material-icons-fix">military_tech</span>
+                                        <h3 class="text-white text-2xl font-bold mt-4">Valorant</h3>
+                                    </div>
+                                </div>
+                                <div class="game-card-content p-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-gray-300">Tactical FPS</span>
+                                        <span class="text-neon-cyan font-bold">12.4K Online</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm mb-4">5v5 character-based tactical shooter where precise gunplay meets unique agent abilities.</p>
+                                    <button class="w-full py-3 rounded-lg glassmorphism-light text-white font-medium hover:bg-white/10 transition-all">
+                                        Join Community
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Game Card 2 -->
+                            <div class="game-card result-card rounded-2xl overflow-hidden">
+                                <div class="h-48 bg-gradient-to-r from-purple-500/30 to-blue-500/30 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-6xl text-purple-400 material-icons-fix">sword</span>
+                                        <h3 class="text-white text-2xl font-bold mt-4">Elden Ring</h3>
+                                    </div>
+                                </div>
+                                <div class="game-card-content p-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-gray-300">Action RPG</span>
+                                        <span class="text-neon-purple font-bold">8.7K Online</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm mb-4">Explore the Lands Between in this epic fantasy action RPG with vast open world and challenging combat.</p>
+                                    <button class="w-full py-3 rounded-lg glassmorphism-light text-white font-medium hover:bg-white/10 transition-all">
+                                        Join Community
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Game Card 3 -->
+                            <div class="game-card result-card rounded-2xl overflow-hidden">
+                                <div class="h-48 bg-gradient-to-r from-green-500/30 to-teal-500/30 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-6xl text-green-400 material-icons-fix">sports_esports</span>
+                                        <h3 class="text-white text-2xl font-bold mt-4">League of Legends</h3>
+                                    </div>
+                                </div>
+                                <div class="game-card-content p-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-gray-300">MOBA</span>
+                                        <span class="text-neon-cyan font-bold">24.1K Online</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm mb-4">Team-based strategy game where two teams of five powerful champions battle to destroy the enemy's base.</p>
+                                    <button class="w-full py-3 rounded-lg glassmorphism-light text-white font-medium hover:bg-white/10 transition-all">
+                                        Join Community
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Communities -->
+                    <div class="mb-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-white">Popular Communities</h2>
+                            <a href="#" class="text-neon-cyan hover:text-neon-purple transition-colors flex items-center">
+                                View All
+                                <span class="material-symbols-outlined ml-2 material-icons-fix">chevron_right</span>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Community 1 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-red-400 text-2xl material-icons-fix">target</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">#FPSElite</h3>
+                                        <p class="text-gray-400 text-sm">First-Person Shooter Community</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 text-sm mb-4">Join 45K+ FPS enthusiasts sharing strategies, clips, and organizing tournaments.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-300">45.2K Members</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Community 2 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-purple-400 text-2xl material-icons-fix">auto_stories</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">#LoreHunters</h3>
+                                        <p class="text-gray-400 text-sm">Story & World Building</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 text-sm mb-4">28K+ members exploring game lore, theories, and narrative analysis across all genres.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-300">28.7K Members</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-purple to-pink-500 text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Community 3 -->
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-green-500/20 to-teal-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-green-400 text-2xl material-icons-fix">strategy</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">#MetaMasters</h3>
+                                        <p class="text-gray-400 text-sm">Competitive Strategy</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 text-sm mb-4">32K+ competitive gamers analyzing metas, strategies, and professional play.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-300">32.4K Members</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Results Container -->
+                <div id="dynamicResults" class="hidden">
+                    <!-- Results will be inserted here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-8">
+                    <button id="loadMore" class="load-more px-8 py-4 rounded-xl text-white font-bold text-lg hover:opacity-90 transition-all hidden">
+                        <span class="material-symbols-outlined mr-3 material-icons-fix">expand_more</span>
+                        Load More Results
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main menu dropdown
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            mainMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mainMenuDropdown.classList.toggle('hidden');
+                notificationsDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Notifications dropdown
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            notificationsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                notificationsDropdown.classList.toggle('hidden');
+                mainMenuDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Messages dropdown
+            const messagesMenu = document.getElementById('messagesMenu');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+            
+            messagesMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                messagesDropdown.classList.toggle('hidden');
+                mainMenuDropdown.classList.add('hidden');
+                notificationsDropdown.classList.add('hidden');
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target)) {
+                    mainMenuDropdown.classList.add('hidden');
+                }
+                if (!notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target)) {
+                    notificationsDropdown.classList.add('hidden');
+                }
+                if (!messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target)) {
+                    messagesDropdown.classList.add('hidden');
+                }
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const featuredContent = document.getElementById('featuredContent');
+            const dynamicResults = document.getElementById('dynamicResults');
+            const loadMoreButton = document.getElementById('loadMore');
+            
+            // Mock search data
+            const searchData = {
+                gamers: [
+                    { name: "ApexMaster_99", rank: "Predator", game: "Apex Legends", status: "online", followers: "1.2K" },
+                    { name: "LoreRunner", rank: "Storyteller", game: "Elden Ring", status: "streaming", followers: "856" },
+                    { name: "TeamStratPro", rank: "Strategist", game: "Valorant", status: "online", followers: "3.4K" },
+                    { name: "RaidParty", rank: "Sherpa", game: "Destiny 2", status: "online", followers: "2.1K" },
+                    { name: "ClutchShot", rank: "Global Elite", game: "CS2", status: "streaming", followers: "5.7K" }
+                ],
+                games: [
+                    { name: "Valorant", genre: "FPS", players: "12.4K", status: "trending" },
+                    { name: "Elden Ring", genre: "RPG", players: "8.7K", status: "popular" },
+                    { name: "League of Legends", genre: "MOBA", players: "24.1K", status: "trending" },
+                    { name: "Counter-Strike 2", genre: "FPS", players: "18.3K", status: "popular" },
+                    { name: "Apex Legends", genre: "Battle Royale", players: "15.6K", status: "trending" }
+                ],
+                communities: [
+                    { name: "#FPSElite", category: "FPS", members: "45.2K", description: "First-Person Shooter Community" },
+                    { name: "#LoreHunters", category: "Story", members: "28.7K", description: "Game Lore & Theories" },
+                    { name: "#MetaMasters", category: "Strategy", members: "32.4K", description: "Competitive Strategy" },
+                    { name: "#IndieSpotlight", category: "Indie", members: "12.3K", description: "Indie Game Discovery" },
+                    { name: "#SpeedrunHub", category: "Speedrunning", members: "8.9K", description: "Speedrunning Community" }
+                ]
+            };
+
+            let currentResults = [];
+            let currentSearchTerm = "";
+            let currentCategory = "all";
+
+            // Search input handler
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.trim().toLowerCase();
+                currentSearchTerm = searchTerm;
+                
+                if (searchTerm.length > 0) {
+                    // Hide featured content, show dynamic results
+                    featuredContent.classList.add('hidden');
+                    dynamicResults.classList.remove('hidden');
+                    
+                    // Perform search
+                    performSearch(searchTerm);
+                } else {
+                    // Show featured content, hide dynamic results
+                    featuredContent.classList.remove('hidden');
+                    dynamicResults.classList.add('hidden');
+                    loadMoreButton.classList.add('hidden');
+                }
+            });
+
+            // Search focus handler for quick suggestions
+            searchInput.addEventListener('focus', function() {
+                if (searchInput.value.length === 0) {
+                    showQuickSuggestions();
+                }
+            });
+
+            // Filter chips functionality
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    // Remove active class from all chips in the same group
+                    const filterGroup = this.parentElement;
+                    filterGroup.querySelectorAll('.filter-chip').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked chip
+                    this.classList.add('active');
+                    
+                    // Get filter type
+                    const filterType = this.getAttribute('data-filter') || 
+                                      this.getAttribute('data-sort') || 
+                                      this.getAttribute('data-platform') ||
+                                      this.getAttribute('data-genre') ||
+                                      this.getAttribute('data-status') ||
+                                      this.getAttribute('data-quick-search');
+                    
+                    // Handle quick search
+                    if (this.hasAttribute('data-quick-search')) {
+                        searchInput.value = filterType.charAt(0).toUpperCase() + filterType.slice(1);
+                        searchInput.dispatchEvent(new Event('input'));
+                    } else if (currentSearchTerm.length > 0) {
+                        // Apply filters to current search
+                        applyFilters(filterType);
+                    }
+                });
+            });
+
+            // Perform search function
+            function performSearch(searchTerm) {
+                currentResults = [];
+                
+                // Filter through all data
+                Object.keys(searchData).forEach(category => {
+                    searchData[category].forEach(item => {
+                        if (item.name.toLowerCase().includes(searchTerm) || 
+                            (item.game && item.game.toLowerCase().includes(searchTerm)) ||
+                            (item.category && item.category.toLowerCase().includes(searchTerm))) {
+                            item.type = category;
+                            currentResults.push(item);
+                        }
+                    });
+                });
+                
+                displayResults(currentResults.slice(0, 9)); // Show first 9 results
+                
+                // Show load more if there are more results
+                if (currentResults.length > 9) {
+                    loadMoreButton.classList.remove('hidden');
+                } else {
+                    loadMoreButton.classList.add('hidden');
+                }
+            }
+
+            // Display results function
+            function displayResults(results) {
+                dynamicResults.innerHTML = '';
+                
+                if (results.length === 0) {
+                    dynamicResults.innerHTML = `
+                        <div class="text-center py-12">
+                            <span class="material-symbols-outlined text-6xl text-gray-400 mb-4 material-icons-fix">search_off</span>
+                            <h3 class="text-white text-2xl font-bold mb-2">No Results Found</h3>
+                            <p class="text-gray-400">Try a different search term or adjust your filters</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Group results by type
+                const groupedResults = results.reduce((groups, item) => {
+                    const type = item.type;
+                    if (!groups[type]) {
+                        groups[type] = [];
+                    }
+                    groups[type].push(item);
+                    return groups;
+                }, {});
+                
+                // Display each group
+                Object.keys(groupedResults).forEach(type => {
+                    const group = groupedResults[type];
+                    const groupTitle = type.charAt(0).toUpperCase() + type.slice(1);
+                    
+                    let groupHTML = `
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-bold text-white mb-6">${groupTitle}</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    `;
+                    
+                    group.forEach(item => {
+                        groupHTML += createResultCard(item, type);
+                    });
+                    
+                    groupHTML += `
+                            </div>
+                        </div>
+                    `;
+                    
+                    dynamicResults.innerHTML += groupHTML;
+                });
+            }
+
+            // Create result card based on type
+            function createResultCard(item, type) {
+                switch(type) {
+                    case 'gamers':
+                        return `
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6 fade-in-up">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="relative">
+                                        <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                            <span class="text-white font-bold text-xl">${item.name.substring(0, 2).toUpperCase()}</span>
+                                        </div>
+                                        <div class="online-indicator" style="background: ${item.status === 'streaming' ? '#ef4444' : '#10b981'};"></div>
+                                        ${item.status === 'streaming' ? '<div class="streaming-indicator">LIVE</div>' : ''}
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">${item.name}</h3>
+                                        <p class="text-gray-400 text-sm">${item.rank} • Level ${Math.floor(Math.random() * 200) + 100}</p>
+                                        <div class="flex items-center mt-1">
+                                            <span class="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-300 mr-2">${item.game}</span>
+                                            <span class="text-xs px-2 py-1 rounded-full ${item.status === 'streaming' ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'}">
+                                                ${item.status === 'streaming' ? 'Streaming' : 'Online'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-300">${item.followers} Followers</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        ${item.status === 'streaming' ? 'Watch' : 'Follow'}
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    
+                    case 'games':
+                        return `
+                            <div class="game-card result-card rounded-2xl overflow-hidden fade-in-up">
+                                <div class="h-48 bg-gradient-to-r from-red-500/30 to-orange-500/30 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-6xl text-red-400 material-icons-fix">sports_esports</span>
+                                        <h3 class="text-white text-2xl font-bold mt-4">${item.name}</h3>
+                                    </div>
+                                </div>
+                                <div class="game-card-content p-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-gray-300">${item.genre}</span>
+                                        <span class="text-neon-cyan font-bold">${item.players} Online</span>
+                                    </div>
+                                    <p class="text-gray-300 text-sm mb-4">Join thousands of players in this popular ${item.genre} game.</p>
+                                    <button class="w-full py-3 rounded-lg glassmorphism-light text-white font-medium hover:bg-white/10 transition-all">
+                                        Join Community
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    
+                    case 'communities':
+                        return `
+                            <div class="result-card glassmorphism-light backdrop-blur-lg rounded-2xl p-6 fade-in-up">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-red-500/20 to-orange-500/20 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-red-400 text-2xl material-icons-fix">groups</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-bold text-lg">${item.name}</h3>
+                                        <p class="text-gray-400 text-sm">${item.description}</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 text-sm mb-4">Join ${item.members} members in this active ${item.category.toLowerCase()} community.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-300">${item.members} Members</span>
+                                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white text-sm font-medium hover:opacity-90 transition-all">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    
+                    default:
+                        return '';
+                }
+            }
+
+            // Apply filters function
+            function applyFilters(filterType) {
+                let filteredResults = [...currentResults];
+                
+                // Apply filtering logic based on filterType
+                // This is a simplified version - in a real app, you'd have more complex filtering
+                
+                displayResults(filteredResults.slice(0, 9));
+            }
+
+            // Show quick suggestions
+            function showQuickSuggestions() {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = `
+                    <div class="p-4">
+                        <h3 class="text-white font-bold mb-3">Quick Search</h3>
+                        <div class="space-y-2">
+                            <div class="p-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors" data-suggestion="valorant">
+                                <div class="flex items-center space-x-3">
+                                    <span class="material-symbols-outlined text-neon-cyan material-icons-fix">sports_esports</span>
+                                    <div>
+                                        <p class="text-white">Valorant</p>
+                                        <p class="text-gray-400 text-xs">Tactical FPS Game</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors" data-suggestion="streaming">
+                                <div class="flex items-center space-x-3">
+                                    <span class="material-symbols-outlined text-neon-purple material-icons-fix">live_tv</span>
+                                    <div>
+                                        <p class="text-white">Live Streams</p>
+                                        <p class="text-gray-400 text-xs">Currently streaming</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg hover:bg-white/10 cursor-pointer transition-colors" data-suggestion="communities">
+                                <div class="flex items-center space-x-3">
+                                    <span class="material-symbols-outlined text-neon-cyan material-icons-fix">groups</span>
+                                    <div>
+                                        <p class="text-white">Active Communities</p>
+                                        <p class="text-gray-400 text-xs">Popular gaming communities</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click handlers to suggestions
+                searchResults.querySelectorAll('[data-suggestion]').forEach(suggestion => {
+                    suggestion.addEventListener('click', function() {
+                        const suggestionText = this.getAttribute('data-suggestion');
+                        searchInput.value = suggestionText.charAt(0).toUpperCase() + suggestionText.slice(1);
+                        searchInput.dispatchEvent(new Event('input'));
+                        searchResults.classList.add('hidden');
+                    });
+                });
+            }
+
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // Load more functionality
+            let displayedCount = 9;
+            loadMoreButton.addEventListener('click', function() {
+                displayedCount += 9;
+                displayResults(currentResults.slice(0, displayedCount));
+                
+                if (displayedCount >= currentResults.length) {
+                    loadMoreButton.classList.add('hidden');
+                }
+            });
+
+            // Add follow/watch functionality to result cards
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.result-card button')) {
+                    const button = e.target.closest('.result-card button');
+                    const card = e.target.closest('.result-card');
+                    const gamerName = card.querySelector('h3').textContent;
+                    
+                    if (button.textContent.includes('Follow')) {
+                        button.textContent = 'Following';
+                        button.style.background = 'linear-gradient(to right, #4ade80, #22d3ee)';
+                        showToast(`Now following ${gamerName}`, 'success');
+                    } else if (button.textContent.includes('Watch')) {
+                        showToast(`Opening ${gamerName}'s stream...`, 'info');
+                    } else if (button.textContent.includes('Join')) {
+                        const communityName = card.querySelector('h3').textContent;
+                        button.textContent = 'Joined';
+                        button.style.background = 'linear-gradient(to right, #4ade80, #22d3ee)';
+                        showToast(`Joined ${communityName}`, 'success');
+                    }
+                }
+            });
+
+            // Toast notification function
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `fixed top-4 right-4 px-6 py-3 rounded-xl glassmorphism-dark backdrop-blur-xl border ${type === 'success' ? 'border-green-500/30' : 'border-neon-cyan/30'} text-white font-medium z-50 slide-down`;
+                toast.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined ${type === 'success' ? 'text-green-400' : 'text-neon-cyan'} material-icons-fix">
+                            ${type === 'success' ? 'check_circle' : 'info'}
+                        </span>n
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Notification pulse effect
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                notification.classList.toggle('pulse-notification');
+                setTimeout(() => {
+                    notification.classList.toggle('pulse-notification');
+                }, 100);
+            }, 4000);
+
+            console.log('Hyper Realm Explore page initialized!');
+        });
+    </script>
+</body>
+</html>

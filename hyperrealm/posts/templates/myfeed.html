@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | My Feed</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a15;
+            --darker-bg: #050510;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* EXACT SAME BACKGROUND AS DASHBOARD */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
+        }
+
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+        }
+
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Fixed Navigation Bar - EXACT SAME AS DASHBOARD */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        /* FIXED: Navigation dropdowns - fixed position */
+        .fixed-dropdown {
+            position: fixed !important;
+            top: 60px !important; /* Position below navbar */
+            z-index: 60 !important;
+        }
+
+        .notifications-dropdown {
+            right: 140px !important; /* Adjusted position */
+        }
+
+        .messages-dropdown {
+            right: 90px !important; /* Adjusted position */
+        }
+
+        .mainmenu-dropdown {
+            right: 20px !important; /* Adjusted position */
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        @media (max-width: 768px) {
+            .notifications-dropdown {
+                right: 100px !important;
+            }
+            
+            .messages-dropdown {
+                right: 60px !important;
+            }
+            
+            .mainmenu-dropdown {
+                right: 20px !important;
+            }
+        }
+
+        /* Post animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Like animation */
+        @keyframes like-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .like-animation {
+            animation: like-pulse 0.6s ease;
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Content Filter Tabs - Custom for My Feed */
+        .filter-tab {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab.active {
+            color: var(--neon-cyan);
+        }
+
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        }
+
+        /* CHANGED: Fixed stats on left side */
+        .stats-sidebar {
+            position: fixed;
+            left: 20px;
+            top: 100px; /* Below navbar */
+            width: 280px;
+            z-index: 40;
+        }
+
+        /* CHANGED: Right sidebar for online friends */
+        .friends-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 100px; /* Below navbar */
+            width: 280px;
+            z-index: 40;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        /* CHANGED: Main content margins for sidebars */
+        .my-feed-container {
+            max-width: 800px;
+            margin-left: 320px; /* Space for stats sidebar */
+            margin-right: 320px; /* Space for friends sidebar */
+            padding-top: 100px;
+            padding-bottom: 40px;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 1400px) {
+            .stats-sidebar, .friends-sidebar {
+                width: 260px;
+            }
+            .my-feed-container {
+                margin-left: 280px;
+                margin-right: 280px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .stats-sidebar, .friends-sidebar {
+                display: none;
+            }
+            .my-feed-container {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding-top: 100px;
+            }
+        }
+
+        /* Modal styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+        }
+
+        .modal-backdrop.show {
+            display: block;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 101;
+            width: 90%;
+            max-width: 500px;
+            display: none;
+        }
+
+        .modal.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .profile-avatar {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .post-card {
+            transition: all 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.1);
+        }
+
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .empty-state {
+            opacity: 0.7;
+        }
+
+        /* Create Post Modal specific styles */
+        #createPostModal .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body>
+    <!-- EXACT SAME BACKGROUND AS DASHBOARD -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="glassmorphism-dark backdrop-blur-xl rounded-2xl p-6 border border-neon-cyan/30 modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-white text-xl font-bold flex items-center">
+                    <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">edit</span>
+                    Create New Post
+                </h3>
+                <button id="closeModal" class="text-gray-400 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined material-icons-fix">close</span>
+                </button>
+            </div>
+            
+            <form id="postForm">
+                <div class="mb-6">
+                    <label for="postTitle" class="block text-gray-300 mb-2">Title (Optional)</label>
+                    <input 
+                        type="text" 
+                        id="postTitle"
+                        placeholder="Add a title..."
+                        class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                    />
+                </div>
+                
+                <div class="mb-6">
+                    <label for="postContent" class="block text-gray-300 mb-2">Content *</label>
+                    <textarea 
+                        id="postContent"
+                        placeholder="Share your gaming experience, strategy, or thoughts..."
+                        rows="4"
+                        class="w-full px-4 py-3 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent resize-none"
+                        required
+                    ></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-3">Add to</label>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="flex items-center space-x-2 px-4 py-2 rounded-lg glassmorphism-light text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">image</span>
+                            <span>Image</span>
+                        </button>
+                        <button type="button" class="flex items-center space-x-2 px-4 py-2 rounded-lg glassmorphism-light text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">videocam</span>
+                            <span>Video</span>
+                        </button>
+                        <button type="button" class="flex items-center space-x-2 px-4 py-2 rounded-lg glassmorphism-light text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">tag</span>
+                            <span>Tag Friends</span>
+                        </button>
+                        <button type="button" class="flex items-center space-x-2 px-4 py-2 rounded-lg glassmorphism-light text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">location_on</span>
+                            <span>Location</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="publicPost" class="mr-2" checked>
+                            <label for="publicPost" class="text-gray-300 text-sm">Public Post</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="allowComments" class="mr-2" checked>
+                            <label for="allowComments" class="text-gray-300 text-sm">Allow Comments</label>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        type="submit"
+                        class="px-8 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all flex items-center space-x-2"
+                    >
+                        <span class="material-symbols-outlined material-icons-fix">send</span>
+                        <span>Post Now</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="relative min-h-screen w-full overflow-x-hidden">
+        <!-- Top Navigation Bar - FIXED AND EXACT SAME AS DASHBOARD -->
+        <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo moved to left side -->
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                        <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                    </div>
+
+                    <!-- Search bar centered -->
+                    <div class="flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                                placeholder="Search gamers, communities, games..."
+                            />
+                            <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                                <!-- Search results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Notifications, Messages, and Three Bars Menu -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications with Dropdown -->
+                        <div class="relative" id="notificationsMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
+                            </button>
+                        </div>
+
+                        <!-- Messages with Dropdown -->
+                        <div class="relative" id="messagesMenu">
+                            <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                                <span class="material-symbols-outlined material-icons-fix">chat</span>
+                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                            </button>
+                        </div>
+
+                        <!-- Three Bars Menu moved to right side, next to messages -->
+                        <button id="mainMenuButton" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- FIXED: Navigation dropdowns with fixed positioning - EXACT SAME AS DASHBOARD -->
+
+        <!-- Notifications Dropdown - Fixed -->
+        <div id="notificationsDropdown" class="hidden fixed-dropdown notifications-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="p-4">
+                <h3 class="text-white font-bold mb-3 flex items-center">
+                    <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">notifications</span>
+                    Notifications
+                </h3>
+                <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">person_add</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">ApexMaster_99 started following you</p>
+                                <p class="text-gray-400 text-xs">2 minutes ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">favorite</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">LoreRunner liked your post</p>
+                                <p class="text-gray-400 text-xs">1 hour ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">comment</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">TeamStratPro commented on your strategy</p>
+                                <p class="text-gray-400 text-xs">3 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-sm material-icons-fix">military_tech</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">You earned the "Legendary Gamer" badge</p>
+                                <p class="text-gray-400 text-xs">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-3 py-2 text-center text-neon-cyan text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                    View All Notifications
+                </button>
+            </div>
+        </div>
+
+        <!-- Messages Dropdown - Fixed -->
+        <div id="messagesDropdown" class="hidden fixed-dropdown messages-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="p-4">
+                <h3 class="text-white font-bold mb-3 flex items-center">
+                    <span class="material-symbols-outlined mr-2 text-neon-purple material-icons-fix">chat</span>
+                    Messages
+                </h3>
+                <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                <span class="text-white font-bold">AM</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">ApexMaster_99</div>
+                                    <span class="text-gray-400 text-xs">2 min</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Great play in that last match!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                                <span class="text-white font-bold">LR</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">LoreRunner</div>
+                                    <span class="text-gray-400 text-xs">1 hr</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                <span class="text-white font-bold">TS</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-white font-medium">TeamStratPro</div>
+                                    <span class="text-gray-400 text-xs">3 hrs</span>
+                                </div>
+                                <p class="text-gray-400 text-sm truncate">Want to join our practice session?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-full mt-3 py-2 text-center text-neon-purple text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                    View All Messages
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Navigation Menu Dropdown - Fixed -->
+        <div id="mainMenuDropdown" class="hidden fixed-dropdown mainmenu-dropdown w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+            <div class="py-2">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">home</span>
+                    Home
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                    Communities
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                    Games
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                    Explore
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                    Profile
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                    Settings
+                </a>
+                <hr class="border-white/10 my-1">
+                <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- CHANGED: Left Sidebar - Fixed Stats -->
+        <aside class="stats-sidebar">
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6">
+                <h3 class="text-white font-bold text-lg mb-6 flex items-center">
+                    <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">analytics</span>
+                    Your Stats
+                </h3>
+                
+                <div class="space-y-6">
+                    <!-- Total Posts -->
+                    <div class="stats-card hover-glow transition-all">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-gray-300 text-sm">Total Posts</span>
+                                    <span id="totalPostsCount" class="text-neon-cyan font-bold text-2xl">12</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div id="postsProgress" class="h-full bg-gradient-to-r from-neon-cyan to-neon-purple" style="width: 60%"></div>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-2">Goal: 20 posts</p>
+                            </div>
+                            <span class="material-symbols-outlined text-neon-cyan text-3xl ml-4 material-icons-fix">article</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Total Likes -->
+                    <div class="stats-card hover-glow-purple transition-all">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-gray-300 text-sm">Total Likes</span>
+                                    <span id="totalLikesCount" class="text-neon-purple font-bold text-2xl">347</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div id="likesProgress" class="h-full bg-gradient-to-r from-neon-purple to-pink-500" style="width: 69%"></div>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-2">Goal: 500 likes</p>
+                            </div>
+                            <span class="material-symbols-outlined text-neon-purple text-3xl ml-4 material-icons-fix">favorite</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Communities -->
+                    <div class="stats-card hover-glow transition-all">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-gray-300 text-sm">Active Communities</span>
+                                    <span id="communitiesCount" class="text-neon-cyan font-bold text-2xl">5</span>
+                                </div>
+                                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                    <div id="communitiesProgress" class="h-full bg-gradient-to-r from-neon-cyan to-teal-500" style="width: 50%"></div>
+                                </div>
+                                <p class="text-gray-400 text-xs mt-2">Goal: 10 communities</p>
+                            </div>
+                            <span class="material-symbols-outlined text-neon-cyan text-3xl ml-4 material-icons-fix">groups</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mt-8 pt-6 border-t border-white/10">
+                    <h4 class="text-white font-bold text-base mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">bolt</span>
+                        Quick Actions
+                    </h4>
+                    <div class="space-y-3">
+                        <button id="openCreatePostModal" class="w-full flex items-center justify-center space-x-3 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">add</span>
+                            <span>Create Post</span>
+                        </button>
+                        <button class="w-full flex items-center justify-center space-x-3 py-3 rounded-xl glassmorphism-light text-white font-bold hover:bg-white/10 transition-all">
+                            <span class="material-symbols-outlined material-icons-fix">share</span>
+                            <span>Share Profile</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CHANGED: Right Sidebar - Online Friends (From Dashboard) -->
+        <aside class="friends-sidebar">
+            <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 h-full overflow-y-auto no-scrollbar">
+                <!-- Online Friends -->
+                <div class="mb-8">
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-cyan material-icons-fix">group</span>
+                        Online Friends
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">RP</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">RaidParty</div>
+                                <div class="text-gray-400 text-sm">Playing Destiny 2</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">CS</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">ClutchShot</div>
+                                <div class="text-gray-400 text-sm">Streaming CS2</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">MG</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">MetaGamer</div>
+                                <div class="text-gray-400 text-sm">In Lobby</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">BB</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">BattleBorn</div>
+                                <div class="text-gray-400 text-sm">Playing Apex</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 rounded-lg hover:bg-white/10 transition-all cursor-pointer">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                                    <span class="text-white font-bold text-lg">LR</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-darker-bg"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-white font-medium text-lg">LoreRunner</div>
+                                <div class="text-gray-400 text-sm">Exploring Elden Ring</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="mb-8">
+                    <h4 class="text-white font-bold text-lg mb-4 flex items-center">
+                        <span class="material-symbols-outlined mr-3 text-neon-purple material-icons-fix">history</span>
+                        Recent Activity
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix">trophy</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">You reached <span class="text-neon-cyan font-bold">Level 75</span></p>
+                                <p class="text-gray-400 text-xs">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-purple/20 to-pink-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-purple material-icons-fix">forum</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">Liked your post about <span class="text-neon-purple font-bold">Valorant strategies</span></p>
+                                <p class="text-gray-400 text-xs">5 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-cyan/20 to-teal-500/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-neon-cyan material-icons-fix">group_add</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white text-sm">Joined <span class="text-neon-cyan font-bold">#FPSCommunity</span></p>
+                                <p class="text-gray-400 text-xs">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content - My Feed -->
+        <main class="my-feed-container px-4 sm:px-6">
+            <!-- Page Header -->
+            <div class="mb-8 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h1 class="text-white text-3xl md:text-4xl font-bold mb-2 neon-text flex items-center">
+                            <span class="material-symbols-outlined mr-3 material-icons-fix">dashboard</span>
+                            My Personal Feed
+                        </h1>
+                        <p class="text-slate-300 text-lg">Only your posts are visible here. This is your personal gaming journal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="mb-6">
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-2 flex">
+                    <div class="flex-1 flex items-center justify-center">
+                        <div class="filter-tab active" data-filter="all">
+                            <span class="material-symbols-outlined mr-2 material-icons-fix">article</span>
+                            All Posts
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-center justify-center">
+                        <div class="filter-tab" data-filter="clips">
+                            <span class="material-symbols-outlined mr-2 material-icons-fix">videocam</span>
+                            Clips
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-center justify-center">
+                        <div class="filter-tab" data-filter="achievements">
+                            <span class="material-symbols-outlined mr-2 material-icons-fix">military_tech</span>
+                            Achievements
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User's Posts Feed -->
+            <div id="posts-container" class="space-y-6">
+                <!-- Post 1 - Achievement -->
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 post-card fade-in-up" data-post-type="achievements">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full profile-avatar flex items-center justify-center">
+                                <span class="text-white font-bold">JD</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg">JohnDoe_Gamer</h3>
+                                <p class="text-slate-400 text-sm">Just now • <span class="text-neon-cyan">#Valorant #Achievement</span></p>
+                            </div>
+                        </div>
+                        <button class="text-slate-400 hover:text-white hover:scale-105 delete-post">
+                            <span class="material-symbols-outlined material-icons-fix">close</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-white text-lg mb-4">
+                        Just hit Diamond rank in Valorant! After weeks of grinding, finally made it with the squad. 
+                        That clutch 1v3 on Ascent was absolutely insane! 🎯🔥
+                    </p>
+                    
+                    <div class="mb-4 p-4 rounded-xl bg-gradient-to-r from-neon-cyan/10 to-neon-purple/10 border border-neon-cyan/20">
+                        <div class="flex items-center gap-2 text-neon-cyan mb-2">
+                            <span class="material-symbols-outlined material-icons-fix">military_tech</span>
+                            <span class="font-bold text-lg">Rank Achievement Unlocked</span>
+                        </div>
+                        <p class="text-slate-300">Diamond Rank • Valorant • 12 hours playtime this week</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <div class="flex items-center gap-6">
+                            <button class="flex items-center gap-2 text-red-400 like-btn" data-liked="true" data-post-id="1">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span class="font-medium like-count">47</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-cyan transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">chat_bubble</span>
+                                <span class="font-medium">12</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-purple transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span class="font-medium">Share</span>
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-sm flex items-center">
+                            <span class="material-symbols-outlined mr-1 material-icons-fix" style="font-size: 16px;">person</span>
+                            Your post
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Post 2 - Clip -->
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-6 post-card fade-in-up" data-post-type="clips">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full profile-avatar flex items-center justify-center">
+                                <span class="text-white font-bold">JD</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg">JohnDoe_Gamer</h3>
+                                <p class="text-slate-400 text-sm">1 week ago • <span class="text-neon-cyan">#CSGO #Clip</span></p>
+                            </div>
+                        </div>
+                        <button class="text-slate-400 hover:text-white hover:scale-105 delete-post">
+                            <span class="material-symbols-outlined material-icons-fix">close</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-white text-lg mb-4">
+                        Just hit my first ever 360 no-scope in CSGO! The clip is below. Still can't believe it actually hit. 
+                        What's your craziest clip?
+                    </p>
+                    
+                    <div class="mb-4 rounded-xl overflow-hidden relative">
+                        <div class="bg-gradient-to-r from-blue-900/30 to-cyan-900/30 p-8 flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="material-symbols-outlined text-6xl text-neon-cyan mb-4 material-icons-fix">
+                                    play_circle
+                                </span>
+                                <p class="text-white font-bold text-xl">360_no_scope.mp4</p>
+                                <p class="text-slate-300 text-sm">15 seconds • 1080p • 2.4MB</p>
+                            </div>
+                            <div class="absolute top-4 right-4 bg-black/50 px-3 py-1 rounded-full text-xs text-white flex items-center">
+                                <span class="material-symbols-outlined mr-1 material-icons-fix" style="font-size: 14px;">play_arrow</span>
+                                CLIP
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <div class="flex items-center gap-6">
+                            <button class="flex items-center gap-2 text-red-400 like-btn" data-liked="true" data-post-id="2">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span class="font-medium like-count">156</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-cyan transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">chat_bubble</span>
+                                <span class="font-medium">31</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-purple transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span class="font-medium">Share</span>
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-sm flex items-center">
+                            <span class="material-symbols-outlined mr-1 material-icons-fix" style="font-size: 16px;">person</span>
+                            Your post
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div id="empty-state" class="hidden text-center py-16 fade-in-up empty-state">
+                <div class="glassmorphism-light backdrop-blur-lg rounded-2xl p-12 max-w-md mx-auto hover-glow transition-all">
+                    <span class="material-symbols-outlined text-6xl text-slate-400 mb-6 material-icons-fix">
+                        article
+                    </span>
+                    <h3 class="text-white text-xl font-bold mb-2">No posts yet</h3>
+                    <p class="text-slate-400 mb-6">You haven't created any posts. Share your first gaming experience!</p>
+                    <button id="emptyStateCreatePost"
+                        class="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold neon-glow hover:opacity-90 transition-all hover:scale-105">
+                        Create Your First Post
+                    </button>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-8 mb-12 fade-in-up">
+                <button id="load-more" 
+                        class="px-8 py-3 rounded-xl glassmorphism-light backdrop-blur-lg border border-white/10 text-white font-bold hover:bg-white/10 transition-all hover:scale-105">
+                    <span class="material-symbols-outlined mr-2 material-icons-fix">expand_more</span>
+                    Load More Posts
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main menu dropdown - EXACT SAME AS DASHBOARD
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            mainMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle main menu
+                mainMenuDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                notificationsDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Notifications dropdown - EXACT SAME AS DASHBOARD
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            notificationsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle notifications
+                notificationsDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Messages dropdown - EXACT SAME AS DASHBOARD
+            const messagesMenu = document.getElementById('messagesMenu');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+            
+            messagesMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle messages
+                messagesDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                notificationsDropdown.classList.add('hidden');
+            });
+
+            // Close dropdowns when clicking outside - EXACT SAME AS DASHBOARD
+            document.addEventListener('click', function(e) {
+                // Check if click is outside any dropdown or its trigger button
+                const isClickOutsideMainMenu = !mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target);
+                const isClickOutsideNotifications = !notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target);
+                const isClickOutsideMessages = !messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target);
+                
+                if (isClickOutsideMainMenu) {
+                    mainMenuDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideNotifications) {
+                    notificationsDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideMessages) {
+                    messagesDropdown.classList.add('hidden');
+                }
+            });
+
+            // Search functionality - EXACT SAME AS DASHBOARD
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('focus', function() {
+                showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+            });
+            
+            searchInput.addEventListener('input', function(e) {
+                if (e.target.value.length > 0) {
+                    showSearchResults(['Results for: ' + e.target.value]);
+                } else {
+                    showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+                }
+            });
+            
+            function showSearchResults(items) {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = items.map(item => `
+                    <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                            <span>${item}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Hide search results when clicking outside - EXACT SAME AS DASHBOARD
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // Modal functionality
+            const modal = document.getElementById('createPostModal');
+            const modalBackdrop = document.getElementById('modalBackdrop');
+            const closeModalBtn = document.getElementById('closeModal');
+            const postForm = document.getElementById('postForm');
+            const postTitle = document.getElementById('postTitle');
+            const postContent = document.getElementById('postContent');
+            
+            // Elements that can open the modal
+            const openModalBtn1 = document.getElementById('openCreatePostModal');
+            const openModalBtn2 = document.getElementById('headerCreatePost');
+            const openModalBtn3 = document.getElementById('simpleCreatePost');
+            const openModalBtn4 = document.getElementById('emptyStateCreatePost');
+
+            function openModal() {
+                modal.classList.add('show');
+                modalBackdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('show');
+                modalBackdrop.classList.remove('show');
+                document.body.style.overflow = '';
+                postForm.reset();
+            }
+
+            // Event listeners for opening modal
+            [openModalBtn1, openModalBtn2, openModalBtn3, openModalBtn4].forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openModal();
+                    });
+                }
+            });
+
+            // Close modal
+            closeModalBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+
+            // Form submission
+            postForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = postTitle.value.trim();
+                const content = postContent.value.trim();
+                
+                if (!content) {
+                    showToast('Please enter post content', 'error');
+                    postContent.classList.add('border', 'border-red-500');
+                    setTimeout(() => {
+                        postContent.classList.remove('border', 'border-red-500');
+                    }, 1000);
+                    return;
+                }
+                
+                let fullContent = content;
+                if (title) {
+                    fullContent = `**${title}**\n\n${content}`;
+                }
+                
+                // Create new post
+                createPost(fullContent, 'achievements');
+                closeModal();
+                
+                // Show success message
+                showToast('Post created successfully!', 'success');
+            });
+
+            // My Feed specific functionality
+            const postsContainer = document.getElementById('posts-container');
+            const emptyState = document.getElementById('empty-state');
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const loadMoreBtn = document.getElementById('load-more');
+
+            // Stats elements
+            const totalPostsElement = document.getElementById('totalPostsCount');
+            const totalLikesElement = document.getElementById('totalLikesCount');
+            const communitiesElement = document.getElementById('communitiesCount');
+            const postsProgress = document.getElementById('postsProgress');
+            const likesProgress = document.getElementById('likesProgress');
+            const communitiesProgress = document.getElementById('communitiesProgress');
+
+            // Initial stats
+            let totalPosts = 12;
+            let totalLikes = 347;
+            let communities = 5;
+
+            // Update stats function
+            function updateStats() {
+                totalPostsElement.textContent = totalPosts;
+                totalLikesElement.textContent = totalLikes;
+                communitiesElement.textContent = communities;
+                
+                // Update progress bars
+                postsProgress.style.width = `${Math.min(100, (totalPosts / 20) * 100)}%`;
+                likesProgress.style.width = `${Math.min(100, (totalLikes / 500) * 100)}%`;
+                communitiesProgress.style.width = `${Math.min(100, (communities / 10) * 100)}%`;
+            }
+
+            // Create new post function
+            function createPost(content, postType = 'achievements') {
+                const contentTrimmed = content.trim();
+                if (!contentTrimmed) return;
+
+                // Update posts count
+                totalPosts++;
+                updateStats();
+
+                // Create new post element
+                const newPost = document.createElement('div');
+                newPost.className = 'glassmorphism-light backdrop-blur-lg rounded-2xl p-6 post-card fade-in-up';
+                newPost.setAttribute('data-post-type', postType);
+                
+                const postId = Date.now(); // Unique ID for each post
+                
+                newPost.innerHTML = `
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full profile-avatar flex items-center justify-center">
+                                <span class="text-white font-bold">JD</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg">JohnDoe_Gamer</h3>
+                                <p class="text-slate-400 text-sm">Just now • <span class="text-neon-cyan">#Update</span></p>
+                            </div>
+                        </div>
+                        <button class="text-slate-400 hover:text-white hover:scale-105 delete-post">
+                            <span class="material-symbols-outlined material-icons-fix">close</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-white text-lg mb-4">${contentTrimmed}</p>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <div class="flex items-center gap-6">
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors like-btn" data-liked="false" data-post-id="${postId}">
+                                <span class="material-symbols-outlined material-icons-fix">favorite</span>
+                                <span class="font-medium like-count">0</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-cyan transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">chat_bubble</span>
+                                <span class="font-medium">0</span>
+                            </button>
+                            <button class="flex items-center gap-2 text-slate-400 hover:text-neon-purple transition-colors hover:scale-105">
+                                <span class="material-symbols-outlined material-icons-fix">share</span>
+                                <span class="font-medium">Share</span>
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-sm flex items-center">
+                            <span class="material-symbols-outlined mr-1 material-icons-fix" style="font-size: 16px;">person</span>
+                            Your post
+                        </span>
+                    </div>
+                `;
+
+                // Insert at the top of posts container
+                postsContainer.prepend(newPost);
+                
+                // Hide empty state if showing
+                if (!emptyState.classList.contains('hidden')) {
+                    emptyState.classList.add('hidden');
+                }
+
+                // Add event listeners to new post
+                addPostEventListeners(newPost);
+                
+                // Apply current filter
+                applyCurrentFilter();
+            }
+
+            // Add event listeners to existing posts
+            function addPostEventListeners(postElement) {
+                // Delete post
+                const deleteBtn = postElement.querySelector('.delete-post');
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', function() {
+                        // Update posts count
+                        totalPosts = Math.max(0, totalPosts - 1);
+                        updateStats();
+                        
+                        // Check if this post has likes to subtract
+                        const likeBtn = postElement.querySelector('.like-btn');
+                        if (likeBtn && likeBtn.dataset.liked === 'true') {
+                            const likeCount = parseInt(likeBtn.querySelector('.like-count').textContent);
+                            totalLikes = Math.max(0, totalLikes - likeCount);
+                            updateStats();
+                        }
+                        
+                        postElement.remove();
+                        showToast('Post deleted', 'info');
+                        
+                        // Show empty state if no posts left
+                        if (postsContainer.children.length === 0) {
+                            emptyState.classList.remove('hidden');
+                        }
+                    });
+                }
+
+                // Like functionality
+                const likeBtn = postElement.querySelector('.like-btn');
+                if (likeBtn) {
+                    likeBtn.addEventListener('click', function() {
+                        const icon = this.querySelector('.material-symbols-outlined');
+                        const countElement = this.querySelector('.like-count');
+                        let count = parseInt(countElement.textContent);
+                        const isLiked = this.dataset.liked === 'true';
+                        
+                        if (isLiked) {
+                            this.dataset.liked = 'false';
+                            icon.textContent = 'favorite';
+                            icon.style.color = '';
+                            icon.style.fontVariationSettings = '"FILL" 0';
+                            this.classList.remove('text-red-400');
+                            this.classList.add('text-slate-400', 'hover:text-red-400');
+                            count--;
+                            totalLikes--;
+                        } else {
+                            this.dataset.liked = 'true';
+                            icon.textContent = 'favorite';
+                            icon.style.color = '#f87171';
+                            icon.style.fontVariationSettings = '"FILL" 1';
+                            this.classList.remove('text-slate-400', 'hover:text-red-400');
+                            this.classList.add('text-red-400');
+                            count++;
+                            totalLikes++;
+                            
+                            // Add animation
+                            icon.classList.add('like-animation');
+                            setTimeout(() => {
+                                icon.classList.remove('like-animation');
+                            }, 600);
+                        }
+                        
+                        countElement.textContent = count;
+                        updateStats();
+                    });
+                }
+            }
+
+            // Add event listeners to all existing posts
+            document.querySelectorAll('.post-card').forEach(addPostEventListeners);
+
+            // Filter tabs functionality
+            function applyCurrentFilter() {
+                const activeTab = document.querySelector('.filter-tab.active');
+                if (!activeTab) return;
+                
+                const filterType = activeTab.getAttribute('data-filter');
+                const allPosts = document.querySelectorAll('.post-card');
+                
+                allPosts.forEach(post => {
+                    if (filterType === 'all') {
+                        post.style.display = 'block';
+                        setTimeout(() => {
+                            post.classList.add('fade-in-up');
+                        }, 10);
+                    } else {
+                        const postType = post.getAttribute('data-post-type');
+                        if (postType === filterType) {
+                            post.style.display = 'block';
+                            setTimeout(() => {
+                                post.classList.add('fade-in-up');
+                            }, 10);
+                        } else {
+                            post.classList.remove('fade-in-up');
+                            post.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    applyCurrentFilter();
+                });
+            });
+
+            // Load more posts
+            loadMoreBtn.addEventListener('click', function() {
+                showToast('Loading more posts...', 'info');
+                
+                // Disable button for 2 seconds
+                this.disabled = true;
+                this.innerHTML = '<span class="material-symbols-outlined mr-2 material-icons-fix">refresh</span> Loading...';
+                
+                setTimeout(() => {
+                    this.disabled = false;
+                    this.innerHTML = '<span class="material-symbols-outlined mr-2 material-icons-fix">expand_more</span> Load More Posts';
+                    showToast('No more posts to load', 'info');
+                }, 2000);
+            });
+
+            // Toast notification function
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `fixed top-4 right-4 px-6 py-3 rounded-xl glassmorphism-dark backdrop-blur-xl border ${type === 'success' ? 'border-green-500/30' : type === 'error' ? 'border-red-500/30' : 'border-neon-cyan/30'} text-white font-medium z-50 slide-down`;
+                toast.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined ${type === 'success' ? 'text-green-400' : type === 'error' ? 'text-red-400' : 'text-neon-cyan'} material-icons-fix">
+                            ${type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info'}
+                        </span>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Notification pulse effect - EXACT SAME AS DASHBOARD
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                notification.classList.toggle('pulse-notification');
+                setTimeout(() => {
+                    notification.classList.toggle('pulse-notification');
+                }, 100);
+            }, 4000);
+
+            // Show empty state if no posts
+            if (postsContainer.children.length === 0) {
+                emptyState.classList.remove('hidden');
+            }
+
+            console.log('Hyper Realm My Feed initialized!');
+        });
+    </script>
+</body>
+</html>

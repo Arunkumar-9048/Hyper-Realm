@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper Realm | Notifications</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a15;
+            --darker-bg: #050510;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Enhanced Background */
+        .main-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(185, 103, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #050510 0%, #0a0a25 30%, #0f0f35 70%, #050510 100%);
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Grid overlay for tech feel */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glassmorphism {
+            background: rgba(10, 15, 25, 0.85) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glassmorphism-light {
+            background: rgba(15, 20, 35, 0.7) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .glassmorphism-dark {
+            background: rgba(5, 10, 20, 0.95) !important;
+            backdrop-filter: blur(25px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                0 0 20px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.7),
+                0 0 20px rgba(185, 103, 255, 0.5),
+                0 0 30px rgba(185, 103, 255, 0.3);
+        }
+
+        .neon-glow {
+            box-shadow:
+                0 0 15px rgba(0, 243, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+        }
+
+        .hover-glow-purple:hover {
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.8);
+        }
+
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+
+        /* Material Icons fix */
+        .material-icons-fix {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Notifications-specific styles */
+        .notifications-container {
+            margin-top: 80px; /* Reduced from auto spacing */
+            padding: 15px; /* Reduced padding */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notification-item {
+            padding: 16px; /* Slightly reduced padding */
+            border-radius: 14px;
+            margin-bottom: 10px; /* Reduced margin */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .notification-item.unread {
+            background: rgba(0, 243, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.2);
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .notification-type-icon {
+            width: 44px; /* Slightly smaller */
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px; /* Reduced margin */
+            flex-shrink: 0;
+        }
+
+        .notification-actions {
+            opacity: 1; /* Always visible now */
+            transition: opacity 0.3s ease;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .mark-read-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            color: var(--neon-cyan);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .mark-read-btn:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .notification-time {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        /* Notification filters */
+        .notification-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px; /* Reduced margin */
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: rgba(0, 243, 255, 0.2);
+            border-color: rgba(0, 243, 255, 0.4);
+            color: var(--neon-cyan);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px; /* Reduced padding */
+        }
+
+        .empty-state-icon {
+            width: 70px; /* Smaller */
+            height: 70px;
+            border-radius: 20px;
+            background: rgba(0, 243, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px; /* Reduced margin */
+        }
+
+        /* Mark all as read */
+        .mark-all-read {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 16px; /* Reduced margin */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Fixed Navigation Bar - EXACT SAME AS DASHBOARD */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        /* FIXED: Navigation dropdowns - fixed position */
+        .fixed-dropdown {
+            position: fixed !important;
+            top: 60px !important;
+            z-index: 60 !important;
+        }
+
+        .notifications-dropdown {
+            right: 140px !important;
+        }
+
+        .messages-dropdown {
+            right: 90px !important;
+        }
+
+        .mainmenu-dropdown {
+            right: 20px !important;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar {
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Pulse animation for notifications */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse-notification {
+            animation: pulse 2s infinite;
+        }
+
+        /* Dropdown animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .notifications-container {
+                padding: 12px;
+                margin-top: 70px; /* Further reduced on mobile */
+            }
+            
+            .notification-item {
+                padding: 14px;
+            }
+            
+            .notification-type-icon {
+                width: 36px;
+                height: 36px;
+                margin-right: 12px;
+            }
+            
+            .notification-actions {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .mark-read-btn {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-cyan": "#00f3ff",
+                        "neon-purple": "#b967ff",
+                        "neon-blue": "#0066ff",
+                        "background-dark": "#0a0a15",
+                        "darker-bg": "#050510",
+                    },
+                    fontFamily: {
+                        "orbitron": ["Orbitron", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                        'sm': '4px',
+                        'md': '8px',
+                        'lg': '12px',
+                        'xl': '16px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="main-bg fixed inset-0"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- EXACT SAME NAVIGATION BAR AS DASHBOARD -->
+    <nav class="fixed-nav glassmorphism backdrop-blur-xl border-b border-neon-cyan/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo moved to left side -->
+                <div class="flex items-center space-x-3">
+                    <span class="material-symbols-outlined text-neon-cyan text-2xl material-icons-fix">hub</span>
+                    <h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] neon-text hidden md:block">Hyper Realm</h1>
+                </div>
+
+                <!-- Search bar centered -->
+                <div class="flex-1 max-w-2xl mx-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 material-icons-fix">search</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            class="block w-full pl-10 pr-3 py-2 rounded-xl glassmorphism-light border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
+                            placeholder="Search gamers, communities, games..."
+                        />
+                        <div id="searchResults" class="hidden absolute z-50 w-full mt-1 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+                            <!-- Search results will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Notifications, Messages, and Three Bars Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications with Dropdown - Now active since we're on notifications page -->
+                    <div class="relative" id="notificationsMenu">
+                        <button class="relative p-2 text-neon-cyan transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">notifications</span>
+                            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 pulse-notification"></span>
+                        </button>
+                    </div>
+
+                    <!-- Messages with Dropdown -->
+                    <div class="relative" id="messagesMenu">
+                        <button class="relative p-2 text-gray-300 hover:text-neon-purple transition-colors">
+                            <span class="material-symbols-outlined material-icons-fix">chat</span>
+                            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-green-500"></span>
+                        </button>
+                    </div>
+
+                    <!-- Three Bars Menu moved to right side, next to messages -->
+                    <button id="mainMenuButton" class="p-2 text-gray-300 hover:text-neon-cyan transition-colors">
+                        <span class="material-symbols-outlined text-2xl material-icons-fix">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FIXED: Navigation dropdowns with fixed positioning - EXACT SAME AS DASHBOARD -->
+
+    <!-- Notifications Dropdown - Fixed (Disabled on notifications page) -->
+    <div id="notificationsDropdown" class="hidden fixed-dropdown notifications-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="p-4">
+            <h3 class="text-white font-bold mb-3 flex items-center">
+                <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">notifications</span>
+                Notifications
+            </h3>
+            <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                <!-- Quick notifications preview -->
+            </div>
+            <button class="w-full mt-3 py-2 text-center text-neon-cyan text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                View All Notifications
+            </button>
+        </div>
+    </div>
+
+    <!-- Messages Dropdown - Fixed -->
+    <div id="messagesDropdown" class="hidden fixed-dropdown messages-dropdown w-80 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="p-4">
+            <h3 class="text-white font-bold mb-3 flex items-center">
+                <span class="material-symbols-outlined mr-2 text-neon-purple material-icons-fix">chat</span>
+                Messages
+            </h3>
+            <div class="space-y-3 max-h-96 overflow-y-auto no-scrollbar">
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                            <span class="text-white font-bold">AM</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">ApexMaster_99</div>
+                                <span class="text-gray-400 text-xs">2 min</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Great play in that last match!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                            <span class="text-white font-bold">LR</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">LoreRunner</div>
+                                <span class="text-gray-400 text-xs">1 hr</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Check out my new Elden Ring discovery!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                            <span class="text-white font-bold">TS</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <div class="text-white font-medium">TeamStratPro</div>
+                                <span class="text-gray-400 text-xs">3 hrs</span>
+                            </div>
+                            <p class="text-gray-400 text-sm truncate">Want to join our practice session?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="w-full mt-3 py-2 text-center text-neon-purple text-sm font-bold hover:bg-white/10 rounded-lg transition-colors">
+                View All Messages
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Navigation Menu Dropdown - Fixed -->
+    <div id="mainMenuDropdown" class="hidden fixed-dropdown mainmenu-dropdown w-64 rounded-xl glassmorphism-dark backdrop-blur-xl border border-white/20 shadow-2xl slide-down">
+        <div class="py-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">home</span>
+                Home
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">groups</span>
+                Communities
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">sports_esports</span>
+                Games
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">explore</span>
+                Explore
+            </a>
+            <hr class="border-white/10 my-1">
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-cyan hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">person</span>
+                Profile
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:text-neon-purple hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">settings</span>
+                Settings
+            </a>
+            <hr class="border-white/10 my-1">
+            <a href="#" class="flex items-center px-4 py-3 text-red-400 hover:text-red-300 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined mr-3 material-icons-fix">logout</span>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Notifications Container - REDUCED SPACE FROM NAVBAR -->
+    <div class="notifications-container">
+        <!-- Page Header -->
+        <div class="mb-6"> <!-- Reduced margin -->
+            <h2 class="text-white text-2xl font-bold mb-2">Notifications</h2>
+            <p class="text-gray-300">Stay updated with your gaming community</p>
+        </div>
+
+        <!-- Notification Filters -->
+        <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="unread">Unread</button>
+            <button class="filter-btn" data-filter="mentions">Mentions</button>
+            <button class="filter-btn" data-filter="follows">Follows</button>
+            <button class="filter-btn" data-filter="likes">Likes</button>
+            <button class="filter-btn" data-filter="achievements">Achievements</button>
+            <button class="filter-btn" data-filter="events">Events</button>
+        </div>
+
+        <!-- Mark All as Read -->
+        <div class="mark-all-read">
+            <button id="markAllRead" class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20 text-neon-cyan hover:opacity-90 transition-all text-sm">
+                Mark all as read
+            </button>
+        </div>
+
+        <!-- Notifications List -->
+        <div id="notificationsList" class="glassmorphism-light backdrop-blur-lg rounded-2xl p-5"> <!-- Reduced padding -->
+            <!-- Today's Notifications -->
+            <div class="mb-6"> <!-- Reduced margin -->
+                <h3 class="text-white text-lg font-bold mb-3 flex items-center"> <!-- Smaller text -->
+                    <span class="material-symbols-outlined mr-2 text-neon-cyan material-icons-fix">today</span>
+                    Today
+                </h3>
+                <div class="space-y-2"> <!-- Reduced spacing -->
+                    <!-- Notification 1 -->
+                    <div class="notification-item unread" data-type="follows">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-red-500/20 to-orange-500/20">
+                                    <span class="material-symbols-outlined text-red-400 material-icons-fix">person_add</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white"><span class="font-bold text-neon-cyan">ApexMaster_99</span> started following you</p>
+                                            <p class="notification-time">2 minutes ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 2 -->
+                    <div class="notification-item unread" data-type="likes">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-purple-500/20 to-blue-500/20">
+                                    <span class="material-symbols-outlined text-purple-400 material-icons-fix">favorite</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white"><span class="font-bold text-neon-purple">LoreRunner</span> and 42 others liked your post</p>
+                                            <p class="notification-time">1 hour ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 3 -->
+                    <div class="notification-item unread" data-type="mentions">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-green-500/20 to-teal-500/20">
+                                    <span class="material-symbols-outlined text-green-400 material-icons-fix">comment</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white"><span class="font-bold text-neon-cyan">TeamStratPro</span> mentioned you in a comment on their strategy post</p>
+                                            <p class="notification-time">3 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 4 -->
+                    <div class="notification-item" data-type="achievements">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-yellow-500/20 to-red-500/20">
+                                    <span class="material-symbols-outlined text-yellow-400 material-icons-fix">military_tech</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">You earned the <span class="font-bold text-yellow-300">"Legendary Gamer"</span> badge for reaching Level 75!</p>
+                                            <p class="notification-time">5 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yesterday's Notifications -->
+            <div class="mb-6"> <!-- Reduced margin -->
+                <h3 class="text-white text-lg font-bold mb-3 flex items-center"> <!-- Smaller text -->
+                    <span class="material-symbols-outlined mr-2 text-gray-400 material-icons-fix">history</span>
+                    Yesterday
+                </h3>
+                <div class="space-y-2"> <!-- Reduced spacing -->
+                    <!-- Notification 5 -->
+                    <div class="notification-item" data-type="events">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-neon-cyan/20 to-neon-blue/20">
+                                    <span class="material-symbols-outlined text-neon-cyan material-icons-fix">event</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">Upcoming tournament: <span class="font-bold text-neon-cyan">Hyper Realm Cup Finals</span> starts tomorrow at 8:00 PM EST</p>
+                                            <p class="notification-time">Yesterday, 2:30 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 6 -->
+                    <div class="notification-item" data-type="follows">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-blue-500/20 to-purple-500/20">
+                                    <span class="material-symbols-outlined text-blue-400 material-icons-fix">group_add</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white"><span class="font-bold text-blue-300">ClutchShot</span> and <span class="font-bold text-purple-300">MetaGamer</span> started following you</p>
+                                            <p class="notification-time">Yesterday, 11:45 AM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 7 -->
+                    <div class="notification-item" data-type="mentions">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-green-500/20 to-teal-500/20">
+                                    <span class="material-symbols-outlined text-green-400 material-icons-fix">forum</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">Your comment on <span class="font-bold text-green-300">#FPSCommunity</span> got 15 replies</p>
+                                            <p class="notification-time">Yesterday, 9:20 AM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- This Week's Notifications -->
+            <div>
+                <h3 class="text-white text-lg font-bold mb-3 flex items-center"> <!-- Smaller text -->
+                    <span class="material-symbols-outlined mr-2 text-gray-400 material-icons-fix">calendar_month</span>
+                    This Week
+                </h3>
+                <div class="space-y-2"> <!-- Reduced spacing -->
+                    <!-- Notification 8 -->
+                    <div class="notification-item" data-type="achievements">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-yellow-500/20 to-red-500/20">
+                                    <span class="material-symbols-outlined text-yellow-400 material-icons-fix">trophy</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">You completed the <span class="font-bold text-yellow-300">"Apex Predator Challenge"</span> with 50 consecutive wins!</p>
+                                            <p class="notification-time">3 days ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 9 -->
+                    <div class="notification-item" data-type="events">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-neon-purple/20 to-pink-500/20">
+                                    <span class="material-symbols-outlined text-neon-purple material-icons-fix">campaign</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">Developer Q&A session for <span class="font-bold text-neon-purple">Hyper Realm Season 3</span> announced</p>
+                                            <p class="notification-time">4 days ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification 10 -->
+                    <div class="notification-item" data-type="likes">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start flex-1">
+                                <div class="notification-type-icon bg-gradient-to-r from-red-500/20 to-orange-500/20">
+                                    <span class="material-symbols-outlined text-red-400 material-icons-fix">trending_up</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white">Your highlight clip reached <span class="font-bold text-red-300">10,000 views!</span></p>
+                                            <p class="notification-time">5 days ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="mark-read-btn">
+                                    Mark as read
+                                </button>
+                                <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                    <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty state (hidden by default) -->
+            <div id="emptyState" class="empty-state hidden">
+                <div class="empty-state-icon">
+                    <span class="material-symbols-outlined text-neon-cyan text-3xl material-icons-fix">notifications_off</span>
+                </div>
+                <h3 class="text-white text-xl font-bold mb-2">No notifications yet</h3>
+                <p class="text-gray-300 mb-6">When you get notifications, they'll show up here</p>
+                <button class="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-bold hover:opacity-90 transition-all">
+                    Explore Communities
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // EXACT SAME NAVIGATION BAR FUNCTIONALITY AS DASHBOARD
+            
+            // Main menu dropdown
+            const mainMenuButton = document.getElementById('mainMenuButton');
+            const mainMenuDropdown = document.getElementById('mainMenuDropdown');
+            
+            mainMenuButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle main menu
+                mainMenuDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                notificationsDropdown.classList.add('hidden');
+                messagesDropdown.classList.add('hidden');
+            });
+
+            // Notifications dropdown - Disabled on notifications page
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            notificationsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault(); // Prevent dropdown on notifications page
+                // On notifications page, clicking notifications icon does nothing
+                // since we're already on the notifications page
+            });
+
+            // Messages dropdown
+            const messagesMenu = document.getElementById('messagesMenu');
+            const messagesDropdown = document.getElementById('messagesDropdown');
+            
+            messagesMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle messages
+                messagesDropdown.classList.toggle('hidden');
+                // Close other dropdowns
+                mainMenuDropdown.classList.add('hidden');
+                notificationsDropdown.classList.add('hidden');
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                // Check if click is outside any dropdown or its trigger button
+                const isClickOutsideMainMenu = !mainMenuButton.contains(e.target) && !mainMenuDropdown.contains(e.target);
+                const isClickOutsideNotifications = !notificationsMenu.contains(e.target) && !notificationsDropdown.contains(e.target);
+                const isClickOutsideMessages = !messagesMenu.contains(e.target) && !messagesDropdown.contains(e.target);
+                
+                if (isClickOutsideMainMenu) {
+                    mainMenuDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideNotifications) {
+                    notificationsDropdown.classList.add('hidden');
+                }
+                if (isClickOutsideMessages) {
+                    messagesDropdown.classList.add('hidden');
+                }
+            });
+
+            // Search functionality - EXACT SAME AS DASHBOARD
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('focus', function() {
+                showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+            });
+            
+            searchInput.addEventListener('input', function(e) {
+                if (e.target.value.length > 0) {
+                    showSearchResults(['Results for: ' + e.target.value]);
+                } else {
+                    showSearchResults(['Gamers', 'Communities', 'Games', 'Posts']);
+                }
+            });
+            
+            function showSearchResults(items) {
+                searchResults.classList.remove('hidden');
+                searchResults.innerHTML = items.map(item => `
+                    <div class="p-3 hover:bg-white/10 cursor-pointer text-white border-b border-white/10 last:border-0 transition-colors">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-neon-cyan material-icons-fix">search</span>
+                            <span>${item}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // NOTIFICATIONS PAGE FUNCTIONALITY
+            
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const notificationItems = document.querySelectorAll('.notification-item');
+            const markAllReadButton = document.getElementById('markAllRead');
+            const notificationsList = document.getElementById('notificationsList');
+            const emptyState = document.getElementById('emptyState');
+            const pulseDot = document.querySelector('.pulse-notification');
+
+            // Filter notifications
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active filter button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterType = this.getAttribute('data-filter');
+                    
+                    // Show/hide notifications based on filter
+                    let visibleCount = 0;
+                    notificationItems.forEach(item => {
+                        const itemType = item.getAttribute('data-type');
+                        
+                        if (filterType === 'all') {
+                            item.style.display = 'flex';
+                            visibleCount++;
+                        } else if (filterType === 'unread') {
+                            if (item.classList.contains('unread')) {
+                                item.style.display = 'flex';
+                                visibleCount++;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        } else if (itemType === filterType) {
+                            item.style.display = 'flex';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show empty state if no notifications match filter
+                    if (visibleCount === 0) {
+                        notificationsList.classList.add('hidden');
+                        emptyState.classList.remove('hidden');
+                    } else {
+                        notificationsList.classList.remove('hidden');
+                        emptyState.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Mark all as read
+            markAllReadButton.addEventListener('click', function() {
+                notificationItems.forEach(item => {
+                    item.classList.remove('unread');
+                    // Update the mark as read button text
+                    const markReadBtn = item.querySelector('.mark-read-btn');
+                    if (markReadBtn) {
+                        markReadBtn.textContent = '✓ Read';
+                        markReadBtn.style.background = 'rgba(0, 255, 0, 0.1)';
+                        markReadBtn.style.borderColor = 'rgba(0, 255, 0, 0.2)';
+                        markReadBtn.style.color = '#00ff00';
+                        markReadBtn.disabled = true;
+                    }
+                });
+                
+                // Hide pulse animation on notification dot
+                if (pulseDot) {
+                    pulseDot.style.display = 'none';
+                }
+                
+                // Show success message
+                showToast('All notifications marked as read', 'success');
+            });
+
+            // Mark individual notification as read
+            notificationItems.forEach(item => {
+                const markReadBtn = item.querySelector('.mark-read-btn');
+                const closeBtn = item.querySelector('.close-notif');
+                
+                if (markReadBtn) {
+                    markReadBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        item.classList.remove('unread');
+                        this.textContent = '✓ Read';
+                        this.style.background = 'rgba(0, 255, 0, 0.1)';
+                        this.style.borderColor = 'rgba(0, 255, 0, 0.2)';
+                        this.style.color = '#00ff00';
+                        this.disabled = true;
+                        
+                        showToast('Notification marked as read', 'success');
+                        
+                        // Update unread count
+                        updateUnreadCount();
+                    });
+                }
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(20px)';
+                        
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                            // Update unread count
+                            updateUnreadCount();
+                            // Check if all notifications are gone
+                            checkEmptyState();
+                        }, 300);
+                        
+                        showToast('Notification removed', 'info');
+                    });
+                }
+                
+                // Click on notification to view it
+                item.addEventListener('click', function(e) {
+                    if (!e.target.closest('.notification-actions') && !e.target.closest('.mark-read-btn')) {
+                        // Mark as read when clicked
+                        this.classList.remove('unread');
+                        
+                        // Update mark as read button
+                        const markBtn = this.querySelector('.mark-read-btn');
+                        if (markBtn && !markBtn.disabled) {
+                            markBtn.textContent = '✓ Read';
+                            markBtn.style.background = 'rgba(0, 255, 0, 0.1)';
+                            markBtn.style.borderColor = 'rgba(0, 255, 0, 0.2)';
+                            markBtn.style.color = '#00ff00';
+                            markBtn.disabled = true;
+                        }
+                        
+                        // Simulate opening the notification
+                        const notificationText = this.querySelector('p').textContent;
+                        console.log('Opening notification:', notificationText);
+                        
+                        // Update unread count
+                        updateUnreadCount();
+                    }
+                });
+            });
+
+            // Function to update unread count
+            function updateUnreadCount() {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                const unreadCount = unreadItems.length;
+                
+                // Update pulse dot
+                if (pulseDot) {
+                    if (unreadCount > 0) {
+                        pulseDot.style.display = 'block';
+                    } else {
+                        pulseDot.style.display = 'none';
+                    }
+                }
+                
+                // Update filter button text
+                const unreadFilterBtn = document.querySelector('.filter-btn[data-filter="unread"]');
+                if (unreadFilterBtn) {
+                    if (unreadCount > 0) {
+                        unreadFilterBtn.textContent = `Unread (${unreadCount})`;
+                    } else {
+                        unreadFilterBtn.textContent = 'Unread';
+                    }
+                }
+            }
+
+            // Function to check empty state
+            function checkEmptyState() {
+                const visibleNotifications = Array.from(notificationItems).filter(item => {
+                    return getComputedStyle(item).display !== 'none';
+                });
+                
+                if (visibleNotifications.length === 0) {
+                    notificationsList.classList.add('hidden');
+                    emptyState.classList.remove('hidden');
+                }
+            }
+
+            // Initialize unread count
+            updateUnreadCount();
+
+            // Toast notification function
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `fixed top-4 right-4 px-6 py-3 rounded-xl glassmorphism-dark backdrop-blur-xl border ${type === 'success' ? 'border-green-500/30' : 'border-neon-cyan/30'} text-white font-medium z-50 slide-down`;
+                toast.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="material-symbols-outlined ${type === 'success' ? 'text-green-400' : 'text-neon-cyan'} material-icons-fix">
+                            ${type === 'success' ? 'check_circle' : 'info'}
+                        </span>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Notification pulse effect - EXACT SAME AS DASHBOARD
+            setInterval(() => {
+                const notification = document.querySelector('.pulse-notification');
+                if (notification && notification.style.display !== 'none') {
+                    notification.classList.toggle('pulse-notification');
+                    setTimeout(() => {
+                        notification.classList.toggle('pulse-notification');
+                    }, 100);
+                }
+            }, 4000);
+
+            // Simulate new notification every 30 seconds
+            setInterval(() => {
+                simulateNewNotification();
+            }, 30000);
+
+            function simulateNewNotification() {
+                const notifications = [
+                    {
+                        type: 'follows',
+                        text: 'NewGamerPro started following you',
+                        time: 'Just now',
+                        color: 'red'
+                    },
+                    {
+                        type: 'likes',
+                        text: 'Your recent post got 15 new likes',
+                        time: 'Just now',
+                        color: 'purple'
+                    },
+                    {
+                        type: 'mentions',
+                        text: 'You were mentioned in a community discussion',
+                        time: 'Just now',
+                        color: 'green'
+                    }
+                ];
+                
+                const randomNotif = notifications[Math.floor(Math.random() * notifications.length)];
+                
+                const newNotification = document.createElement('div');
+                newNotification.className = 'notification-item unread';
+                newNotification.setAttribute('data-type', randomNotif.type);
+                newNotification.style.animation = 'fadeIn 0.5s ease-out';
+                
+                const iconMap = {
+                    'follows': 'person_add',
+                    'likes': 'favorite',
+                    'mentions': 'comment'
+                };
+                
+                newNotification.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start flex-1">
+                            <div class="notification-type-icon bg-gradient-to-r from-${randomNotif.color}-500/20 to-${randomNotif.color === 'red' ? 'orange' : randomNotif.color === 'purple' ? 'blue' : 'teal'}-500/20">
+                                <span class="material-symbols-outlined text-${randomNotif.color}-400 material-icons-fix">${iconMap[randomNotif.type]}</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-white">${randomNotif.text}</p>
+                                        <p class="notification-time">${randomNotif.time}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="mark-read-btn">
+                                Mark as read
+                            </button>
+                            <button class="p-1 text-gray-400 hover:text-red-400 transition-colors close-notif">
+                                <span class="material-symbols-outlined material-icons-fix text-sm">close</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Insert at the top of today's notifications
+                const todaySection = document.querySelector('.space-y-2');
+                if (todaySection) {
+                    todaySection.insertBefore(newNotification, todaySection.firstChild);
+                    
+                    // Add event listeners to new notification
+                    const markReadBtn = newNotification.querySelector('.mark-read-btn');
+                    const closeBtn = newNotification.querySelector('.close-notif');
+                    
+                    if (markReadBtn) {
+                        markReadBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            newNotification.classList.remove('unread');
+                            this.textContent = '✓ Read';
+                            this.style.background = 'rgba(0, 255, 0, 0.1)';
+                            this.style.borderColor = 'rgba(0, 255, 0, 0.2)';
+                            this.style.color = '#00ff00';
+                            this.disabled = true;
+                            showToast('Notification marked as read', 'success');
+                            updateUnreadCount();
+                        });
+                    }
+                    
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            newNotification.style.opacity = '0';
+                            newNotification.style.transform = 'translateX(20px)';
+                            
+                            setTimeout(() => {
+                                newNotification.style.display = 'none';
+                                updateUnreadCount();
+                                checkEmptyState();
+                            }, 300);
+                            
+                            showToast('Notification removed', 'info');
+                        });
+                    }
+                    
+                    // Update unread count
+                    updateUnreadCount();
+                    
+                    // Show subtle notification
+                    showToast('New notification received', 'info');
+                }
+            }
+
+            console.log('Hyper Realm Notifications Page initialized!');
+        });
+    </script>
+</body>
+</html>
