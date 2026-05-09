@@ -1,18 +1,40 @@
-# Python bytecode
-__pycache__/
+# IDE
+.idea/
+.vscode/
+
+# Python
 *.pyc
+*.pyo
+*.pyd
+*.pyc3
+__pycache__/
+venv/
+ENV/
+env/
+*.env
 
-# Django cache
-.cache/
-django_cache/
+# OS
+.DS_Store
 
-# Database
+# Django
 db.sqlite3
 
-# Static / media files
-staticfiles/
-media/
+# Coverage
+.coverage
+htmlcov/
 
-# Environment
-.env
-venv/
+# Testing
+.pytest_cache/
+
+# Large files
+*.log
+*.tar
+*.gz
+*.zip
+
+# Static files
+/static/
+/media/
+
+# Migrations
+migrations/
